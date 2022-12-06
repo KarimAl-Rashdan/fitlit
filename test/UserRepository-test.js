@@ -22,7 +22,7 @@ describe('User Repository', () => {
     expect(userRepository.currentUser).to.equal(UserData[0])
   });
   it('Should find average step goal for all users', () => {
-    expect(userRepository.calculateAverageStepGoal()).to.equal('number')
+    expect(userRepository.calculateAverageStepGoal()).to.equal(6700)
   })
  
 });

@@ -13,14 +13,27 @@ class Hydration {
     const todaysData = usersHydroData.sort((a, b) => {
       return new Date(b.date) - new Date(a.date);
     });
-    return todaysData[0];
+    return todaysData[0].numOunces;
   }
   findWeeklyHydration(date, id) {
     const usersWeeklyData = this.filterHydrationByUser(id);
     const getIndexDate = usersWeeklyData.findIndex((user) => {
-      return new Date(user.date) === new Date(date);
+      return user.date === date;
     });
-    return usersWeeklyData.slice(getIndexDate, getIndexDate+8)
+    const weeklyData = usersWeeklyData.slice(getIndexDate, getIndexDate + 7);
+    const formattedWeeklyData = weeklyData.reduce((obj, day) => {
+      obj[day.date] = day.numOunces;
+      return obj;
+    }, {});
+    return formattedWeeklyData;
+  }
+  getAverageHydration(id) {
+    const allUserData = this.filterHydrationByUser(id);
+    const usersAverage = allUserData.reduce((num, day) => {
+      num += day.numOunces;
+      return num;
+    }, 0);
+    return usersAverage / allUserData.length;
   }
 }
 module.exports = { Hydration };

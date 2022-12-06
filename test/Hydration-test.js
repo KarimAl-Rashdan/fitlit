@@ -68,51 +68,23 @@ describe("Hydration Class", function () {
       date: "2019/06/22",
       numOunces: 72,
     };
-    expect(hydration.findTodaysHydration(10)).to.deep.equal(today);
+    expect(hydration.findTodaysHydration(10)).to.deep.equal(72);
   });
   it("should give the user's hydration data for the week", function () {
-    const weeklyHydrations = [
-      {
-        userID: 10,
-        date: "2019/06/15",
-        numOunces: 75,
-      },
-      {
-        userID: 10,
-        date: "2019/06/16",
-        numOunces: 68,
-      },
-      {
-        userID: 10,
-        date: "2019/06/17",
-        numOunces: 49,
-      },
-      {
-        userID: 10,
-        date: "2019/06/18",
-        numOunces: 97,
-      },
-      {
-        userID: 10,
-        date: "2019/06/19",
-        numOunces: 38,
-      },
-      {
-        userID: 10,
-        date: "2019/06/20",
-        numOunces: 78,
-      },
-      {
-        userID: 10,
-        date: "2019/06/21",
-        numOunces: 95,
-      },
-    ];
+    const weeklyHydrations = {
+      '2019/06/15': 75,
+      '2019/06/16': 68,
+      '2019/06/17': 49,
+      '2019/06/18': 97,
+      '2019/06/19': 38,
+      '2019/06/20': 78,
+      '2019/06/21': 95
+    };
     expect(hydration.findWeeklyHydration("2019/06/15", 10)).to.deep.equal(
       weeklyHydrations
     );
   });
   it("should calculate a user's average hydration for all time", function () {
-    expect(hydration.getAverageHydration()).to.equal("Number");
+    expect(hydration.getAverageHydration(10)).to.equal(71.5);
   });
 });

@@ -8,7 +8,8 @@ const weekSleepData = require('../src/data/sample-weekSleepData')
 describe('Sleep', () => {
   let sleep
  beforeEach(function() {
-  sleep = new Sleep(sleepDataSample)
+  sleep = new Sleep(sleepDataSample.sleepData)
+  console.log("HEY LOOK HERE", sleep)
  })
 it('should be a function', function() {
   expect(Sleep).to.be.a('function')
@@ -19,7 +20,7 @@ it('should instantiate a Sleep class', function() {
 })
 
 it('should keep track of sleep data', function() {
-  expect(sleep.sleepDataSample).to.eql(sleepDataSample)
+  expect(sleep.sleepData).to.eql(sleepDataSample)
 })
 
 it('should calculate the average hours of sleep per day', function(){

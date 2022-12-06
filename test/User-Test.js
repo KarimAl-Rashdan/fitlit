@@ -27,6 +27,6 @@ describe("User", () => {
 
   it('should return the user/s first name', function() {
     const user = new User(userData)
-    expect(user.firstname()).to.be.equal('Luisa')
+    expect(user.firstName()).to.be.equal('Luisa')
   })
 })

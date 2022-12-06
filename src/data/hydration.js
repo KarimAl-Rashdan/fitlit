@@ -1,53 +1,26 @@
-const hydrationData = [
-  {
-    userID: 10,
-    date: "2019/06/15",
-    numOunces: 75,
-  },
-  {
-    userID: 10,
-    date: "2019/06/16",
-    numOunces: 68,
-  },
-  {
-    userID: 10,
-    date: "2019/06/17",
-    numOunces: 49,
-  },
-  {
-    userID: 10,
-    date: "2019/06/18",
-    numOunces: 97,
-  },
-  {
-    userID: 10,
-    date: "2019/06/19",
-    numOunces: 38,
-  },
-  {
-    userID: 10,
-    date: "2019/06/20",
-    numOunces: 78,
-  },
-  {
-    userID: 10,
-    date: "2019/06/21",
-    numOunces: 95,
-  },
-  {
-    userID: 10,
-    date: "2019/06/22",
-    numOunces: 72,
-  },
-  {
-    userID: 11,
-    date: "2019/06/22",
-    numOunces: 93,
-  },
-  {
-    userID: 12,
-    date: "2019/06/22",
-    numOunces: 76,
+class Hydration {
+  constructor(allHydrationData) {
+    this.allHydrationData = allHydrationData;
   }
-];
-module.exports = { hydrationData };
+  filterHydrationByUser(id) {
+    const userHydroData = this.allHydrationData.filter(
+      (user) => user.userID === id
+    );
+    return userHydroData;
+  }
+  findTodaysHydration(id) {
+    const usersHydroData = this.filterHydrationByUser(id);
+    const todaysData = usersHydroData.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+    return todaysData[0];
+  }
+  findWeeklyHydration(date, id) {
+    const usersWeeklyData = this.filterHydrationByUser(id);
+    const getIndexDate = usersWeeklyData.findIndex((user) => {
+      return new Date(user.date) === new Date(date);
+    });
+    return usersWeeklyData.slice(getIndexDate, getIndexDate+8)
+  }
+}
+module.exports = { Hydration };

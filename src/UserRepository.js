@@ -1,4 +1,4 @@
-import UserData from './data/users';
+import {UserData} from './data/users';
 class UserRepository {
 	constructor(allUserData) {
 		this.allUsers = allUserData;
@@ -20,4 +20,4 @@ class UserRepository {
 	}
 }
 
-export default UserRepository;
+export default {UserRepository};

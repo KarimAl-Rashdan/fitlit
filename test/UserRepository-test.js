@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import UserRepository from '../src/UserRepository';
+import {UserRepository} from '../src/UserRepository';
 import UserData from '../src/data/users';
 
 describe('User Repository', () => {

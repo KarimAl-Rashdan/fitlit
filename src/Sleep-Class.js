@@ -2,6 +2,7 @@ class Sleep {
   constructor(userSleepData) {
     this.sleepData = userSleepData;
   }
+
   filterSleepByUser(id) {
     let totalUserData = this.sleepData.filter(user => user.userID === id)
     return totalUserData
@@ -34,11 +35,10 @@ class Sleep {
         hours: entry.hoursSlept, 
         Quality: entry.sleepQuality 
       }
-  
       return weeklySleep
     })
     return result
-
   }
 }
+
 export default Sleep;

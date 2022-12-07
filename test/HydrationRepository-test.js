@@ -1,20 +1,20 @@
 import { expect } from "chai";
 const { hydrationData } = require("../src/data/hydration-data");
-const { Hydration } = require("../src/data/Hydration");
+const { HydrationRepository } = require("../src/Hydration-Repository");
 
-describe("Hydration Class", function () {
-  let hydration;
+describe("Hydration Repository Class", function () {
+  let hydrationRepo;
   beforeEach(function () {
-    hydration = new Hydration(hydrationData);
+    hydrationRepo = new HydrationRepository(hydrationData);
   });
   it("should be a function", function () {
-    expect(Hydration).to.be.a("function");
+    expect(HydrationRepository).to.be.a("function");
   });
   it("should make an an instance of Hydration", function () {
-    expect(hydration).to.be.an.instanceOf(Hydration);
+    expect(hydrationRepo).to.be.an.instanceOf(HydrationRepository);
   });
   it("should hold all hydration data", function () {
-    expect(hydration.allHydrationData).to.equal(hydrationData);
+    expect(hydrationRepo.allHydrationData).to.equal(hydrationData);
   });
   it("should give hydration data for a specific user", function () {
     const user10 = [
@@ -59,8 +59,7 @@ describe("Hydration Class", function () {
         numOunces: 72,
       },
     ];
-    expect(hydration.filterHydrationByUser(10)).to.deep.equal(user10);
-    hydration.filterHydrationByUser(10);
+    expect(hydrationRepo.filterHydrationByUser(10)).to.deep.equal(user10);
   });
   it("should give a user's hydration data for the latest date", function () {
     const today = {
@@ -68,7 +67,7 @@ describe("Hydration Class", function () {
       date: "2019/06/22",
       numOunces: 72,
     };
-    expect(hydration.findTodaysHydration(10)).to.deep.equal(72);
+    expect(hydrationRepo.findTodaysHydration(10)).to.deep.equal(72);
   });
   it("should give the user's hydration data for the week", function () {
     const weeklyHydrations = {
@@ -80,11 +79,9 @@ describe("Hydration Class", function () {
       '2019/06/20': 78,
       '2019/06/21': 95
     };
-    expect(hydration.findWeeklyHydration("2019/06/15", 10)).to.deep.equal(
-      weeklyHydrations
-    );
+    expect(hydrationRepo.findWeeklyHydration("2019/06/15", 10)).to.deep.equal(weeklyHydrations);
   });
   it("should calculate a user's average hydration for all time", function () {
-    expect(hydration.getAverageHydration(10)).to.equal(71.5);
+    expect(hydrationRepo.getAverageHydration(10)).to.equal(71.5);
   });
 });

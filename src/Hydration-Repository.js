@@ -1,4 +1,4 @@
-class Hydration {
+class HydrationRepository {
   constructor(allHydrationData) {
     this.allHydrationData = allHydrationData;
   }
@@ -36,4 +36,4 @@ class Hydration {
     return usersAverage / allUserData.length;
   }
 }
-module.exports = { Hydration };
+module.exports = { HydrationRepository };

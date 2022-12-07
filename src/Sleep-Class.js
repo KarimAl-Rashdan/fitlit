@@ -39,6 +39,13 @@ class Sleep {
     })
     return result
   }
+
+  calcAvgSleepStats(type) {
+    let total = this.sleepData.reduce((total, num) => {
+      return total += num[type];
+    }, 0);
+    return Math.round(total / this.sleepData.length);
+  };
 }
 
 export default Sleep;

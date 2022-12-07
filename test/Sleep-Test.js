@@ -59,4 +59,10 @@ it('should calculate the hours slept in any given week', function() {
     {date: "2019/06/21", hours: 7.8, Quality: 4.2},
     {date: '2019/06/22', hours: 10.8, Quality: 4.7}])
   });
+
+  it('should calculate the average hours of sleep and sleep quality per day', function() {
+    expect(sleep.calcAvgSleepStats('hoursSlept')).to.equal(9);
+    expect(sleep.calcAvgSleepStats('sleepQuality')).to.equal(4);
+  });
+
 });

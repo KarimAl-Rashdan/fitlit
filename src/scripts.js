@@ -15,3 +15,13 @@ console.log('This is the JavaScript entry file - your code begins here.');
 import userData from './data/users';
 
 import UserRepository from './UserRepository';
+import getAllData from './apiCalls';
+import { sharing } from 'webpack';
+const userAPI = 'https://fitlit-api.herokuapp.com/api/v1/users'
+
+let allUserData;
+window.addEventListener('load', () => {
+    allUserData = getAllData(userAPI)
+   
+})
+

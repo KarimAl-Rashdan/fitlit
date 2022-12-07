@@ -1,5 +1,15 @@
-// Your fetch requests will live here!
+C// Your fetch requests will live here!
 
 
-console.log('I will be a fetch request!')
 
+ const getAllData = (url) => {
+	console.log('pants')
+	return fetch(url)
+  	.then(response => response.json())
+    .then(data => console.log('data', data,'data.Data', data.data))
+	.catch(err => console.log('error',err))
+
+}
+
+
+export default getAllData

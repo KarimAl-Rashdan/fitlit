@@ -1,5 +1,6 @@
 class Sleep {
   constructor(userSleepData) {
+    console.log(userSleepData)
     this.sleepData = userSleepData;
 
   }

@@ -1,7 +1,9 @@
 import { expect } from 'chai'
 import Sleep from '../src/Sleep-Class'
-const sleepDataSample = require('../src/data/sample-data')
-const weekSleepData = require('../src/data/sample-weekSleepData')
+const data = require('../src/data/sample-data')
+const sleepDataSample = data.sleepData
+const weekData = require('../src/data/sample-weekSleepData')
+const weekSleepData = weekData.userWeekSleepData
 
 
 

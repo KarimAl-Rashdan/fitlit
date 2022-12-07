@@ -10,19 +10,17 @@ const weekSleepData = weekData.userWeekSleepData
 describe('Sleep', () => {
   let sleep
  beforeEach(function() {
-  sleep = new Sleep(sleepDataSample.sleepData)
-  console.log("HEY LOOK HERE", sleep)
+  sleep = new Sleep(sleepDataSample)
  })
 it('should be a function', function() {
   expect(Sleep).to.be.a('function')
 })
-
 it('should instantiate a Sleep class', function() {
   expect(sleep).to.be.an.instanceof(Sleep)
 })
 
 it('should keep track of sleep data', function() {
-  expect(sleep.sleepData).to.eql(sleepDataSample)
+  expect(sleep.sleepData).to.eql(sleepDataSample) //change here
 })
 
 it('should calculate the average hours of sleep per day', function(){

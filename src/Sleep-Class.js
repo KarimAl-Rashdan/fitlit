@@ -1,5 +1,3 @@
-import { EntryOptionPlugin } from "webpack";
-
 class Sleep {
   constructor(userSleepData) {
     this.sleepData = userSleepData;
@@ -25,20 +23,22 @@ class Sleep {
     return dataByDate
   }
 
-  // calculateSleepPerWeek(date) {
-  //   let findentryDate = this.sleepData.find(entry => entry.date === date);
-  //   let startingIndex = this.sleepData.indexOf(findentryDate);
-  //   let selectedWeek = this.sleepData.slice(startingIndex - 6, startingIndex + 1);
-  //   let result = selectedWeek.map(entry => {
-  //     let weeklySleep = {
-  //       date: entry.date,
-  //       hours: entry.hoursSlept,
-  //       quality: entry.sleepQuality,
-  //     };
-  //     return weeklySleep
-  //   })
-  //   return result
+  calculateSleepPerWeek(date, id) {
+    let value = this.filterSleepByUser(id)
+    let findentryDate = value.find(entry => entry.date === date);
+    let startingIndex = value.indexOf(findentryDate);
+    let selectedWeek = value.slice(startingIndex - 6, startingIndex + 1);
+    let result = selectedWeek.map(entry => {
+      let weeklySleep = {
+        date: entry.date, 
+        hours: entry.hoursSlept, 
+        Quality: entry.sleepQuality 
+      }
+  
+      return weeklySleep
+    })
+    return result
 
-  // }
+  }
 }
 export default Sleep;

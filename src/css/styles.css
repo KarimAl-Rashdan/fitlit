@@ -1,5 +1,37 @@
-body, html {
-  background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+body,
+html {
+  background-image: linear-gradient(
+    to top,
+    #ff9a9e 0%,
+    #fecfef 99%,
+    #fecfef 100%
+  );
   background-repeat: no-repeat;
   height: 100%;
+}
+
+.background-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  margin: 0px;
+  width: 100%;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.welcome-section {
+  border: 2px solid black;
+  display: flex;
+}
+
+.header-and-calendar {
+  border: 2px solid black;
+  display: flex;
+  flex-direction: row;
+  width: 60%;
 }

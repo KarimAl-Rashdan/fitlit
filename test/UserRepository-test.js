@@ -1,6 +1,7 @@
-import { expect } from 'chai';
-import {UserRepository} from '../src/UserRepository';
+import {expect} from 'chai';
+import UserRepository from '../src/UserRepository';
 import UserData from '../src/data/users';
+import User from '../src/User-Class'
 
 describe('User Repository', () => {
   let userRepository;
@@ -19,7 +20,7 @@ describe('User Repository', () => {
   it('Should find a user based on their id', () => {
     expect(userRepository.findUser(1)).to.equal(UserData[0])
     userRepository.findUser(1);
-    expect(userRepository.currentUser).to.equal(UserData[0])
+    expect(userRepository.currentUser).to.be.an.instanceOf(User)
   });
   it('Should find average step goal for all users', () => {
     expect(userRepository.calculateAverageStepGoal()).to.equal(6700)

@@ -1,4 +1,5 @@
-import {UserData} from './data/users';
+import User from "../src/User-Class";
+
 class UserRepository {
 	constructor(allUserData) {
 		this.allUsers = allUserData;
@@ -8,7 +9,7 @@ class UserRepository {
 		const user = this.allUsers.find(user => {
 			return user.id === id
 		});
-		this.currentUser = user;
+		this.currentUser = new User(user);
 		return user;
 	}
 	calculateAverageStepGoal() {
@@ -20,4 +21,4 @@ class UserRepository {
 	}
 }
 
-export default {UserRepository};
+export default UserRepository;

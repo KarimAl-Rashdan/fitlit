@@ -33,11 +33,11 @@ it('should return all sleep info for one user', function() {
 })
 
 it('should calculate the average hours of sleep per day', function(){
-  expect(sleep.calculateAverageSleepPerDay('hoursSlept')).to.equal(9)
+  expect(sleep2.calculateAverageSleepPerDay('hoursSlept', weekSleepData, 1)).to.equal(9)
 })
 
 it('should calculate the average sleep quality per day', function() {
-  expect(sleep.calculateAverageSleepPerDay('sleepQuality',)).to.equal(4)
+  expect(sleep2.calculateAverageSleepPerDay('sleepQuality', weekSleepData, 1)).to.equal(3)
 })
 
 it('should calculate sleep hours per day by date', function() {
@@ -47,4 +47,5 @@ it('should calculate sleep hours per day by date', function() {
 it('should calculate sleep quality per day by date', function() {
   expect(sleep.calculateSleepByDate('2019/06/15', 'sleepQuality', 1)).to.eql([2.2])
 })
+
 })

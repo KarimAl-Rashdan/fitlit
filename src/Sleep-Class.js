@@ -3,16 +3,16 @@ class Sleep {
     this.sleepData = userSleepData;
   }
   filterSleepByUser(id) {
-    console.log(id)
     let totalUserData = this.sleepData.filter(user => user.userID === id)
     return totalUserData
   }
 
-  calculateAverageSleepPerDay(type) {
-    let total = this.sleepData.reduce((total, num) => {
+  calculateAverageSleepPerDay(type, filterData, id) {
+    let value = this.filterSleepByUser(id)
+    let total = filterData.reduce((total, num) => {
       return total += num[type]
     }, 0)
-    return Math.round(total/this.sleepData.length)
+    return Math.round(total/filterData.length)
   }
 
   calculateSleepByDate(date, type, id) {

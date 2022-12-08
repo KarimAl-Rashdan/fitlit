@@ -1,6 +1,6 @@
 import { expect } from "chai";
 const { hydrationData } = require("../src/data/hydration-data");
-const {Hydration} = require("../src/Hydration");
+const { Hydration } = require("../src/Hydration");
 
 describe('Hydration Class', () => {
     let hydration;
@@ -8,6 +8,7 @@ describe('Hydration Class', () => {
     beforeEach(() => {
         hydrationObj = hydrationData[0]
         hydration = new Hydration(hydrationObj)
+        
     });
     it("Should be a function", () => {
         expect(Hydration).to.be.a("function");
@@ -16,13 +17,13 @@ describe('Hydration Class', () => {
         expect(hydration).to.be.an.instanceOf(Hydration);
     });
     it("Should hold a user Id", () => {
-        expect(hydration.id).to.equal(hydrationObj.id);
+        expect(hydration.userID).to.equal(10);
     });
     it("Should hold a date", () => {
-        expect(hydration.date).to.equal(hydrationObj.date);
+        expect(hydration.date).to.equal('2019/06/15');
     });
     it("Should hold number of ounces drank by a user", () => {
-        expect(hydration.numOunces).to.equal(hydrationObj.numOunces);
+        expect(hydration.numOunces).to.equal(75);
     });
 })
 

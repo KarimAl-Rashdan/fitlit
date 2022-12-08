@@ -16,6 +16,10 @@ import userData from "./data/users";
 import UserRepository from "./UserRepository";
 import getAPIData from "./apiCalls";
 import User from "./User-Class";
+import Hydration from "./Hydration"
+import HydrationRepository from "./Hydration-Repository"
+import Sleep from "./Sleep-Class"
+import SleepRepository from "./SleepRepository"
 // import { sharing } from 'webpack';
 
 const userAPI = "https://fitlit-api.herokuapp.com/api/v1/users";
@@ -28,6 +32,8 @@ let allHydroData;
 let userRepository;
 let currentUser;
 let currentUserID;
+let sleepRepository;
+let hydrationRepository
 
 // window.addEventListener("load", () => {
 //   allUserData = getAPIData(userAPI);
@@ -50,10 +56,14 @@ Promise.all([
 
 function createClassInstances(dataSet1, dataSet2, dataSet3) {
   allUserData = dataSet1.map((user) => new User(user));
-  console.log(allUserData[0]);
   userRepository = new UserRepository(allUserData);
   console.log(userRepository);
   getRandomUser(allUserData);
+  allSleepData = dataSet2.map(data => new Sleep(data));
+  sleepRepository = new SleepRepository(allSleepData);
+  console.log("LABEL FOR SLEEP", sleepRepository);
+  allHydroData = dataSet3.map(data => new Hydration(data));
+  hydrationRepository = new HydrationRepository(allHydroData);
 }
 
 function getRandomUser(allUserData) {

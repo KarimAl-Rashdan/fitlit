@@ -32,8 +32,8 @@ class Sleep {
     let result = selectedWeek.map(entry => {
       let weeklySleep = {
         date: entry.date, 
-        hours: entry.hoursSlept, 
-        Quality: entry.sleepQuality 
+        hoursSlept: entry.hoursSlept, 
+        sleepQuality: entry.sleepQuality 
       }
       return weeklySleep
     })

@@ -51,13 +51,13 @@ it('should calculate sleep quality per day by date', function() {
 
 it('should calculate the hours slept in any given week', function() {
   expect(sleep2.calculateSleepPerWeek('2019/06/22', 1)).to.eql([
-    {date: '2019/06/15', hours: 6.1, Quality: 2.2},
-    {date: "2019/06/16", hours: 4.1, Quality: 3.8},
-    {date: "2019/06/18", hours: 10.4, Quality: 3.1},
-    {date: "2019/06/19", hours: 10.7, Quality: 1.2},
-    {date: "2019/06/20", hours: 9.3, Quality: 1.2},
-    {date: "2019/06/21", hours: 7.8, Quality: 4.2},
-    {date: '2019/06/22', hours: 10.8, Quality: 4.7}])
+    {date: '2019/06/15', hoursSlept: 6.1, sleepQuality: 2.2},
+    {date: "2019/06/16", hoursSlept: 4.1, sleepQuality: 3.8},
+    {date: "2019/06/18", hoursSlept: 10.4, sleepQuality: 3.1},
+    {date: "2019/06/19", hoursSlept: 10.7, sleepQuality: 1.2},
+    {date: "2019/06/20", hoursSlept: 9.3, sleepQuality: 1.2},
+    {date: "2019/06/21", hoursSlept: 7.8, sleepQuality: 4.2},
+    {date: '2019/06/22', hoursSlept: 10.8, sleepQuality: 4.7}])
   });
 
   it('should calculate the average hours of sleep and sleep quality per day', function() {

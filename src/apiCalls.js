@@ -1,15 +1,15 @@
-C// Your fetch requests will live here!
+// Your fetch requests will live here!
 
 
+const getAPIData = (url) => {
+  return fetch(url)
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
+    .catch((err) => console.log("error", err));
+};
+// Promise.all([getAllData("users"), getAllData("hydration"), getAllData("sleep")])
+// .then(data => console.log(data));
 
- const getAllData = (url) => {
-	console.log('pants')
-	return fetch(url)
-  	.then(response => response.json())
-    .then(data => console.log('data', data,'data.Data', data.data))
-	.catch(err => console.log('error',err))
-
-}
-
-
-export default getAllData
+export default getAPIData;

@@ -1,4 +1,4 @@
-class Sleep {
+class SleepRepository {
   constructor(userSleepData) {
     this.sleepData = userSleepData;
   }
@@ -48,4 +48,4 @@ class Sleep {
   };
 }
 
-export default Sleep;
+export default SleepRepository;

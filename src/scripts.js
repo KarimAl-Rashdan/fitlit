@@ -26,29 +26,49 @@ let allUserData;
 let allSleepData;
 let allHydroData;
 let userRepository;
+let currentUser;
+let currentUserID;
 
 // window.addEventListener("load", () => {
 //   allUserData = getAPIData(userAPI);
 // });
 
 Promise.all([
-    getAPIData(userAPI),
-    getAPIData(sleepAPI),
-    getAPIData(hydrationAPI)
+  getAPIData(userAPI),
+  getAPIData(sleepAPI),
+  getAPIData(hydrationAPI),
 ])
-    .then((response) => {
-        allUserData = response[0].userData;
-        allSleepData = response[1].sleepData;
-        allHydroData = response[2].hydrationData;
-        createClassInstances(allUserData, allSleepData, allHydroData)
-    })
-    .catch((error) => {
-        console.log(error)
-    });
+  .then((response) => {
+    allUserData = response[0].userData;
+    allSleepData = response[1].sleepData;
+    allHydroData = response[2].hydrationData;
+    createClassInstances(allUserData, allSleepData, allHydroData);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 function createClassInstances(dataSet1, dataSet2, dataSet3) {
- allUserData = dataSet1.map(user => new User(user))
- console.log(allUserData[0]);
- userRepository = new UserRepository(allUserData);
- console.log(userRepository)
+  allUserData = dataSet1.map((user) => new User(user));
+  console.log(allUserData[0]);
+  userRepository = new UserRepository(allUserData);
+  console.log(userRepository);
+  getRandomUser(allUserData);
+}
+
+function getRandomUser(allUserData) {
+  const randomID = Math.floor(Math.random() * allUserData.length);
+  currentUser = allUserData[randomID];
+  console.log("CURRENTUSER", currentUser)
+  currentUserID = allUserData[randomID].id;
+  console.log("CURRENTID", currentUserID)
+  getFriends(currentUser);
+  return currentUserID;
+}
+
+function getFriends(user) {
+    console.log("LABEL", allUserData)
+    console.log("USER", user)
+    const myFriends = user.friends;
+    
 }

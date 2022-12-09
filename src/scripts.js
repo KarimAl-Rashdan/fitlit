@@ -113,12 +113,13 @@ function updateFriendsInfo() {
 function updateStepWidget() {
   stepsButton.classList.add("hidden");
   stepsWidget.classList.remove("hidden");
+  returnStepsWidgetButton.classList.remove("hidden");
   stepsWidget.innerHTML = `<ul> 
       <li>Stride Length: ${currentUser.strideLength}</li>
       <li>Your Daily Step Goal: ${
         currentUser.dailyStepGoal
       } Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>
-    </ul><button class="return-to-widget" id="return-to-widget" type="submit">Return</button>`;
+    </ul>`;
 }
 
 function returnToStepsWidget(event) {
@@ -126,4 +127,5 @@ function returnToStepsWidget(event) {
   console.log("THIS FUCTN IS WORKING");
   stepsWidget.classList.add("hidden");
   stepsButton.classList.remove("hidden");
+  returnStepsWidgetButton.classList.add("hidden");
 }

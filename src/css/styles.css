@@ -133,6 +133,12 @@ ul {
 li {
   border: 1px solid black;
 }
+
+.test {
+  display: flex;
+  flex-direction: column;
+}
+
 .hidden {
   display: none;
 }

@@ -38,11 +38,11 @@ let hydrationRepository;
 const welcomeContainer = document.getElementById("user-info");
 const stepsWidget = document.getElementById("steps-widget");
 const stepsButton = document.getElementById("steps");
+const userFriendsSection = document.getElementById("friends-info");
 
 window.addEventListener("load", () => {
   allUserData = getAPIData(userAPI);
   getRandomUser(allUserData);
-  // updateUserInfo();
 });
 stepsButton.addEventListener("click", updateStepWidget);
 
@@ -76,11 +76,11 @@ function createClassInstances(dataSet1, dataSet2, dataSet3) {
 function getRandomUser(allUserData) {
   const randomID = Math.floor(Math.random() * allUserData.length);
   currentUser = allUserData[randomID];
-  console.log("CURRENTUSER", currentUser);
   currentUserID = allUserData[randomID].id;
-  console.log("CURRENTID", currentUserID);
+  console.log("CURRENTID", allUserData[randomID].id);
   getFriends(currentUser);
   updateUserInfo();
+  updateFriendsInfo();
   return currentUserID;
 }
 
@@ -96,11 +96,23 @@ function updateUserInfo() {
   <h2 class="user-info">${currentUser.address}, ${currentUser.email}</h2>`;
 }
 
+function updateFriendsInfo() {
+  allUserData[currentUserID].friends.forEach((friend) => {
+    console.log("FRIEND", friend);
+    userFriendsSection.innerHTML += `<div     class="user-friends" id="friend">
+      <h2>${userRepository.findUser(friend).name}</h2><br>
+      <h3>Step Goal: ${userRepository.findUser(friend).dailyStepGoal}</h3>
+    </div>`;
+  });
+}
+
 function updateStepWidget() {
   stepsButton.classList.add("hidden");
   stepsWidget.classList.remove("hidden");
   stepsWidget.innerHTML = `<ul> 
       <li>Stride Length: ${currentUser.strideLength}</li>
-      <li>Your Daily Step Goal: ${currentUser.dailyStepGoal} Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>
+      <li>Your Daily Step Goal: ${
+        currentUser.dailyStepGoal
+      } Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>
     </ul>`;
 }

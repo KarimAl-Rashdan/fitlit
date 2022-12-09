@@ -11,7 +11,6 @@ console.log("This is the JavaScript entry file - your code begins here.");
 
 // An example of how you tell webpack to use a JS file
 
-import userData from "./data/users";
 import UserRepository from "./UserRepository";
 import getAPIData from "./apiCalls";
 import User from "./User-Class";
@@ -19,7 +18,7 @@ import Hydration from "./Hydration"
 import HydrationRepository from "./Hydration-Repository"
 import Sleep from "./Sleep-Class.js"
 import SleepRepository from "./SleepRepository"
-// import { sharing } from 'webpack';
+import dayjs from 'dayjs'
 import Chart from 'chart.js/auto';
 // All Imports ^^
 
@@ -36,37 +35,7 @@ let currentUserID;
 let sleepRepository;
 let hydrationRepository;
 let date;
-let myHydrationChart = new Chart(hydrationChart, {
-    type: 'doughnut',
-    data: {
-        labels: [
-            'Consumed oz',
-            'Daily need',
-          ],
-          datasets: [{
-            label: 'My First Dataset',
-            data: [100, 300],
-            backgroundColor: [
-              '#f3871ede',
-              '#73519b',
-
-            ],
-            hoverOffset: 4
-          }]
-    },
-    options: {
-        cutout: '75%',
-        radius: '65%',
-        plugins: {
-            legend: {
-                display: true,
-            }
-        }
-    }
-});
-const updateChart = (chart,value,total) => {
-	// chart.
-}     
+   
 // API AREA 
 
 const userAPI = "https://fitlit-api.herokuapp.com/api/v1/users";
@@ -97,7 +66,7 @@ const ouncesDrankToday = document.getElementById('todaysOz')
 const calendarSub = document.getElementById('dateInputt')
 const calendarDate = document.getElementById('dateSelected')
 const hydrationWeeklyAvg = document.getElementById('weeklyAvg')
-const hydrationChart = document.getElementById('hydration-Chart')
+const hydroAllTimeAvgArea = document.getElementById('allTimeAvg')
 
 // addEventListener
 hydrationBtn.addEventListener('click',showHydrationArea)
@@ -145,6 +114,7 @@ function homeWidget(){
 
 function displayHydrationDom(hydrationRepository, currentUserId) {
  displayTodaysHydration( hydrationRepository,currentUserId)
+ displayAverageConsumed()
 
 
 }
@@ -156,48 +126,23 @@ function displayTodaysHydration(hydrationRepository,currentUserID) {
 
 function displayWeeklyAverage(e) {
 	e.preventDefault()
-	
-	
 	const chosenDate = calendarDate.value; 
 	const alteredDate = chosenDate.replaceAll('-',"/")
 	const userWeeklyData = hydrationRepository.findWeeklyHydration(alteredDate,currentUserID)
-	console.log('object',userWeeklyData)
-  hydrationWeeklyAvg.innerHTML =`
-	<canvas id='hydration-chart> </canvas>`
-const labels = Object.keys(userWeeklyData);
-const data = {
-  labels: labels,
-  datasets: [{
-    label: 'My First Dataset',
-    data: Object.values(userWeeklyData),
-    backgroundColor: [
-      'rgba(255, 99, 132, 0.2)',
-      'rgba(255, 159, 64, 0.2)',
-      'rgba(255, 205, 86, 0.2)',
-      'rgba(75, 192, 192, 0.2)',
-      'rgba(54, 162, 235, 0.2)',
-      'rgba(153, 102, 255, 0.2)',
-      'rgba(201, 203, 207, 0.2)'
-    ],
-    borderColor: [
-      'rgb(255, 99, 132)',
-      'rgb(255, 159, 64)',
-      'rgb(255, 205, 86)',
-      'rgb(75, 192, 192)',
-      'rgb(54, 162, 235)',
-      'rgb(153, 102, 255)',
-      'rgb(201, 203, 207)'
-    ],
-    borderWidth: 1
-  }]
-};
-
-	
+	userWeeklyData.forEach((recordedDay) => {
+		hydrationWeeklyAvg.innerHTML += 
+		`<p class="hydration-weekly">
+		 On ${dayjs(recordedDay.date).format('dd/MMM/D/YYYY')} you consumed ${recordedDay.numOunces}
+		</p>`
+	})	
 }
 
+function displayAverageConsumed() {
+const averageWaterAllTime = hydrationRepository.getAverageHydration(currentUserID)
+const roundedAverage = Math.trunc(averageWaterAllTime)
+hydroAllTimeAvgArea.innerText = `All time Average daily drink consumption is ${roundedAverage} oz !`
+}
 
-
-// hydrationWeeklyAvg
 
 
 

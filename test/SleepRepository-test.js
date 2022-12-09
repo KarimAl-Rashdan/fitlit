@@ -1,9 +1,8 @@
 import { expect } from 'chai'
 import SleepRepository from '../src/SleepRepository'
 import data from '../src/data/sample-data'
-// const sleepDataSample = data.sleepData
 import weekData from '../src/data/sample-weekSleepData'
-// const weekSleepData = weekData.userWeekSleepData
+
 
 
 describe('SleepRepository-test', () => {

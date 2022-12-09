@@ -1,6 +1,5 @@
 // Your fetch requests will live here!
 
-
 const getAPIData = (url) => {
   return fetch(url)
     .then((response) => {
@@ -9,7 +8,10 @@ const getAPIData = (url) => {
     })
     .catch((err) => console.log("error", err));
 };
-// Promise.all([getAllData("users"), getAllData("hydration"), getAllData("sleep")])
-// .then(data => console.log(data));
+
+
 
 export default getAPIData;
+
+
+

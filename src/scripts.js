@@ -76,9 +76,4 @@ function getRandomUser(allUserData) {
   return currentUserID;
 }
 
-function getFriends(user) {
-    console.log("LABEL", allUserData)
-    console.log("USER", user)
-    const myFriends = user.friends;
-    
-}
+import UserRepository from './UserRepository';

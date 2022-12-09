@@ -19,23 +19,11 @@ import HydrationRepository from "./Hydration-Repository"
 import Sleep from "./Sleep-Class.js"
 import SleepRepository from "./SleepRepository"
 import dayjs from 'dayjs'
-import Chart from 'chart.js/auto';
+import generateChart from '../src/data/usersChart'
 // All Imports ^^
-// var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-// var yValues = [55, 49, 44, 24, 15];
-// var barColors = ["red", "green","blue","orange","brown"];
 
-// const chart = new Chart(stx, {
-//   type: "bar",
-//   data: {
-//     labels: xValues,
-//     datasets: [{
-//       backgroundColor: barColors,
-//       data: yValues
-//     }]
-//   },
-  
-// });
+
+
 // Global Variables
 
 
@@ -56,21 +44,25 @@ const sleepAPI = "https://fitlit-api.herokuapp.com/api/v1/sleep";
 const hydrationAPI = "https://fitlit-api.herokuapp.com/api/v1/hydration";
 
 
+function getPageData() {
 
-Promise.all([
-  getAPIData(userAPI),
-  getAPIData(sleepAPI),
-  getAPIData(hydrationAPI),
-])
-  .then((response) => {
-    allUserData = response[0].userData;
-    allSleepData = response[1].sleepData;
-    allHydroData = response[2].hydrationData;
-    createClassInstances(allUserData, allSleepData, allHydroData);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+  Promise.all([
+    getAPIData(userAPI),
+    getAPIData(sleepAPI),
+    getAPIData(hydrationAPI),
+  ])
+    .then((response) => {
+      allUserData = response[0].userData;
+      allSleepData = response[1].sleepData;
+      allHydroData = response[2].hydrationData;
+      createClassInstances(allUserData, allSleepData, allHydroData);
+      getRandomUser(allUserData)
+      generateChart();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 
 // Query Selectors 
@@ -83,15 +75,14 @@ const calendarDate = document.getElementById('dateSelected')
 const hydrationWeeklyAvg = document.getElementById('weeklyAvg')
 const hydroAllTimeAvgArea = document.getElementById('allTimeAvg')
 
-//  chartQuerySelectors 
-// const stx = document.getElementById("my-chart1")
+
 
 // addEventListener
 hydrationBtn.addEventListener('click',showHydrationArea)
 toggleHomeBtn.addEventListener('click', homeWidget)
-window.addEventListener('load', function(){
-	getAPIData(url); 
-	getRandomUser(allUserData)});
+window.addEventListener('load', getPageData)
+
+
 
 calendarSub.addEventListener('click',displayWeeklyAverage)
 
@@ -133,7 +124,7 @@ function homeWidget(){
 function displayHydrationDom(hydrationRepository, currentUserId) {
  displayTodaysHydration( hydrationRepository,currentUserId)
  displayAverageConsumed()
-
+ 
 
 }
 

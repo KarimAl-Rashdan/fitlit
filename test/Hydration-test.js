@@ -1,6 +1,6 @@
 import { expect } from "chai";
 const { hydrationData } = require("../src/data/hydration-data");
-const { Hydration } = require("../src/Hydration");
+import Hydration from "../src/Hydration";
 
 describe('Hydration Class', () => {
     let hydration;

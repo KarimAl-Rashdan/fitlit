@@ -33,6 +33,9 @@ it('should return all sleep info for one user', function() {
   expect(sleepRepo2.filterSleepByUser(sleepRepo2.sleepData[3].userID)).to.eql(weekSleepData)
 });
 
+it('should return most recent sleep data for user', function(){
+  expect(sleepRepo2.findTodaysData(1)).to.deep.equal( {userID: 1, date: '2019/06/23', hoursSlept: 10.5, sleepQuality: 3.7})
+})
 it('should calculate the average hours of sleep per day', function(){
   expect(sleepRepo2.calculateAverageSleepPerDay('hoursSlept', weekSleepData, 1)).to.equal(9)
 });

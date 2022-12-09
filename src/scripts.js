@@ -43,6 +43,7 @@ const userFriendsSection = document.getElementById("friends-info");
 const returnStepsWidgetButton = document.getElementById("return-to-widget");
 const sleepWidgetButton = document.getElementById("sleep");
 const sleepWidget = document.getElementById("sleep-widget");
+const returnSleepWidgetButton = document.getElementById("return-to-sleep-widget");
 
 /*------------EVENT LISTENER----------*/
 window.addEventListener("load", () => {
@@ -53,9 +54,9 @@ stepsButton.addEventListener("click", updateStepWidget);
 returnStepsWidgetButton.addEventListener("click", (event) => {
   returnToStepsWidget(event);
 });
-sleepWidgetButton.addEventListener("click", () => {
-  updateSleepData();
-});
+sleepWidgetButton.addEventListener("click", updateSleepData);
+
+returnSleepWidgetButton.addEventListener("click", returnToSleepWidget);
 
 Promise.all([
   getAPIData(userAPI),
@@ -128,6 +129,7 @@ function returnToStepsWidget(event) {
 function updateSleepData() {
   sleepWidgetButton.classList.add("hidden");
   sleepWidget.classList.remove("hidden");
+  returnSleepWidgetButton.classList.remove("hidden");
   console.log("hours slept and sleep quality for current user", sleepRepository.filterSleepByUser(currentUserID))
   sleepWidget.innerHTML = `
   <ul>
@@ -153,4 +155,11 @@ function findLatestWeeksSleepData(id, type) {
 
 function displayAverageSleepDataForAllTime(type) {
   return sleepRepository.calcAvgSleepStats(type)
-}
+};
+
+function returnToSleepWidget(event) {
+  event.preventDefault()
+  sleepWidgetButton.classList.remove("hidden");
+  sleepWidget.classList.add("hidden");
+  returnSleepWidgetButton.classList.add("hidden");
+};

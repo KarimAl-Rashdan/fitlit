@@ -139,6 +139,11 @@ li {
   flex-direction: column;
 }
 
+.sleep-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .hidden {
   display: none;
 }

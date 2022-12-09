@@ -25,14 +25,17 @@
       </section>
       <section class="widgets">
         <button class="sleep" id="sleep" type="submit">Sleep Widget</button>
-        <section class="sleep-widget hidden" id="sleep-widget">
-          <ul>
-            <li>today's data(quality and hrs)</li>
-            <li>week of hrs</li>
-            <li>week of quality</li>
-            <li>all time avg(quality, hours)</li>
-          </ul>
-        </section>
+        <div class="sleep-container">
+          <section class="sleep-widget hidden" id="sleep-widget">
+            <ul>
+              <li>today's data(quality and hrs)</li>
+              <li>week of hrs</li>
+              <li>week of quality</li>
+              <li>all time avg(quality, hours)</li>
+            </ul>
+          </section>
+          <button class="return-to-widget hidden" id="return-to-sleep-widget" type="submit">Return</button>
+        </div>
         <button class="hydration" id="hydration" type="submit">
           Hydration Widget
         </button>

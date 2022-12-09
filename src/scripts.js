@@ -36,12 +36,15 @@ let sleepRepository;
 let hydrationRepository;
 
 const welcomeContainer = document.getElementById("user-info");
+const stepsWidget = document.getElementById("steps-widget");
+const stepsButton = document.getElementById("steps");
 
 window.addEventListener("load", () => {
   allUserData = getAPIData(userAPI);
   getRandomUser(allUserData);
   // updateUserInfo();
 });
+stepsButton.addEventListener("click", updateStepWidget);
 
 Promise.all([
   getAPIData(userAPI),
@@ -68,7 +71,7 @@ function createClassInstances(dataSet1, dataSet2, dataSet3) {
   console.log("LABEL FOR SLEEP", sleepRepository);
   allHydroData = dataSet3.map((data) => new Hydration(data));
   hydrationRepository = new HydrationRepository(allHydroData);
-};
+}
 
 function getRandomUser(allUserData) {
   const randomID = Math.floor(Math.random() * allUserData.length);
@@ -79,17 +82,25 @@ function getRandomUser(allUserData) {
   getFriends(currentUser);
   updateUserInfo();
   return currentUserID;
-};
+}
 
 function getFriends(user) {
   console.log("LABEL", allUserData);
   console.log("USER", user);
   // const myFriends = user.friends;
-};
+}
 
 function updateUserInfo() {
   welcomeContainer.innerHTML = `
   <h1 class="user-name">Welcome, ${currentUser.firstName()}!</h1>
   <h2 class="user-info">${currentUser.address}, ${currentUser.email}</h2>`;
-};
+}
 
+function updateStepWidget() {
+  stepsButton.classList.add("hidden");
+  stepsWidget.classList.remove("hidden");
+  stepsWidget.innerHTML = `<ul> 
+      <li>Stride Length: ${currentUser.strideLength}</li>
+      <li>Your Daily Step Goal: ${currentUser.dailyStepGoal} Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>
+    </ul>`;
+}

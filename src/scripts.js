@@ -35,9 +35,6 @@ let currentUserID;
 let sleepRepository;
 let hydrationRepository
 
-// window.addEventListener("load", () => {
-//   allUserData = getAPIData(userAPI);
-// });
 
 Promise.all([
   getAPIData(userAPI),
@@ -69,9 +66,7 @@ function createClassInstances(dataSet1, dataSet2, dataSet3) {
 function getRandomUser(allUserData) {
   const randomID = Math.floor(Math.random() * allUserData.length);
   currentUser = allUserData[randomID];
-  console.log("CURRENTUSER", currentUser)
   currentUserID = allUserData[randomID].id;
-  console.log("CURRENTID", currentUserID)
   getFriends(currentUser);
   return currentUserID;
 }

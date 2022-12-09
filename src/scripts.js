@@ -34,6 +34,7 @@ let currentUser;
 let currentUserID;
 let sleepRepository;
 let hydrationRepository;
+let dateForWeek;
 
 const welcomeContainer = document.getElementById("user-info");
 const stepsWidget = document.getElementById("steps-widget");
@@ -130,15 +131,26 @@ function updateSleepData() {
   console.log("hours slept and sleep quality for current user", sleepRepository.filterSleepByUser(currentUserID))
   sleepWidget.innerHTML = `
   <ul>
-            <li></li>
-            <li>week of hrs</li>
-            <li>week of quality</li>
-            <li>all time avg(quality, hours)</li>
-          </ul><ul>
-            <li>today's data(quality and hrs)</li>
-            <li>week of hrs</li>
+            <li>Hours Slept Today: ${sleepRepository.findTodaysData(currentUserID).hoursSlept}</li>
+            <li>Sleep Quality for Today: ${sleepRepository.findTodaysData(currentUserID).sleepQuality}</li>
+            <li>${findLatestWeeksSleepData(currentUserID)}</li>
             <li>week of quality</li>
             <li>all time avg(quality, hours)</li>
           </ul>
           `
+}
+
+function findLatestWeeksSleepData(id) {
+  dateForWeek = sleepRepository.findTodaysData(id).date
+  console.log("dateForWeek", dateForWeek)
+  let sleepForWeek = sleepRepository.calculateSleepPerWeek(dateForWeek, id)
+  console.log("sleepForWeek!!!!!!", sleepForWeek)
+  let hoursSleptResult = sleepForWeek.reduce((acc, cur, index) => {
+    acc.push(` day ${index + 1}: ${cur.hoursSlept} hours slept `)
+    // acc.push(`day ${index + 1}: ` + cur.hoursSlept + ` `)
+
+    return acc 
+  }, [])
+  console.log("hoursSleptResult", hoursSleptResult)
+  return hoursSleptResult
 }

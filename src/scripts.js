@@ -39,12 +39,16 @@ const welcomeContainer = document.getElementById("user-info");
 const stepsWidget = document.getElementById("steps-widget");
 const stepsButton = document.getElementById("steps");
 const userFriendsSection = document.getElementById("friends-info");
+const returnStepsWidgetButton = document.getElementById("return-to-widget");
 
 window.addEventListener("load", () => {
   allUserData = getAPIData(userAPI);
   getRandomUser(allUserData);
 });
 stepsButton.addEventListener("click", updateStepWidget);
+returnStepsWidgetButton.addEventListener("click", (event) => {
+  returnToStepsWidget(event);
+});
 
 Promise.all([
   getAPIData(userAPI),
@@ -114,5 +118,12 @@ function updateStepWidget() {
       <li>Your Daily Step Goal: ${
         currentUser.dailyStepGoal
       } Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>
-    </ul>`;
+    </ul><button class="return-to-widget" id="return-to-widget" type="submit">Return</button>`;
+}
+
+function returnToStepsWidget(event) {
+  event.preventDefault();
+  console.log("THIS FUCTN IS WORKING");
+  stepsWidget.classList.add("hidden");
+  stepsButton.classList.remove("hidden");
 }

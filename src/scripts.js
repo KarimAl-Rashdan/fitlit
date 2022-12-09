@@ -16,10 +16,10 @@ import userData from "./data/users";
 import UserRepository from "./UserRepository";
 import getAPIData from "./apiCalls";
 import User from "./User-Class";
-import Hydration from "./Hydration"
-import HydrationRepository from "./Hydration-Repository"
-import Sleep from "./Sleep-Class"
-import SleepRepository from "./SleepRepository"
+import Hydration from "./Hydration";
+import HydrationRepository from "./Hydration-Repository";
+import Sleep from "./Sleep-Class";
+import SleepRepository from "./SleepRepository";
 // import { sharing } from 'webpack';
 
 const userAPI = "https://fitlit-api.herokuapp.com/api/v1/users";
@@ -33,11 +33,15 @@ let userRepository;
 let currentUser;
 let currentUserID;
 let sleepRepository;
-let hydrationRepository
+let hydrationRepository;
 
-// window.addEventListener("load", () => {
-//   allUserData = getAPIData(userAPI);
-// });
+const welcomeContainer = document.getElementById("user-info");
+
+window.addEventListener("load", () => {
+  allUserData = getAPIData(userAPI);
+  getRandomUser(allUserData);
+  // updateUserInfo();
+});
 
 Promise.all([
   getAPIData(userAPI),
@@ -59,26 +63,33 @@ function createClassInstances(dataSet1, dataSet2, dataSet3) {
   userRepository = new UserRepository(allUserData);
   console.log(userRepository);
   getRandomUser(allUserData);
-  allSleepData = dataSet2.map(data => new Sleep(data));
+  allSleepData = dataSet2.map((data) => new Sleep(data));
   sleepRepository = new SleepRepository(allSleepData);
   console.log("LABEL FOR SLEEP", sleepRepository);
-  allHydroData = dataSet3.map(data => new Hydration(data));
+  allHydroData = dataSet3.map((data) => new Hydration(data));
   hydrationRepository = new HydrationRepository(allHydroData);
-}
+};
 
 function getRandomUser(allUserData) {
   const randomID = Math.floor(Math.random() * allUserData.length);
   currentUser = allUserData[randomID];
-  console.log("CURRENTUSER", currentUser)
+  console.log("CURRENTUSER", currentUser);
   currentUserID = allUserData[randomID].id;
-  console.log("CURRENTID", currentUserID)
+  console.log("CURRENTID", currentUserID);
   getFriends(currentUser);
+  updateUserInfo();
   return currentUserID;
-}
+};
 
 function getFriends(user) {
-    console.log("LABEL", allUserData)
-    console.log("USER", user)
-    const myFriends = user.friends;
-    
-}
+  console.log("LABEL", allUserData);
+  console.log("USER", user);
+  // const myFriends = user.friends;
+};
+
+function updateUserInfo() {
+  welcomeContainer.innerHTML = `
+  <h1 class="user-name">Welcome, ${currentUser.firstName()}!</h1>
+  <h2 class="user-info">${currentUser.address}, ${currentUser.email}</h2>`;
+};
+

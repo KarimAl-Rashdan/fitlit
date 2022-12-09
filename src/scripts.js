@@ -21,8 +21,21 @@ import SleepRepository from "./SleepRepository"
 import dayjs from 'dayjs'
 import Chart from 'chart.js/auto';
 // All Imports ^^
+// var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+// var yValues = [55, 49, 44, 24, 15];
+// var barColors = ["red", "green","blue","orange","brown"];
 
-
+// const chart = new Chart(stx, {
+//   type: "bar",
+//   data: {
+//     labels: xValues,
+//     datasets: [{
+//       backgroundColor: barColors,
+//       data: yValues
+//     }]
+//   },
+  
+// });
 // Global Variables
 
 
@@ -41,6 +54,8 @@ let date;
 const userAPI = "https://fitlit-api.herokuapp.com/api/v1/users";
 const sleepAPI = "https://fitlit-api.herokuapp.com/api/v1/sleep";
 const hydrationAPI = "https://fitlit-api.herokuapp.com/api/v1/hydration";
+
+
 
 Promise.all([
   getAPIData(userAPI),
@@ -63,10 +78,13 @@ const hydrationBtn = document.querySelector('#hydration')
 const hydrationDisplay = document.querySelector('.hydration-widget')
 const toggleHomeBtn = document.querySelector('.back-home')
 const ouncesDrankToday = document.getElementById('todaysOz')
-const calendarSub = document.getElementById('dateInputt')
+const calendarSub = document.getElementById('dateInput')
 const calendarDate = document.getElementById('dateSelected')
 const hydrationWeeklyAvg = document.getElementById('weeklyAvg')
 const hydroAllTimeAvgArea = document.getElementById('allTimeAvg')
+
+//  chartQuerySelectors 
+// const stx = document.getElementById("my-chart1")
 
 // addEventListener
 hydrationBtn.addEventListener('click',showHydrationArea)
@@ -132,7 +150,7 @@ function displayWeeklyAverage(e) {
 	userWeeklyData.forEach((recordedDay) => {
 		hydrationWeeklyAvg.innerHTML += 
 		`<p class="hydration-weekly">
-		 On ${dayjs(recordedDay.date).format('dd/MMM/D/YYYY')} you consumed ${recordedDay.numOunces}
+		  ${dayjs(recordedDay.date).format('dd/MMM/D/YYYY')} you consumed ${recordedDay.numOunces} ounces
 		</p>`
 	})	
 }

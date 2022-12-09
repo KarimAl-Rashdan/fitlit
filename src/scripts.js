@@ -133,24 +133,19 @@ function updateSleepData() {
   <ul>
             <li>Hours Slept Today: ${sleepRepository.findTodaysData(currentUserID).hoursSlept}</li>
             <li>Sleep Quality for Today: ${sleepRepository.findTodaysData(currentUserID).sleepQuality}</li>
-            <li>${findLatestWeeksSleepData(currentUserID)}</li>
-            <li>week of quality</li>
+            <li>Hours Slept for the Week: ${findLatestWeeksSleepData(currentUserID, 'hoursSlept')}</li>
+            <li>Sleep Quality for the Week: ${findLatestWeeksSleepData(currentUserID, 'sleepQuality')}</li>
             <li>all time avg(quality, hours)</li>
           </ul>
           `
 }
 
-function findLatestWeeksSleepData(id) {
+function findLatestWeeksSleepData(id, type) {
   dateForWeek = sleepRepository.findTodaysData(id).date
-  console.log("dateForWeek", dateForWeek)
-  let sleepForWeek = sleepRepository.calculateSleepPerWeek(dateForWeek, id)
-  console.log("sleepForWeek!!!!!!", sleepForWeek)
-  let hoursSleptResult = sleepForWeek.reduce((acc, cur, index) => {
-    acc.push(` day ${index + 1}: ${cur.hoursSlept} hours slept `)
-    // acc.push(`day ${index + 1}: ` + cur.hoursSlept + ` `)
-
+  let dataForWeek = sleepRepository.calculateSleepPerWeek(dateForWeek, id)
+  let dataResult = dataForWeek.reduce((acc, cur, index) => {
+    acc.push(` day ${index + 1}: ${cur[type]} `)
     return acc 
   }, [])
-  console.log("hoursSleptResult", hoursSleptResult)
-  return hoursSleptResult
+  return dataResult
 }

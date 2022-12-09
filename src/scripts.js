@@ -135,7 +135,8 @@ function updateSleepData() {
             <li>Sleep Quality for Today: ${sleepRepository.findTodaysData(currentUserID).sleepQuality}</li>
             <li>Hours Slept for the Week: ${findLatestWeeksSleepData(currentUserID, 'hoursSlept')}</li>
             <li>Sleep Quality for the Week: ${findLatestWeeksSleepData(currentUserID, 'sleepQuality')}</li>
-            <li>all time avg(quality, hours)</li>
+            <li>Your All Time Hours Slept Average: ${displayAverageSleepDataForAllTime('hoursSlept')} hours</li>
+            <li>Your All Time Sleep Quality Average: ${displayAverageSleepDataForAllTime('sleepQuality')}</li>
           </ul>
           `
 }
@@ -148,4 +149,8 @@ function findLatestWeeksSleepData(id, type) {
     return acc 
   }, [])
   return dataResult
+}
+
+function displayAverageSleepDataForAllTime(type) {
+  return sleepRepository.calcAvgSleepStats(type)
 }

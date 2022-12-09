@@ -21,11 +21,7 @@ class HydrationRepository {
       return user.date === date;
     });
     const weeklyData = usersWeeklyData.slice(getIndexDate, getIndexDate + 7);
-    const formattedWeeklyData = weeklyData.reduce((obj, day) => {
-      obj[day.date] = day.numOunces;
-      return obj;
-    }, {});
-    return formattedWeeklyData;
+    return weeklyData;
   }
   getAverageHydration(id) {
     const allUserData = this.filterHydrationByUser(id);

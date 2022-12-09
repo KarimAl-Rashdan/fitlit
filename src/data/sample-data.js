@@ -5,4 +5,5 @@ const sleepData = [
   {userID: 5, date: '2019/06/17', hoursSlept: 10.5, sleepQuality: 3.7}];
 
 
-  module.exports= {sleepData}
+  export default sleepData
+

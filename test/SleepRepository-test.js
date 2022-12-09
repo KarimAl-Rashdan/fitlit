@@ -1,9 +1,9 @@
 import { expect } from 'chai'
 import SleepRepository from '../src/SleepRepository'
-const data = require('../src/data/sample-data')
-const sleepDataSample = data.sleepData
-const weekData = require('../src/data/sample-weekSleepData')
-const weekSleepData = weekData.userWeekSleepData
+import data from '../src/data/sample-data'
+// const sleepDataSample = data.sleepData
+import weekData from '../src/data/sample-weekSleepData'
+// const weekSleepData = weekData.userWeekSleepData
 
 
 describe('SleepRepository-test', () => {
@@ -12,8 +12,8 @@ describe('SleepRepository-test', () => {
 
  beforeEach(function() {
 
-  sleepRepo = new SleepRepository(sleepDataSample)
-  sleepRepo2 = new SleepRepository(weekSleepData)
+  sleepRepo = new SleepRepository(data)
+  sleepRepo2 = new SleepRepository(weekData)
 
  });
 
@@ -26,19 +26,19 @@ it('should instantiate a Sleep class', function() {
 });
 
 it('should keep track of sleep data', function() {
-  expect(sleepRepo.sleepData).to.eql(sleepDataSample) //change here
+  expect(sleepRepo.sleepData).to.eql(data) //change here
 });
 
 it('should return all sleep info for one user', function() {
-  expect(sleepRepo2.filterSleepByUser(sleepRepo2.sleepData[3].userID)).to.eql(weekSleepData)
+  expect(sleepRepo2.filterSleepByUser(sleepRepo2.sleepData[3].userID)).to.eql(weekData)
 });
 
 it('should calculate the average hours of sleep per day', function(){
-  expect(sleepRepo2.calculateAverageSleepPerDay('hoursSlept', weekSleepData, 1)).to.equal(9)
+  expect(sleepRepo2.calculateAverageSleepPerDay('hoursSlept', weekData, 1)).to.equal(9)
 });
 
 it('should calculate the average sleep quality per day', function() {
-  expect(sleepRepo2.calculateAverageSleepPerDay('sleepQuality', weekSleepData, 1)).to.equal(3)
+  expect(sleepRepo2.calculateAverageSleepPerDay('sleepQuality', weekData, 1)).to.equal(3)
 });
 
 it('should calculate sleep hours per day by date', function() {

@@ -2,13 +2,13 @@
 <html lang="en-US">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="../src/css/styles.css" />
+    <link rel="stylesheet" href="../src/css/styles.css"/>
     <link href="" rel="stylesheet" alt="font" />
     <title>Fitlit</title>
   </head>
   <body class="background-container">
     <main class="main-container">
-      <section class="welcome-section">
+      < class="welcome-section">
         <img class="turing-logo"
           src="./images/turing-logo.png"
           alt="turing-logo"
@@ -20,7 +20,11 @@
             <h1 class="user-name">Welcome, UserFirstName!</h1>
             <h2 class="user-info">All User Info Displayed(address, email)</h2>
           </header>
-          <input class="calendar" type="date"></input>
+          <form>
+            <label  class='hidden'for="calendar"> Calendar:</label>
+            <input type="date" id="dateSelected" name="date">
+            <input type="submit" id="dateInputt">
+          </form>
         </div>
       </section>
       <section class="widgets">
@@ -36,15 +40,19 @@
         <button class="hydration" id="hydration" type="submit">
           Hydration Widget
         </button>
+        
         <section class="hydration-widget hidden">
+          <canvas id="hydration-Chart"> </canvas>
           <ul>
-            <li>today's intake</li>
-            <li>weekly average</li>
-            <li>all time average</li>
+            <li id="todaysOz">today's intake</li>
+            <li id="weeklyAvg">weekly average</li>
+            <li id ='allTimeAvg'>all time average</li>
+            <button class="back-home hidden" id=" toggleHome" type="'submit"> Return!</button>
           </ul>
         </section>
         <button class="step-goal" id="steps" type="submit">
           Step Goals Widget
+        </button>
         </button>
         <section class="step-goal-widget hidden">
           <ul>

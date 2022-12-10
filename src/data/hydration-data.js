@@ -50,4 +50,4 @@ const hydrationData = [
     numOunces: 76,
   }
 ];
-module.exports = { hydrationData };
+export default  hydrationData ;

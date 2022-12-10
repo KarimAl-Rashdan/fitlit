@@ -8,4 +8,5 @@ const userWeekSleepData = [
   {userID: 1, date: '2019/06/22', hoursSlept: 10.8, sleepQuality: 4.7},
   {userID: 1, date: '2019/06/23', hoursSlept: 10.5, sleepQuality: 3.7}]
 
-  module.exports= {userWeekSleepData}
+ export default userWeekSleepData;
+

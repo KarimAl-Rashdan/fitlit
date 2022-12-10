@@ -1,11 +1,6 @@
 body,
 html {
-  background-image: linear-gradient(
-    to top,
-    #eceae8 0%,
-    #f1d7de 99%,
-    #f1d7de 100%
-  );
+  background-image: white;
   background-repeat: no-repeat;
   font-family: "Barlow", sans-serif;
   height: 100%;
@@ -52,7 +47,7 @@ html {
 }
 
 .header-and-calendar {
-  background-color: #d1dcfb;
+  background-color: #50bfe6;
   border: 2px solid gray;
   border-radius: 10px;
   display: flex;
@@ -82,8 +77,8 @@ footer {
 }
 
 aside {
-  background-color: #dacde6;
-  border: 2px solid gray;
+  background-color: white;
+  border: none;
   width: 20%;
   display: flex;
   flex-direction: column;
@@ -97,7 +92,7 @@ aside {
 
 .user-friends {
   align-items: center;
-  background-color: #e8d3de;
+  background-color: #ffcff1;
   border: 2px solid gray;
   border-radius: 10px;
   display: flex;
@@ -110,12 +105,12 @@ aside {
 }
 
 .return-to-widget-text-container {
-  padding-left: 30px;
-  padding-top: 74px;
+  padding-left: 4%;
+  padding-top: 20%;
 }
 
 .return-to-widget {
-  background-color: #d1dcfb;
+  background-color: 	#DB91EF;
   border: 1px solid gray;
   border-radius: 5px;
   display: block;
@@ -129,7 +124,7 @@ aside {
 
 .widget {
   align-items: center;
-  background-color: #e8d3de;
+  background-color: #ffcff1;
   border: 2px solid gray;
   border-radius: 10px;
   display: flex;
@@ -165,6 +160,7 @@ aside > img {
 .hydration-widget,
 .step-goal-widget {
   height: 35vh;
+  padding: 0;
   width: 20vw;
 }
 
@@ -198,7 +194,7 @@ li {
 .sleep,
 .hydration,
 .step-goal {
-  background-color: #d1dcfb;
+  background-color: #50bfe6;
   border: 1px solid gray;
   border-radius: 10px;
   font-family: "Barlow", sans-serif;

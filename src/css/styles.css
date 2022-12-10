@@ -145,9 +145,14 @@ aside {
   background-color: white;
 }
 
+h1 {
+  padding-left: 10px;
+}
+
 h2,
 h3 {
   font-size: small;
+  padding-left: 10px;
 }
 
 aside > img {

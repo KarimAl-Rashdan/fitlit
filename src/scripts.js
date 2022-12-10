@@ -64,7 +64,7 @@ function getPageData() {
       allHydroData = response[2].hydrationData;
       createClassInstances(allUserData, allSleepData, allHydroData);
       getRandomUser(allUserData)
-      generateChart();
+      // generateChart();
     })
     .catch((error) => {
       console.log(error);
@@ -93,7 +93,10 @@ const returnSleepWidgetButton = document.getElementById("return-to-sleep-widget"
 
 
 // addEventListener
-hydrationBtn.addEventListener('click',showHydrationArea)
+hydrationBtn.addEventListener('click', () => {
+  showHydrationArea();
+  displayHydrationDom();
+})
 toggleHomeBtn.addEventListener('click', homeWidget)
 window.addEventListener('load', getPageData)
 
@@ -123,19 +126,22 @@ calendarSub.addEventListener('click',displayWeeklyAverage)
 function createClassInstances(dataSet1, dataSet2, dataSet3) {
   allUserData = dataSet1.map((user) => new User(user));
   userRepository = new UserRepository(allUserData);
-  getRandomUser(allUserData);
+  // getRandomUser(allUserData);
   allSleepData = dataSet2.map((data) => new Sleep(data));
   sleepRepository = new SleepRepository(allSleepData);
 
   allHydroData = dataSet3.map(data => new Hydration(data));
   hydrationRepository = new HydrationRepository(allHydroData)
-	displayHydrationDom(hydrationRepository, getRandomUser(allUserData));
+	// displayHydrationDom();
+  // displayHydrationDom(hydrationRepository, getRandomUser(allUserData));
+
 }
 
 
 function getRandomUser(allUserData) {
   const randomID = Math.floor(Math.random() * allUserData.length);
   currentUser = allUserData[randomID];
+  console.log("HEY THIS IS CURRENT USER", currentUser)
   currentUserID = allUserData[randomID].id;
   updateUserInfo();
   updateFriendsInfo();
@@ -150,6 +156,8 @@ function updateUserInfo() {
 
 function updateFriendsInfo() {
   allUserData[currentUserID].friends.forEach((friend) => {
+    console.log("current user friends", currentUser.friends)
+    console.log("friend", friend)
     userFriendsSection.innerHTML += `<div class="user-friends" id="friend">
       <h2>${userRepository.findUser(friend).name}</h2><br>
       <h3>Step Goal: ${userRepository.findUser(friend).dailyStepGoal}</h3>
@@ -170,8 +178,8 @@ function homeWidget(){
 	hideArea(hydrationBtn,toggleHomeBtn,hydrationDisplay)
 }
 
-function displayHydrationDom(hydrationRepository, currentUserId) {
- displayTodaysHydration( hydrationRepository,currentUserId)
+function displayHydrationDom() {
+ displayTodaysHydration(hydrationRepository, currentUserID)
  displayAverageConsumed()
  
 
@@ -221,20 +229,6 @@ function returnToStepsWidget(event) {
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // helperFunctions
 function showArea(area1, area2, area3) {
 area1.classList.add('hidden')
@@ -249,9 +243,6 @@ area2.classList.add('hidden')
 area3.classList.add('hidden')
 
 }
-
-
-
 
 
 function updateSleepData() {

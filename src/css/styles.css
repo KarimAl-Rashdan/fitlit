@@ -7,7 +7,9 @@ html {
     #fecfef 100%
   );
   background-repeat: no-repeat;
+  font-family: "Barlow", sans-serif;
   height: 100%;
+  text-transform: uppercase;
 }
 
 .background-container {
@@ -50,12 +52,13 @@ html {
 }
 
 .header-and-calendar {
-  border: 2px solid black;
+  border: 2px solid gray;
   display: flex;
   flex-direction: row;
   width: 65%;
   justify-content: space-around;
 }
+
 .widgets {
   height: 45vh;
   width: 100%;
@@ -65,38 +68,61 @@ html {
 }
 
 footer {
-  border: 2px solid black;
-  height: 20vh;
-  width: 50%
+  border: 2px solid gray;
+  height: 14vh;
+  width: 70vw;
 }
 
 .turing-logo {
-  border: 2px solid black;
+  border: 2px solid gray;
   height: 17vh;
   width: 10%;
 }
 
 aside {
-  border: 2px solid black;
+  border: 2px solid gray;
   width: 20%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: flex-start;
 }
 
 .user-friends {
-  border: 2px solid black;
-  display: flex;
-  justify-content: space-around;
-  width: 70%;
   align-items: center;
-  margin: 30px;
+  border: 2px solid gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 15px;
+  width: 80%;
 }
 
-button {
-  width: 25%;
-  margin: 10px;
+.return-to-widget-text-container {
+  padding-left: 30px;
+  padding-top: 74px;
+}
+
+.return-to-widget {
+  display: inline-block;
+  font-size: 13px;
+  height: 33px;
+  padding: 5px 50px;
+  padding-bottom: 3px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.widget {
+  align-items: center;
+  border: 2px solid gray;
+  display: flex;
+  flex-direction: column;
+  height: 45vh;
+  justify-content: space-evenly;
+  list-style-type: none;
+  margin: 0px;
+  margin-inline: 10px;
 }
 
 h2,
@@ -105,16 +131,16 @@ h3 {
 }
 
 aside > img {
-  border: 2px solid black;
+  border: 2px solid gray;
   height: 10vh;
   margin-left: 20px;
 }
 
-
 .sleep-widget,
 .hydration-widget,
 .step-goal-widget {
-  width: 100%;
+  height: 35vh;
+  width: 20vw;
 }
 
 ul {
@@ -125,24 +151,31 @@ ul {
   align-items: center;
   height: 45vh;
   margin: 0px;
-  border: 2px solid black;
+  border: 2px solid gray;
   padding: 10px;
   margin-inline: 10px;
-  /* width:65%; */
 }
+
 li {
-  border: 1px solid black;
-  width: 52%;
+  border: 1px solid gray;
+  height: 8vh;
+  width: 15vw;
 }
 
-.step-container {
+.step-container,
+.sleep-container,
+.hydration-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
 }
 
-.sleep-container {
-  display: flex;
-  flex-direction: column;
+button {
+  font-family: "Barlow", sans-serif;
+  font-size: 50px;
+  text-transform: uppercase;
+  margin: 10px;
+  width: 25%;
 }
 
 .hidden {

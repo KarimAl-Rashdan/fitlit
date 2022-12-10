@@ -32,4 +32,6 @@ class HydrationRepository {
     return usersAverage / allUserData.length;
   }
 }
+
 export default HydrationRepository;
+

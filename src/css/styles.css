@@ -114,7 +114,7 @@ aside > img {
 .sleep-widget,
 .hydration-widget,
 .step-goal-widget {
-  width:30%;
+  width: 100%;
 }
 
 ul {
@@ -128,11 +128,23 @@ ul {
   border: 2px solid black;
   padding: 10px;
   margin-inline: 10px;
-  width:65%;
+  /* width:65%; */
 }
 li {
   border: 1px solid black;
+  width: 52%;
 }
+
+.step-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sleep-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .hidden {
   display: none;
 }

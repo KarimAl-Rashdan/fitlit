@@ -8,6 +8,9 @@ class SleepRepository {
     return totalUserData
   }
 
+  findTodaysData(id) {
+    return this.filterSleepByUser(id).pop()
+  }
   calculateAverageSleepPerDay(type, filterData, id) {
     let value = this.filterSleepByUser(id)
     let total = value.reduce((total, num) => {

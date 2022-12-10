@@ -37,7 +37,7 @@ let currentUserID;
 let sleepRepository;
 let hydrationRepository;
 let dateForWeek;
-let date;
+// let date;
    
 // API AREA 
 
@@ -59,6 +59,8 @@ function getPageData() {
       allHydroData = response[2].hydrationData;
       createClassInstances(allUserData, allSleepData, allHydroData);
       getRandomUser(allUserData)
+      restrictCalendarRange()
+      
     })
     .catch((error) => {
       console.log(error);
@@ -87,14 +89,15 @@ const returnSleepWidgetButton = document.getElementById("return-to-sleep-widget"
 
 
 // addEventListener
-hydrationBtn.addEventListener('click',function()
-{
-  showHydrationArea()
-  displayHydrationDom()
-
+hydrationBtn.addEventListener('click',function() {
+  showHydrationArea();
+  displayHydrationDom();
 })
 toggleHomeBtn.addEventListener('click', homeWidget)
-window.addEventListener('load', getPageData)
+window.addEventListener('load', function(){
+  getPageData()
+  restrictCalendarRange()
+})
 
 stepsButton.addEventListener("click", updateStepWidget);
 returnStepsWidgetButton.addEventListener("click", (event) => {
@@ -115,11 +118,11 @@ calendarSub.addEventListener('click',displayWeeklyAverage)
 function createClassInstances(dataSet1, dataSet2, dataSet3) {
   allUserData = dataSet1.map((user) => new User(user));
   userRepository = new UserRepository(allUserData);
-  getRandomUser(allUserData);
   allSleepData = dataSet2.map((data) => new Sleep(data));
   sleepRepository = new SleepRepository(allSleepData);
   allHydroData = dataSet3.map(data => new Hydration(data));
   hydrationRepository = new HydrationRepository(allHydroData)
+
 }
 
 
@@ -157,10 +160,17 @@ function homeWidget(){
 }
 
 function displayHydrationDom() {
- displayTodaysHydration(hydrationRepository,currentUserID)
- displayAverageConsumed()
+ displayTodaysHydration(hydrationRepository,currentUserID);
+ displayAverageConsumed();
 }
+function restrictCalendarRange() {
+  const usersRecordedDates = hydrationRepository.filterHydrationByUser(currentUserID)
+  const min = usersRecordedDates.sort((a,b)=> new Date(a.date) - new Date(b.date))
+  const minDateEdit = min[0].date;
+  console.log('test',formatDate(minDateEdit))
+  
 
+}
 function displayTodaysHydration(hydrationRepository,currentUserID) {
   
 	const todaysOz = hydrationRepository.findTodaysHydration(currentUserID);
@@ -169,6 +179,7 @@ function displayTodaysHydration(hydrationRepository,currentUserID) {
 
 function displayWeeklyAverage(e) {
 	e.preventDefault()
+  hydrationWeeklyAvg.innerHTML = ''
 	const chosenDate = calendarDate.value; 
 	const alteredDate = chosenDate.replaceAll('-',"/")
 	const userWeeklyData = hydrationRepository.findWeeklyHydration(alteredDate,currentUserID)
@@ -206,20 +217,6 @@ function returnToStepsWidget(event) {
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // helperFunctions
 function showArea(area1, area2, area3) {
 area1.classList.add('hidden')
@@ -233,9 +230,9 @@ area1.classList.remove('hidden')
 area2.classList.add('hidden')
 area3.classList.add('hidden')
 }
-
-
-
+function formatDate(date){
+  dayjs(date).format('YYYY-MM-DD')
+}
 
 
 function updateSleepData() {

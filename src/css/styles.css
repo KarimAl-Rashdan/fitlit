@@ -102,8 +102,9 @@ aside {
   border-radius: 10px;
   display: flex;
   height: 9vh;
-  flex-direction: column;
-  justify-content: space-around;
+  flex-direction: row;
+  font-size: 20px;
+  justify-content: center;
   margin: 15px;
   width: 80%;
 }
@@ -182,6 +183,7 @@ ul {
 
 li {
   height: 8vh;
+  font-size: small;
   width: 15vw;
 }
 
@@ -200,7 +202,7 @@ li {
   border: 1px solid gray;
   border-radius: 10px;
   font-family: "Barlow", sans-serif;
-  font-size: 45px;
+  font-size: 30px;
   text-transform: uppercase;
   margin: 10px;
   width: 25%;

@@ -9,55 +9,65 @@
   <body class="background-container">
     <main class="main-container">
       <section class="welcome-section">
-        <img
+        <img class="turing-logo"
           src="./images/turing-logo.png"
           alt="turing-logo"
           height="100px"
           width="100px"
         />
         <div class="header-and-calendar">
-          <header class="welcome-container">
+          <header class="welcome-container" id="user-info">
             <h1 class="user-name">Welcome, UserFirstName!</h1>
             <h2 class="user-info">All User Info Displayed(address, email)</h2>
           </header>
-          <input class="calendar" type="date">Calendar</input>
+          <input class="calendar" type="date"></input>
         </div>
       </section>
       <section class="widgets">
         <button class="sleep" id="sleep" type="submit">Sleep Widget</button>
+        <div class="sleep-container">
+          <section class="sleep-widget hidden" id="sleep-widget">
+            <ul>
+              <li>today's data(quality and hrs)</li>
+              <li>week of hrs</li>
+              <li>week of quality</li>
+              <li>all time avg(quality, hours)</li>
+            </ul>
+          </section>
+          <button class="return-to-widget hidden" id="return-to-sleep-widget" type="submit">Return</button>
+        </div>
         <button class="hydration" id="hydration" type="submit">
           Hydration Widget
         </button>
+        <section class="hydration-widget hidden">
+          <ul>
+            <li>today's intake</li>
+            <li>weekly average</li>
+            <li>all time average</li>
+          </ul>
+        </section>
         <button class="step-goal" id="steps" type="submit">
           Step Goals Widget
         </button>
+        <div class="step-container">
+          <section class="step-goal-widget hidden" id="steps-widget">
+            <ul>
+              <li>stride length</li>
+              <li>daily step goal</li>
+              <li>average step goal for all users</li>
+            </ul>
+          </section>
+          <button class="return-to-widget hidden" id="return-to-widget" type="submit">Return</button>
+        </div>
       </section>
       <footer class="footer-image">
         <img src="" alt="Exercise Image" />
       </footer>
     </main>
-    <aside class="side-bar-container">
+    <aside class="side-bar-container" id="friends-container">
       <img src="" alt="Friends Logo" />
-      <div class="user-friends" id="friend-1">
-        <h2>User Friends</h2>
-        <h3>Steps Goal</h3>
-      </div>
-      <div class="user-friends" id="friend-2">
-        <h2>User Friends</h2>
-        <h3>Steps Goal</h3>
-      </div>
-      <div class="user-friends" id="friend-3">
-        <h2>User Friends</h2>
-        <h3>Steps Goal</h3>
-      </div>
-      <div class="user-friends" id="friend-4">
-        <h2>User Friends</h2>
-        <h3>Steps Goal</h3>
-      </div>
-      <div class="user-friends" id="friend-5">
-        <h2>User Friends</h2>
-        <h3>Steps Goal</h3>
-      </div>
+      <section class="friends-info" id="friends-info">
+      </section>
     </aside>
     <script src="bundle.js"></script>
   </body>

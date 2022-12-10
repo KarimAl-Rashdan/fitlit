@@ -36,4 +36,6 @@ class HydrationRepository {
     return usersAverage / allUserData.length;
   }
 }
-module.exports = { HydrationRepository };
+
+export default HydrationRepository;
+

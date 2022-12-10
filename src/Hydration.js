@@ -5,4 +5,5 @@ class Hydration {
     this.numOunces = hydrationData.numOunces;
  }
 }
-module.exports = { Hydration }; 
+
+export default Hydration; 

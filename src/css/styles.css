@@ -2,9 +2,9 @@ body,
 html {
   background-image: linear-gradient(
     to top,
-    #ff9a9e 0%,
-    #fecfef 99%,
-    #fecfef 100%
+    #eceae8 0%,
+    #f1d7de 99%,
+    #f1d7de 100%
   );
   background-repeat: no-repeat;
   font-family: "Barlow", sans-serif;
@@ -52,6 +52,7 @@ html {
 }
 
 .header-and-calendar {
+  background-color: #d1dcfb;
   border: 2px solid gray;
   display: flex;
   flex-direction: row;
@@ -60,11 +61,11 @@ html {
 }
 
 .widgets {
-  height: 45vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
   align-items: stretch;
+  display: flex;
+  height: 45vh;
+  justify-content: center;
+  width: 100%;
 }
 
 footer {
@@ -80,6 +81,7 @@ footer {
 }
 
 aside {
+  background-color: #dacde6;
   border: 2px solid gray;
   width: 20%;
   display: flex;
@@ -88,10 +90,16 @@ aside {
   align-items: flex-start;
 }
 
+.friends-info {
+  width: 23vw;
+}
+
 .user-friends {
   align-items: center;
+  background-color: #e8d3de;
   border: 2px solid gray;
   display: flex;
+  height: 9vh;
   flex-direction: column;
   justify-content: space-around;
   margin: 15px;
@@ -104,10 +112,11 @@ aside {
 }
 
 .return-to-widget {
-  display: inline-block;
+  background-color: #e8d3de;
+  display: block;
+  font-family: "Barlow", sans-serif;
   font-size: 13px;
   height: 33px;
-  padding: 5px 50px;
   padding-bottom: 3px;
   text-transform: uppercase;
   text-align: center;
@@ -157,7 +166,7 @@ ul {
 }
 
 li {
-  border: 1px solid gray;
+  background-color: #e8d3de;
   height: 8vh;
   width: 15vw;
 }
@@ -170,7 +179,11 @@ li {
   flex-direction: column;
 }
 
-button {
+.sleep,
+.hydration,
+.step-goal {
+  background-color: #d1dcfb;
+  border: 1px solid gray;
   font-family: "Barlow", sans-serif;
   font-size: 50px;
   text-transform: uppercase;

@@ -81,7 +81,7 @@ function createClassInstances(dataSet1, dataSet2, dataSet3) {
   sleepRepository = new SleepRepository(allSleepData);
   allHydroData = dataSet3.map((data) => new Hydration(data));
   hydrationRepository = new HydrationRepository(allHydroData);
-}
+};
 
 function getRandomUser(allUserData) {
   const randomID = Math.floor(Math.random() * allUserData.length);
@@ -90,7 +90,7 @@ function getRandomUser(allUserData) {
   updateUserInfo();
   updateFriendsInfo();
   return currentUserID;
-}
+};
 
 function updateUserInfo() {
   welcomeContainer.innerHTML = `
@@ -100,7 +100,7 @@ function updateUserInfo() {
 
 function updateFriendsInfo() {
   allUserData[currentUserID].friends.forEach((friend) => {
-    userFriendsSection.innerHTML += `<div     class="user-friends" id="friend">
+    userFriendsSection.innerHTML += `<div class="user-friends" id="friend">
       <h2>${userRepository.findUser(friend).name}</h2><br>
       <h3>Step Goal: ${userRepository.findUser(friend).dailyStepGoal}</h3>
     </div>`;
@@ -117,22 +117,21 @@ function updateStepWidget() {
         currentUser.dailyStepGoal
       } Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>
     </ul>`;
-}
+};
 
 function returnToStepsWidget(event) {
   event.preventDefault();
   stepsWidget.classList.add("hidden");
   stepsButton.classList.remove("hidden");
   returnStepsWidgetButton.classList.add("hidden");
-}
+};
 
 function updateSleepData() {
   sleepWidgetButton.classList.add("hidden");
   sleepWidget.classList.remove("hidden");
   returnSleepWidgetButton.classList.remove("hidden");
-  console.log("hours slept and sleep quality for current user", sleepRepository.filterSleepByUser(currentUserID))
   sleepWidget.innerHTML = `
-  <ul>
+          <ul>
             <li>Hours Slept Today: ${sleepRepository.findTodaysData(currentUserID).hoursSlept}</li>
             <li>Sleep Quality for Today: ${sleepRepository.findTodaysData(currentUserID).sleepQuality}</li>
             <li>Hours Slept for the Week: ${findLatestWeeksSleepData(currentUserID, 'hoursSlept')}</li>
@@ -141,7 +140,7 @@ function updateSleepData() {
             <li>Your All Time Sleep Quality Average: ${displayAverageSleepDataForAllTime('sleepQuality')}</li>
           </ul>
           `
-}
+};
 
 function findLatestWeeksSleepData(id, type) {
   dateForWeek = sleepRepository.findTodaysData(id).date
@@ -150,15 +149,15 @@ function findLatestWeeksSleepData(id, type) {
     acc.push(` day ${index + 1}: ${cur[type]} `)
     return acc 
   }, [])
-  return dataResult
+  return dataResult;
 }
 
 function displayAverageSleepDataForAllTime(type) {
-  return sleepRepository.calcAvgSleepStats(type)
+  return sleepRepository.calcAvgSleepStats(type);
 };
 
 function returnToSleepWidget(event) {
-  event.preventDefault()
+  event.preventDefault();
   sleepWidgetButton.classList.remove("hidden");
   sleepWidget.classList.add("hidden");
   returnSleepWidgetButton.classList.add("hidden");

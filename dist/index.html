@@ -2,13 +2,14 @@
 <html lang="en-US">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="../src/css/styles.css" />
+    <!-- <link rel="stylesheet" href="../src/css/styles.css"/> -->
     <link href="" rel="stylesheet" alt="font" />
     <title>Fitlit</title>
   </head>
   <body class="background-container">
     <main class="main-container">
       <section class="welcome-section">
+
         <img class="turing-logo"
           src="./images/turing-logo.png"
           alt="turing-logo"
@@ -20,7 +21,14 @@
             <h1 class="user-name">Welcome, UserFirstName!</h1>
             <h2 class="user-info">All User Info Displayed(address, email)</h2>
           </header>
-          <input class="calendar" type="date"></input>
+
+          <form>
+            <label  class='hidden'for="calendar"> Calendar:</label>
+            <input type="date" id="dateSelected" name="date">
+            <input type="submit" id="dateInput">
+          </form>
+
+
         </div>
       </section>
       <section class="widgets">
@@ -70,5 +78,6 @@
       </section>
     </aside>
     <script src="bundle.js"></script>
+   
   </body>
 </html>

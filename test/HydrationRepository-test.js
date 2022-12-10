@@ -1,6 +1,8 @@
 import { expect } from "chai";
-const { hydrationData } = require("../src/data/hydration-data");
-import HydrationRepository from "../src/Hydration-Repository";
+
+import hydrationData from "../src/data/hydration-data";
+import  HydrationRepository from "../src/Hydration-Repository"
+
 
 
 describe("Hydration Repository Class", function () {
@@ -71,15 +73,16 @@ describe("Hydration Repository Class", function () {
     expect(hydrationRepo.findTodaysHydration(10)).to.deep.equal(72);
   });
   it("should give the user's hydration data for the week", function () {
-    const weeklyHydrations = {
-      '2019/06/15': 75,
-      '2019/06/16': 68,
-      '2019/06/17': 49,
-      '2019/06/18': 97,
-      '2019/06/19': 38,
-      '2019/06/20': 78,
-      '2019/06/21': 95
-    };
+    const weeklyHydrations = [
+  { userID: 10, date: '2019/06/15', numOunces: 75 },
+  { userID: 10, date: '2019/06/16', numOunces: 68 },
+  { userID: 10, date: '2019/06/17', numOunces: 49 },
+  { userID: 10, date: '2019/06/18', numOunces: 97 },
+  { userID: 10, date: '2019/06/19', numOunces: 38 },
+  { userID: 10, date: '2019/06/20', numOunces: 78 },
+  { userID: 10, date: '2019/06/21', numOunces: 95 }
+]
+      
     expect(hydrationRepo.findWeeklyHydration("2019/06/15", 10)).to.deep.equal(weeklyHydrations);
   });
   it("should calculate a user's average hydration for all time", function () {

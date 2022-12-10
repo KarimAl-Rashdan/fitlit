@@ -112,7 +112,7 @@ aside {
 }
 
 .return-to-widget {
-  background-color: #e8d3de;
+  background-color: #d1dcfb;
   display: block;
   font-family: "Barlow", sans-serif;
   font-size: 13px;
@@ -124,6 +124,7 @@ aside {
 
 .widget {
   align-items: center;
+  background-color: #e8d3de;
   border: 2px solid gray;
   display: flex;
   flex-direction: column;
@@ -166,7 +167,6 @@ ul {
 }
 
 li {
-  background-color: #e8d3de;
   height: 8vh;
   width: 15vw;
 }

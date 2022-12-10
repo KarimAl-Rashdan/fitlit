@@ -22,6 +22,7 @@ import SleepRepository from "./SleepRepository";
 // import dayjs from "dayjs";
 import generateChart from "../src/data/usersChart";
 const dayjs = require("dayjs");
+import { Chart } from "chart.js/auto";
 // import { sharing } from 'webpack';
 // All Imports ^^
 
@@ -84,6 +85,8 @@ const sleepWidget = document.getElementById("sleep-widget");
 const returnSleepWidgetButton = document.getElementById(
   "return-to-sleep-widget"
 );
+const sleepHoursChart = document.getElementById("sleep-hours-data");
+const sleepQualityChart = document.getElementById("sleep-quality-data");
 
 // addEventListener
 hydrationBtn.addEventListener("click", () => {
@@ -269,3 +272,38 @@ function returnToSleepWidget(event) {
   sleepWidget.classList.add("hidden");
   returnSleepWidgetButton.classList.add("hidden");
 }
+
+// function displayWeeklySleepData() {
+//   sleepWidget.innerHTML = `<canvas id="week-of-hours></canvas>`;
+//   const ctx = document.getElementById("week-of-hours");
+//   const hoursForWeekChart = new CharacterData(ctx, {
+//     type: 'bar',
+//     data: {
+//       labels: ['Day1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
+//       datasets: [
+//         {
+//           label: 'Hours Slept for the Latest Week',
+//           data: findLatestWeeksSleepData(currentUserID, "hoursSlept"),
+//           borderColor: "rgb(77, 18, 238)",
+//           backgroundColor: "rgb(248, 246, 246)"
+//       },
+//         { label: 'Sleep Quality for the Latest Week',
+//         data: findLatestWeeksSleepData(currentUserID, "sleepQuality"),
+//         borderColor: "rgb(77, 18, 238)",
+//         backgroundColor: "rgb(248, 246, 246)",
+//         }]
+//     },
+//     options: {
+//       responsive: true,
+//       plugins: {
+//         legend: {
+//           position: "top",
+//         },
+//         title: {
+//           display: true,
+//           text: "Sleep Data for the Latest Week",
+//         }
+//       }
+//     }
+//   });
+//   }

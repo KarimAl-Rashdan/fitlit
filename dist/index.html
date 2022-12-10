@@ -21,14 +21,6 @@
             <h1 class="user-name">Welcome, UserFirstName!</h1>
             <h2 class="user-info">All User Info Displayed(address, email)</h2>
           </header>
-
-          <form>
-            <label  class='hidden'for="calendar"> Calendar:</label>
-            <input type="date" id="dateSelected" name="date">
-            <input type="submit" id="dateInput">
-          </form>
-
-
         </div>
       </section>
       <section class="widgets">
@@ -49,10 +41,17 @@
         </button>
         <section class="hydration-widget hidden">
           <ul>
-            <li>today's intake</li>
-            <li>weekly average</li>
-            <li>all time average</li>
+            <li id='todaysOz'>today's intake</li>
+            <li> Please select a date! </li>
+            <form>
+              <label  class='hidden'for="calendar"> Calendar:</label>
+              <input type="date" id="dateSelected" name="date">
+              <input type="submit" id="dateInput">
+            </form>
+            <li id="weeklyAvg"> Weekly Ave </li>
+            <li id="allTimeAvg">all time average</li>
           </ul>
+        <button class="back-home" id="toggleHomeDisplay" type="submit">Return</button>
         </section>
         <button class="step-goal" id="steps" type="submit">
           Step Goals Widget

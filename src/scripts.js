@@ -28,9 +28,6 @@ import generateChart from '../src/data/usersChart'
 
 // Global Variables
 
-
-
-
 let allUserData;
 let allSleepData;
 let allHydroData;
@@ -40,8 +37,6 @@ let currentUserID;
 let sleepRepository;
 let hydrationRepository;
 let dateForWeek;
-
-
 let date;
    
 // API AREA 
@@ -64,7 +59,6 @@ function getPageData() {
       allHydroData = response[2].hydrationData;
       createClassInstances(allUserData, allSleepData, allHydroData);
       getRandomUser(allUserData)
-      generateChart();
     })
     .catch((error) => {
       console.log(error);
@@ -93,7 +87,12 @@ const returnSleepWidgetButton = document.getElementById("return-to-sleep-widget"
 
 
 // addEventListener
-hydrationBtn.addEventListener('click',showHydrationArea)
+hydrationBtn.addEventListener('click',function()
+{
+  showHydrationArea()
+  displayHydrationDom()
+
+})
 toggleHomeBtn.addEventListener('click', homeWidget)
 window.addEventListener('load', getPageData)
 
@@ -105,8 +104,6 @@ sleepWidgetButton.addEventListener("click", updateSleepData);
 
 returnSleepWidgetButton.addEventListener("click", returnToSleepWidget);
 
-
-
 calendarSub.addEventListener('click',displayWeeklyAverage)
 
 
@@ -115,21 +112,14 @@ calendarSub.addEventListener('click',displayWeeklyAverage)
 // Functions 
 
 
-
-
-
-
-
 function createClassInstances(dataSet1, dataSet2, dataSet3) {
   allUserData = dataSet1.map((user) => new User(user));
   userRepository = new UserRepository(allUserData);
   getRandomUser(allUserData);
   allSleepData = dataSet2.map((data) => new Sleep(data));
   sleepRepository = new SleepRepository(allSleepData);
-
   allHydroData = dataSet3.map(data => new Hydration(data));
   hydrationRepository = new HydrationRepository(allHydroData)
-	displayHydrationDom(hydrationRepository, getRandomUser(allUserData));
 }
 
 
@@ -158,26 +148,21 @@ function updateFriendsInfo() {
 }
 
 
-
-
-
-
 //  Hydration Area 
-function showHydrationArea(){
+function showHydrationArea() {
 	showArea(hydrationBtn,toggleHomeBtn,hydrationDisplay)
 }
 function homeWidget(){
 	hideArea(hydrationBtn,toggleHomeBtn,hydrationDisplay)
 }
 
-function displayHydrationDom(hydrationRepository, currentUserId) {
- displayTodaysHydration( hydrationRepository,currentUserId)
+function displayHydrationDom() {
+ displayTodaysHydration(hydrationRepository,currentUserID)
  displayAverageConsumed()
- 
-
 }
 
 function displayTodaysHydration(hydrationRepository,currentUserID) {
+  
 	const todaysOz = hydrationRepository.findTodaysHydration(currentUserID);
 	ouncesDrankToday.innerText = `Today's you drank ${todaysOz} oz! `
 }
@@ -198,7 +183,7 @@ function displayWeeklyAverage(e) {
 function displayAverageConsumed() {
 const averageWaterAllTime = hydrationRepository.getAverageHydration(currentUserID)
 const roundedAverage = Math.trunc(averageWaterAllTime)
-hydroAllTimeAvgArea.innerText = `All time Average daily drink consumption is ${roundedAverage} oz !`
+hydroAllTimeAvgArea.innerText = `All time average oz consumed is ${roundedAverage} oz !`
 }
 
 function updateStepWidget() {
@@ -206,7 +191,7 @@ function updateStepWidget() {
   stepsWidget.classList.remove("hidden");
   returnStepsWidgetButton.classList.remove("hidden");
   stepsWidget.innerHTML = `<ul> 
-      <li>Stride Length: ${currentUser.strideLength}</li>
+      <li>Stride Length: ${currentUser.strideLength} </li>
       <li>Your Daily Step Goal: ${
         currentUser.dailyStepGoal
       } Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>
@@ -247,7 +232,6 @@ function hideArea(area1, area2, area3) {
 area1.classList.remove('hidden')
 area2.classList.add('hidden')
 area3.classList.add('hidden')
-
 }
 
 

@@ -1,9 +1,9 @@
 body,
 html {
-  background-image: white;
+  background-color: rgb(225, 230, 236);
   background-repeat: no-repeat;
   font-family: "Barlow", sans-serif;
-  height: 100%;
+  height: 100vh;
   text-transform: uppercase;
 }
 
@@ -32,7 +32,7 @@ html {
   width: 100%;
 }
 
-.weclome-container {
+.welcome-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,7 +43,7 @@ html {
 }
 
 .user-info {
-  font-size: large;
+  font-size: small;
 }
 
 .header-and-calendar {
@@ -53,31 +53,33 @@ html {
   display: flex;
   flex-direction: column;
   width: 65%;
-  justify-content: space-around;
 }
 
 .widgets {
   align-items: stretch;
   display: flex;
-  height: 45vh;
+  height: 52vh;
   justify-content: center;
   width: 100%;
 }
 
 footer {
   border: 2px solid gray;
-  height: 14vh;
+  height: 20vh;
+  width: 70vw;
+}
+footer > img {
+  height: 20vh;
   width: 70vw;
 }
 
 .turing-logo {
-  border: 2px solid gray;
   height: 17vh;
-  width: 10%;
+  width: 12%;
 }
 
 aside {
-  background-color: white;
+  background-color: rgb(220, 226, 234);
   border: none;
   width: 20%;
   display: flex;
@@ -88,25 +90,6 @@ aside {
 
 .friends-info {
   width: 23vw;
-}
-
-.user-friends {
-  align-items: center;
-  background-color: #ffcff1;
-  border: 2px solid gray;
-  border-radius: 10px;
-  display: flex;
-  height: 9vh;
-  flex-direction: row;
-  font-size: 20px;
-  justify-content: center;
-  margin: 15px;
-  width: 80%;
-}
-
-.return-to-widget-text-container {
-  padding-left: 4%;
-  padding-top: 20%;
 }
 
 .return-to-widget {
@@ -122,33 +105,18 @@ aside {
   text-align: center;
 }
 
-.widget {
-  align-items: center;
-  background-color: #ffcff1;
-  border: 2px solid gray;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  height: 45vh;
+ul {
+  background-color: white;
   justify-content: space-evenly;
   list-style-type: none;
   margin: 0px;
-  margin-inline: 10px;
+  margin-inline: 10px; 
   transition-duration: 0.4s;
-}
-
-.widget:hover {
-  background-color: white;
-}
-
-h1 {
-  padding-left: 10px;
-}
-
-h2,
-h3 {
-  font-size: small;
-  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 45vh;
+  padding: 10px;
 }
 
 aside > img {
@@ -156,31 +124,43 @@ aside > img {
   margin-left: 20px;
 }
 
+.user-friends> h2 {
+  width:100%;
+}
+.user-friends > h3 {
+  width:35%;
+}
+
+.friends-info {
+  width: 23vw;
+}
+
+.user-friends{
+  align-items: center;
+  background-color: #ffcff1;
+  border: 2px solid gray;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  margin: 15px;
+  width: 80%;
+}
+
 .sleep-widget,
 .hydration-widget,
 .step-goal-widget {
-  height: 35vh;
-  padding: 0;
-  width: 20vw;
-}
-
-ul {
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 45vh;
-  margin: 0px;
-  border: 2px solid gray;
-  padding: 10px;
   margin-inline: 10px;
+  width: 20vw;
+  background-color: white;
 }
 
 li {
-  height: 8vh;
+  border: 1px solid black;
   font-size: small;
   width: 15vw;
+}
+p {
+  margin: 0px;
 }
 
 .step-container,
@@ -189,6 +169,7 @@ li {
   align-items: center;
   display: flex;
   flex-direction: column;
+  height: 52vh;
 }
 
 .sleep,
@@ -200,8 +181,12 @@ li {
   font-family: "Barlow", sans-serif;
   font-size: 30px;
   text-transform: uppercase;
-  margin: 10px;
+  margin-inline: 10px;
   width: 25%;
+}
+
+.step-goal {
+  margin-inline: 10px;
 }
 
 .sleep:hover,

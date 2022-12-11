@@ -60,7 +60,7 @@ describe("Hydration Repository Class", function () {
         userID: 10,
         date: "2019/06/22",
         numOunces: 72,
-      },
+      }
     ];
     expect(hydrationRepo.filterHydrationByUser(10)).to.deep.equal(user10);
   });
@@ -81,8 +81,7 @@ describe("Hydration Repository Class", function () {
   { userID: 10, date: '2019/06/19', numOunces: 38 },
   { userID: 10, date: '2019/06/20', numOunces: 78 },
   { userID: 10, date: '2019/06/21', numOunces: 95 }
-]
-      
+];  
     expect(hydrationRepo.findWeeklyHydration("2019/06/15", 10)).to.deep.equal(weeklyHydrations);
   });
   it("should calculate a user's average hydration for all time", function () {

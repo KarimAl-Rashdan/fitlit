@@ -1,18 +1,13 @@
 import { expect } from "chai";
-
 import hydrationData from "../src/data/hydration-data"
 import Hydration from "../src/Hydration"
-
-
-
 
 describe('Hydration Class', () => {
     let hydration;
     let hydrationObj;
     beforeEach(() => {
-        hydrationObj = hydrationData[0]
-        hydration = new Hydration(hydrationObj)
-        
+        hydrationObj = hydrationData[0];
+        hydration = new Hydration(hydrationObj);
     });
     it("Should be a function", () => {
         expect(Hydration).to.be.a("function");
@@ -29,5 +24,5 @@ describe('Hydration Class', () => {
     it("Should hold number of ounces drank by a user", () => {
         expect(hydration.numOunces).to.equal(75);
     });
-})
+});
 

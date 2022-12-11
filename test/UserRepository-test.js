@@ -12,18 +12,17 @@ describe('User Repository', () => {
     expect(UserRepository).to.be.a('function');
   });
   it('Should be an instance of UserRepository',() => {
-    expect(userRepository).to.be.an.instanceOf(UserRepository)
+    expect(userRepository).to.be.an.instanceOf(UserRepository);
   });
   it('Should hold all of the user data', () => {
-    expect(userRepository.allUsers).to.equal(UserData)
+    expect(userRepository.allUsers).to.equal(UserData);
   });
   it('Should find a user based on their id', () => {
-    expect(userRepository.findUser(1)).to.equal(UserData[0])
+    expect(userRepository.findUser(1)).to.equal(UserData[0]);
     userRepository.findUser(1);
-    expect(userRepository.currentUser).to.be.an.instanceOf(User)
+    expect(userRepository.currentUser).to.be.an.instanceOf(User);
   });
   it('Should find average step goal for all users', () => {
-    expect(userRepository.calculateAverageStepGoal()).to.equal(6700)
-  })
- 
+    expect(userRepository.calculateAverageStepGoal()).to.equal(6700);
+  });
 });

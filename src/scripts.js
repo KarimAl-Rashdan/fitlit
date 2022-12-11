@@ -191,11 +191,11 @@ function displayTodaysHydration(hydrationRepository,currentUserID) {
 }
 
 function displayWeeklyAverage(e) {
-	e.preventDefault()
-  hydrationWeeklyAvg.innerHTML = ''
+	e.preventDefault();
+  hydrationWeeklyAvg.innerHTML = '';
 	const chosenDate = calendarDate.value; 
-	const alteredDate = chosenDate.replaceAll('-',"/")
-	const userWeeklyData = hydrationRepository.findWeeklyHydration(alteredDate,currentUserID)
+	const alteredDate = chosenDate.replaceAll('-',"/");
+	const userWeeklyData = hydrationRepository.findWeeklyHydration(alteredDate,currentUserID);
 	userWeeklyData.forEach((recordedDay) => {
 		hydrationWeeklyAvg.innerHTML += 
 		`<p class="hydration-weekly">
@@ -205,9 +205,9 @@ function displayWeeklyAverage(e) {
 }
 
 function displayAverageConsumed() {
-const averageWaterAllTime = hydrationRepository.getAverageHydration(currentUserID)
-const roundedAverage = Math.trunc(averageWaterAllTime)
-hydroAllTimeAvgArea.innerText = `All time average oz consumed is ${roundedAverage} oz !`
+const averageWaterAllTime = hydrationRepository.getAverageHydration(currentUserID);
+const roundedAverage = Math.trunc(averageWaterAllTime);
+hydroAllTimeAvgArea.innerText = `All time average oz consumed is ${roundedAverage} oz !`;
 }
 
 function updateStepWidget() {
@@ -217,7 +217,7 @@ function updateStepWidget() {
       <li>Your Daily Step Goal: ${
         currentUser.dailyStepGoal
       } Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>
-    </ul>`;
+    </ul>`
 };
 
 function returnToStepsWidget(event) {
@@ -231,16 +231,16 @@ function returnToStepsWidget(event) {
 
 // helperFunctions
 function showArea(area1, area2, area3) {
-area1.classList.add('hidden')
-area2.classList.remove('hidden')
-area3.classList.remove('hidden')
+area1.classList.add('hidden');
+area2.classList.remove('hidden');
+area3.classList.remove('hidden');
 
 }
 
 function hideArea(area1, area2, area3) {
-area1.classList.remove('hidden')
-area2.classList.add('hidden')
-area3.classList.add('hidden')
+area1.classList.remove('hidden');
+area2.classList.add('hidden');
+area3.classList.add('hidden');
 }
 
 
@@ -261,11 +261,11 @@ function updateSleepData() {
 };
 
 function findLatestWeeksSleepData(id, type) {
-  dateForWeek = sleepRepository.findTodaysData(id).date
-  let dataForWeek = sleepRepository.calculateSleepPerWeek(dateForWeek, id)
+  dateForWeek = sleepRepository.findTodaysData(id).date;
+  let dataForWeek = sleepRepository.calculateSleepPerWeek(dateForWeek, id);
   let dataResult = dataForWeek.reduce((acc, cur, index) => {
-    acc.push(` day ${index + 1}: ${cur[type]} `)
-    return acc 
+    acc.push(` day ${index + 1}: ${cur[type]} `);
+    return acc; 
   }, [])
   return dataResult;
 }

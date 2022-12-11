@@ -9,3 +9,6 @@ FitLit uses...
 * Old School Vanilla JavaScript (OSVJS).
 * [Charts.js](https://www.chartjs.org/) to visualize weekly data. 
 * [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/) for unit testing.  
+
+## Architecture
+FitLit currently uses prototype data found in our `data` folder. Most of the functionality is housed in our `src` folder, which includes all of our classes (ex: `User-Class.js`) as well as our JS logic (`scripts.js`), HTML (`index.html`), and CSS (`styles.css`). We also have a testing suite, housed in our `test` folder.

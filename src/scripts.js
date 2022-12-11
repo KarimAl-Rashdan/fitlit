@@ -59,7 +59,8 @@ function getPageData() {
       allHydroData = response[2].hydrationData;
       createClassInstances(allUserData, allSleepData, allHydroData);
       getRandomUser(allUserData)
-      restrictCalendarRange()
+      restrictCalendarRangeMin()
+      restrictCalendarRangeMax()
       
     })
     .catch((error) => {
@@ -96,7 +97,6 @@ hydrationBtn.addEventListener('click',function() {
 toggleHomeBtn.addEventListener('click', homeWidget)
 window.addEventListener('load', function(){
   getPageData()
-  restrictCalendarRange()
 })
 
 stepsButton.addEventListener("click", updateStepWidget);
@@ -163,14 +163,27 @@ function displayHydrationDom() {
  displayTodaysHydration(hydrationRepository,currentUserID);
  displayAverageConsumed();
 }
-function restrictCalendarRange() {
-  const usersRecordedDates = hydrationRepository.filterHydrationByUser(currentUserID)
-  const min = usersRecordedDates.sort((a,b)=> new Date(a.date) - new Date(b.date))
+function restrictCalendarRangeMin() {
+  const usersRecordedDates = hydrationRepository.filterHydrationByUser(currentUserID);
+  const min = usersRecordedDates.sort((a,b)=> new Date(a.date) - new Date(b.date));
   const minDateEdit = min[0].date;
-  console.log('test',formatDate(minDateEdit))
+  const minValue = minDateEdit.replaceAll('/','-');
+  return calendarDate.setAttribute('min',minValue);
+  
   
 
 }
+function restrictCalendarRangeMax() {
+  const usersRecordedDates = hydrationRepository.filterHydrationByUser(currentUserID);
+  const max = usersRecordedDates.sort((a,b)=> new Date(b.date) - new Date(a.date));
+  const maxDateEdit = max[0].date;
+  const maxValue = maxDateEdit.replaceAll('/','-');
+  return calendarDate.setAttribute('max',maxValue);
+}
+  
+  
+
+
 function displayTodaysHydration(hydrationRepository,currentUserID) {
   
 	const todaysOz = hydrationRepository.findTodaysHydration(currentUserID);
@@ -229,9 +242,6 @@ function hideArea(area1, area2, area3) {
 area1.classList.remove('hidden')
 area2.classList.add('hidden')
 area3.classList.add('hidden')
-}
-function formatDate(date){
-  dayjs(date).format('YYYY-MM-DD')
 }
 
 

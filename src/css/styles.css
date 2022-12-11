@@ -1,6 +1,7 @@
 body,
 html {
   background-image: white;
+  background-color: rgb(225, 230, 236);
   background-repeat: no-repeat;
   font-family: "Barlow", sans-serif;
   height: 100%;
@@ -32,7 +33,7 @@ html {
   width: 100%;
 }
 
-.weclome-container {
+.welcome-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -77,7 +78,7 @@ footer {
 }
 
 aside {
-  background-color: white;
+  background-color: rgb(220, 226, 234);
   border: none;
   width: 20%;
   display: flex;

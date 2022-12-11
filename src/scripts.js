@@ -37,7 +37,7 @@ let currentUserID;
 let sleepRepository;
 let hydrationRepository;
 let dateForWeek;
-// let date;
+
    
 // API AREA 
 
@@ -163,6 +163,7 @@ function displayHydrationDom() {
  displayTodaysHydration(hydrationRepository,currentUserID);
  displayAverageConsumed();
 }
+
 function restrictCalendarRangeMin() {
   const usersRecordedDates = hydrationRepository.filterHydrationByUser(currentUserID);
   const min = usersRecordedDates.sort((a,b)=> new Date(a.date) - new Date(b.date));
@@ -185,9 +186,8 @@ function restrictCalendarRangeMax() {
 
 
 function displayTodaysHydration(hydrationRepository,currentUserID) {
-  
-	const todaysOz = hydrationRepository.findTodaysHydration(currentUserID);
-	ouncesDrankToday.innerText = `Today's you drank ${todaysOz} oz! `
+  const todaysOz = hydrationRepository.findTodaysHydration(currentUserID);
+	ouncesDrankToday.innerText = `Today's you drank ${todaysOz} oz! `;
 }
 
 function displayWeeklyAverage(e) {
@@ -211,9 +211,7 @@ hydroAllTimeAvgArea.innerText = `All time average oz consumed is ${roundedAverag
 }
 
 function updateStepWidget() {
-  stepsButton.classList.add("hidden");
-  stepsWidget.classList.remove("hidden");
-  returnStepsWidgetButton.classList.remove("hidden");
+  showArea(stepsButton,stepsWidget,returnStepsWidgetButton)
   stepsWidget.innerHTML = `<ul> 
       <li>Stride Length: ${currentUser.strideLength} </li>
       <li>Your Daily Step Goal: ${
@@ -224,9 +222,10 @@ function updateStepWidget() {
 
 function returnToStepsWidget(event) {
   event.preventDefault();
-  stepsWidget.classList.add("hidden");
-  stepsButton.classList.remove("hidden");
-  returnStepsWidgetButton.classList.add("hidden");
+  hideArea(stepsButton,stepsWidget,returnStepsWidgetButton)
+  // stepsWidget.classList.add("hidden");
+  // stepsButton.classList.remove("hidden");
+  // returnStepsWidgetButton.classList.add("hidden");
 };
 
 

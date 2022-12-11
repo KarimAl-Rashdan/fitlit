@@ -32,7 +32,7 @@ FitLit currently uses prototype data found in our `data` folder. Most of the fun
 ### `Contributors:`
 1. Karim Al-Rashdan
     * [GitHub](https://github.com/KarimAl-Ras)
-    * [LinkedIn]()
+    * [LinkedIn](https://www.linkedin.com/in/karimal-rashdan/)
 2. Karrar Qasim
     * [GitHub](https://github.com/KarrarQ)
     * [LinkedIn](https://www.linkedin.com/in/karrar-qasim-b6307024b/)
@@ -41,7 +41,7 @@ FitLit currently uses prototype data found in our `data` folder. Most of the fun
     * [LinkedIn]()
 4. Blanche Haddad
     * [GitHub](https://github.com/BHaddad1)
-    * [LinkedIn]()
+    * [LinkedIn](https://www.linkedin.com/in/blanche-haddad-denver/)
 
 ## `Team Wins:`
 - Able to implement Fetch API functionality and successfully import and post data from API.

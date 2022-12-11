@@ -6,6 +6,11 @@ import "../src/css/styles.css";
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import "../src/images/turing-logo.png";
+import "../src/images/exercise.png";
+import "../src/images/friends.png";
+import "../src/images/intro.jpg";
+import "../src/images/sleeping.png";
+import "../src/images/water.png";
 
 console.log("This is the JavaScript entry file - your code begins here.");
 
@@ -20,9 +25,9 @@ import HydrationRepository from "./Hydration-Repository";
 import Sleep from "./Sleep-Class.js";
 import SleepRepository from "./SleepRepository";
 // import dayjs from "dayjs";
-import generateChart from "../src/data/usersChart";
+// import generateChart from "../src/data/usersChart";
 const dayjs = require("dayjs");
-import { Chart } from "chart.js/auto";
+// import { Chart } from "chart.js/auto";
 // import { sharing } from 'webpack';
 // All Imports ^^
 
@@ -38,9 +43,8 @@ let sleepRepository;
 let hydrationRepository;
 let dateForWeek;
 
-let date;
-
-// API AREA
+   
+// API AREA 
 
 const userAPI = "https://fitlit-api.herokuapp.com/api/v1/users";
 const sleepAPI = "https://fitlit-api.herokuapp.com/api/v1/sleep";
@@ -57,8 +61,10 @@ function getPageData() {
       allSleepData = response[1].sleepData;
       allHydroData = response[2].hydrationData;
       createClassInstances(allUserData, allSleepData, allHydroData);
-      getRandomUser(allUserData);
-      // generateChart();
+      getRandomUser(allUserData)
+      restrictCalendarRangeMin()
+      restrictCalendarRangeMax()
+      
     })
     .catch((error) => {
       console.log(error);
@@ -89,12 +95,14 @@ const sleepHoursChart = document.getElementById("sleep-hours-data");
 const sleepQualityChart = document.getElementById("sleep-quality-data");
 
 // addEventListener
-hydrationBtn.addEventListener("click", () => {
+hydrationBtn.addEventListener("click",function() {
   showHydrationArea();
   displayHydrationDom();
 });
 toggleHomeBtn.addEventListener("click", homeWidget);
-window.addEventListener("load", getPageData);
+window.addEventListener("load", function(){
+  getPageData()
+});
 
 stepsButton.addEventListener("click", updateStepWidget);
 returnStepsWidgetButton.addEventListener("click", (event) => {
@@ -104,27 +112,27 @@ sleepWidgetButton.addEventListener("click", updateSleepData);
 
 returnSleepWidgetButton.addEventListener("click", returnToSleepWidget);
 
-calendarSub.addEventListener("click", displayWeeklyAverage);
+calendarSub.addEventListener('click',displayWeeklyAverage)
+
+
+
 
 // Functions
+
 
 function createClassInstances(dataSet1, dataSet2, dataSet3) {
   allUserData = dataSet1.map((user) => new User(user));
   userRepository = new UserRepository(allUserData);
-  // getRandomUser(allUserData);
   allSleepData = dataSet2.map((data) => new Sleep(data));
   sleepRepository = new SleepRepository(allSleepData);
+  allHydroData = dataSet3.map(data => new Hydration(data));
+  hydrationRepository = new HydrationRepository(allHydroData)
 
-  allHydroData = dataSet3.map((data) => new Hydration(data));
-  hydrationRepository = new HydrationRepository(allHydroData);
-  // displayHydrationDom();
-  // displayHydrationDom(hydrationRepository, getRandomUser(allUserData));
 }
 
 function getRandomUser(allUserData) {
   const randomID = Math.floor(Math.random() * allUserData.length);
   currentUser = allUserData[randomID];
-  console.log("HEY THIS IS CURRENT USER", currentUser);
   currentUserID = allUserData[randomID].id;
   updateUserInfo();
   updateFriendsInfo();
@@ -139,8 +147,6 @@ function updateUserInfo() {
 
 function updateFriendsInfo() {
   allUserData[currentUserID].friends.forEach((friend) => {
-    console.log("current user friends", currentUser.friends);
-    console.log("friend", friend);
     userFriendsSection.innerHTML += `<div class="user-friends" id="friend">
       <h2>${userRepository.findUser(friend).name}</h2><br>
       <h3>Step Goal: ${userRepository.findUser(friend).dailyStepGoal}</h3>
@@ -148,66 +154,84 @@ function updateFriendsInfo() {
   });
 }
 
-//  Hydration Area
+
+//  Hydration Area 
 function showHydrationArea() {
-  showArea(hydrationBtn, toggleHomeBtn, hydrationDisplay);
+	showArea(hydrationBtn,toggleHomeBtn,hydrationDisplay)
 }
-function homeWidget() {
-  hideArea(hydrationBtn, toggleHomeBtn, hydrationDisplay);
+function homeWidget(){
+	hideArea(hydrationBtn,toggleHomeBtn,hydrationDisplay)
 }
 
 function displayHydrationDom() {
-  displayTodaysHydration(hydrationRepository, currentUserID);
-  displayAverageConsumed();
+ displayTodaysHydration(hydrationRepository,currentUserID);
+ displayAverageConsumed();
 }
 
-function displayTodaysHydration(hydrationRepository, currentUserID) {
+function restrictCalendarRangeMin() {
+  const usersRecordedDates = hydrationRepository.filterHydrationByUser(currentUserID);
+  const min = usersRecordedDates.sort((a,b)=> new Date(a.date) - new Date(b.date));
+  const minDateEdit = min[0].date;
+  const minValue = minDateEdit.replaceAll('/','-');
+  return calendarDate.setAttribute('min',minValue);
+  
+  
+
+}
+function restrictCalendarRangeMax() {
+  const usersRecordedDates = hydrationRepository.filterHydrationByUser(currentUserID);
+  const max = usersRecordedDates.sort((a,b)=> new Date(b.date) - new Date(a.date));
+  const maxDateEdit = max[0].date;
+  const maxValue = maxDateEdit.replaceAll('/','-');
+  return calendarDate.setAttribute('max',maxValue);
+}
+  
+  
+
+
+function displayTodaysHydration(hydrationRepository,currentUserID) {
   const todaysOz = hydrationRepository.findTodaysHydration(currentUserID);
-  ouncesDrankToday.innerText = `Today's you drank ${todaysOz} oz! `;
+	ouncesDrankToday.innerText = `Today's you drank ${todaysOz} oz! `;
 }
 
 function displayWeeklyAverage(e) {
-  e.preventDefault();
-  const chosenDate = calendarDate.value;
-  const alteredDate = chosenDate.replaceAll("-", "/");
-  const userWeeklyData = hydrationRepository.findWeeklyHydration(
-    alteredDate,
-    currentUserID
-  );
-  userWeeklyData.forEach((recordedDay) => {
-    hydrationWeeklyAvg.innerHTML += `<p class="hydration-weekly">
-		  ${dayjs(recordedDay.date).format("dd/MMM/D/YYYY")} you consumed ${
-      recordedDay.numOunces
-    } ounces
-		</p>`;
-  });
+	e.preventDefault()
+  hydrationWeeklyAvg.innerHTML = ''
+	const chosenDate = calendarDate.value; 
+	const alteredDate = chosenDate.replaceAll('-',"/")
+	const userWeeklyData = hydrationRepository.findWeeklyHydration(alteredDate,currentUserID)
+	userWeeklyData.forEach((recordedDay) => {
+		hydrationWeeklyAvg.innerHTML += 
+    `<p class="hydration-weekly">
+		  ${dayjs(recordedDay.date).format('dd/MMM/D/YYYY')} you consumed ${recordedDay.numOunces} ounces
+		</p>`
+	})	
 }
 
 function displayAverageConsumed() {
-  const averageWaterAllTime =
-    hydrationRepository.getAverageHydration(currentUserID);
-  const roundedAverage = Math.trunc(averageWaterAllTime);
-  hydroAllTimeAvgArea.innerText = `All time Average daily drink consumption is ${roundedAverage} oz !`;
+const averageWaterAllTime = hydrationRepository.getAverageHydration(currentUserID)
+const roundedAverage = Math.trunc(averageWaterAllTime)
+hydroAllTimeAvgArea.innerText = `All time average oz consumed is ${roundedAverage} oz !`
 }
 
 function updateStepWidget() {
-  stepsButton.classList.add("hidden");
-  stepsWidget.classList.remove("hidden");
-  returnStepsWidgetButton.classList.remove("hidden");
-  stepsWidget.innerHTML = `<ul class=widget> 
-      <li>Stride Length: ${currentUser.strideLength}</li>
+  showArea(stepsButton,stepsWidget,returnStepsWidgetButton)
+  stepsWidget.innerHTML = `<ul> 
+      <li>Stride Length: ${currentUser.strideLength} </li>
       <li>Your Daily Step Goal: ${
         currentUser.dailyStepGoal
       } Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>
-    </ul>`;
+    </ul>`
 }
 
 function returnToStepsWidget(event) {
   event.preventDefault();
-  stepsWidget.classList.add("hidden");
-  stepsButton.classList.remove("hidden");
-  returnStepsWidgetButton.classList.add("hidden");
-}
+  hideArea(stepsButton,stepsWidget,returnStepsWidgetButton)
+  // stepsWidget.classList.add("hidden");
+  // stepsButton.classList.remove("hidden");
+  // returnStepsWidgetButton.classList.add("hidden");
+};
+
 
 // helperFunctions
 function showArea(area1, area2, area3) {
@@ -217,15 +241,16 @@ function showArea(area1, area2, area3) {
 }
 
 function hideArea(area1, area2, area3) {
-  area1.classList.remove("hidden");
-  area2.classList.add("hidden");
-  area3.classList.add("hidden");
+area1.classList.remove('hidden')
+area2.classList.add('hidden')
+area3.classList.add('hidden')
 }
 
 function updateSleepData() {
-  sleepWidgetButton.classList.add("hidden");
-  sleepWidget.classList.remove("hidden");
-  returnSleepWidgetButton.classList.remove("hidden");
+  showArea(sleepWidgetButton, sleepWidget, returnSleepWidgetButton)
+  // sleepWidgetButton.classList.add("hidden");
+  // sleepWidget.classList.remove("hidden");
+  // returnSleepWidgetButton.classList.remove("hidden");
   sleepWidget.innerHTML = `
           <ul class=widget>
             <li>Hours Slept Today: ${
@@ -268,9 +293,10 @@ function displayAverageSleepDataForAllTime(type) {
 
 function returnToSleepWidget(event) {
   event.preventDefault();
-  sleepWidgetButton.classList.remove("hidden");
-  sleepWidget.classList.add("hidden");
-  returnSleepWidgetButton.classList.add("hidden");
+  hideArea(sleepWidgetButton, sleepWidget, returnSleepWidgetButton)
+  // sleepWidgetButton.classList.remove("hidden");
+  // sleepWidget.classList.add("hidden");
+  // returnSleepWidgetButton.classList.add("hidden");
 }
 
 // function displayWeeklySleepData() {

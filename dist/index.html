@@ -41,7 +41,23 @@
            <button class="return-to-widget hidden" id="return-to-sleep-widget" type="submit">Return</button>
           </div>
         </div>
-        <button class="hydration" id="hydration" type="submit"><img src="./images/water.png" alt="Water Icon">
+        <button class="hydration" id="hydration" type="submit">
+          Hydration Widget
+        </button>
+        <section class="hydration-widget hidden">
+          <ul>
+            <li id="todaysOz">today's intake</li>
+            <li id="weeklyAvg">Hey, Please Select a Date In The Calendar!</li>
+            <form>
+              <label  class='hidden'for="calendar"> Calendar:</label>
+              <input type="date" id="dateSelected" name="date">
+              <input type="submit" id="dateInput">
+            </form>
+            <li id="allTimeAvg">all time average</li>
+          </ul>
+          <button class="back-home" id="toggleHome" type="submit">Back</button>
+        </section>
+        <!-- <button class="hydration" id="hydration" type="submit"><img src="./images/water.png" alt="Water Icon">
           Hydration
         </button>
         <div class="hydration-container">
@@ -59,8 +75,8 @@
         </section>
         <div class="return-to-widget-text-container">
           <button class="back-home return-to-widget hidden" id="toggleHome" type="submit">Return</button>
-        </div>
-      </div>
+        </div> -->
+      <!-- </div> -->
         <button class="step-goal widget" id="steps" type="submit"><img src="./images/exercise.png" alt="Running Icon">
           Step Goals
         </button>

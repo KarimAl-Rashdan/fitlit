@@ -1,4 +1,4 @@
-# FitLit Starter Kit
+# FitLit
 
 FitLit is a proof-of-concept for a fitness tracking web application. The app breaks down a users hydration, sleep patterns, step goal levels, and present it on a dashboard. It runs in the web browser and is deployed to GitHub Pages here. [here](https://karimal-rashdan.github.io/fitlit/).
 ![FitLit gif](https://media.giphy.com/media/NWY49FseE1d6dTUNTu/giphy.gif)
@@ -32,7 +32,7 @@ FitLit currently uses prototype data found in our `data` folder. Most of the fun
 
 ### `Contributors:`
 1. Karim Al-Rashdan
-    * [GitHub](https://github.com/KarimAl-Ras)
+    * [GitHub](https://github.com/KarimAl-Rashdan)
     * [LinkedIn](https://www.linkedin.com/in/karimal-rashdan/)
 2. Karrar Qasim
     * [GitHub](https://github.com/KarrarQ)

@@ -155,12 +155,12 @@ aside > img {
 }
 
 li {
-  border: 1px solid black;
   font-size: small;
+  font-weight: bold;
   width: 15vw;
 }
 p {
-  margin: 0px;
+  margin: 5px;
 }
 
 .step-container,

@@ -1,37 +1,19 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
 
-// An example of how you tell webpack to use a CSS file
 import "../src/css/styles.css";
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import "../src/images/turing-logo.png";
 import "../src/images/exercise.png";
 import "../src/images/friends.png";
 import "../src/images/intro.jpg";
 import "../src/images/sleeping.png";
 import "../src/images/water.png";
-
-console.log("This is the JavaScript entry file - your code begins here.");
-
-// An example of how you tell webpack to use a JS file
-
 import UserRepository from "./UserRepository";
 import getAPIData from "./apiCalls";
 import User from "./User-Class";
-
 import Hydration from "./Hydration";
 import HydrationRepository from "./Hydration-Repository";
 import Sleep from "./Sleep-Class.js";
 import SleepRepository from "./SleepRepository";
-// import dayjs from "dayjs";
-// import generateChart from "../src/data/usersChart";
-const dayjs = require("dayjs");
-// import { Chart } from "chart.js/auto";
-// import { sharing } from 'webpack';
-// All Imports ^^
-
-// Global Variables
+import dayjs from "dayjs";
 
 let allUserData;
 let allSleepData;
@@ -43,8 +25,6 @@ let sleepRepository;
 let hydrationRepository;
 let dateForWeek;
 
-   
-// API AREA 
 
 const userAPI = "https://fitlit-api.herokuapp.com/api/v1/users";
 const sleepAPI = "https://fitlit-api.herokuapp.com/api/v1/sleep";
@@ -61,17 +41,15 @@ function getPageData() {
       allSleepData = response[1].sleepData;
       allHydroData = response[2].hydrationData;
       createClassInstances(allUserData, allSleepData, allHydroData);
-      getRandomUser(allUserData)
-      restrictCalendarRangeMin()
-      restrictCalendarRangeMax()
-      
+      getRandomUser(allUserData);
+      restrictCalendarRangeMin();
+      restrictCalendarRangeMax();
     })
     .catch((error) => {
       console.log(error);
     });
-}
+};
 
-// Query Selectors
 const hydrationBtn = document.querySelector("#hydration");
 const hydrationDisplay = document.querySelector(".hydration-widget");
 const toggleHomeBtn = document.querySelector(".back-home");
@@ -80,7 +58,6 @@ const calendarSub = document.getElementById("dateInput");
 const calendarDate = document.getElementById("dateSelected");
 const hydrationWeeklyAvg = document.getElementById("weeklyAvg");
 const hydroAllTimeAvgArea = document.getElementById("allTimeAvg");
-
 const welcomeContainer = document.getElementById("user-info");
 const stepsWidget = document.getElementById("steps-widget");
 const stepsButton = document.getElementById("steps");
@@ -89,10 +66,8 @@ const returnStepsWidgetButton = document.getElementById("return-to-widget");
 const sleepWidgetButton = document.getElementById("sleep");
 const sleepWidget = document.getElementById("sleep-widget");
 const returnSleepWidgetButton = document.getElementById("return-to-sleep-widget");
-// const sleepHoursChart = document.getElementById("sleep-hours-data");
-// const sleepQualityChart = document.getElementById("sleep-quality-data");
 
-// addEventListener
+
 hydrationBtn.addEventListener("click",function() {
   showHydrationArea();
   displayHydrationDom();
@@ -108,8 +83,11 @@ returnStepsWidgetButton.addEventListener("click", (event) => {
 sleepWidgetButton.addEventListener("click", updateSleepData);
 returnSleepWidgetButton.addEventListener("click", returnToSleepWidget);
 calendarSub.addEventListener('click',displayWeeklyAverage);
+;
+calendarDate.addEventListener('mousedown',enableSubmit) 
 
-// Functions
+
+
 function createClassInstances(dataSet1, dataSet2, dataSet3) {
   allUserData = dataSet1.map((user) => new User(user));
   userRepository = new UserRepository(allUserData);
@@ -143,8 +121,6 @@ function updateFriendsInfo() {
   });
 };
 
-
-//  Hydration Area 
 function showHydrationArea() {
 	showArea(hydrationBtn,toggleHomeBtn,hydrationDisplay);
 };
@@ -180,7 +156,7 @@ function displayTodaysHydration(hydrationRepository,currentUserID) {
 };
 
 function displayWeeklyAverage(e) {
-	e.preventDefault();
+  e.preventDefault();
   hydrationWeeklyAvg.innerHTML = '';
 	const chosenDate = calendarDate.value; 
 	const alteredDate = chosenDate.replaceAll('-',"/");
@@ -191,6 +167,7 @@ function displayWeeklyAverage(e) {
 		  ${dayjs(recordedDay.date).format('dd/MMM/D/YYYY')} you consumed ${recordedDay.numOunces} ounces
 		</p>`;
 	});
+  calendarSub.disabled = true;
 };
 
 function displayAverageConsumed() {
@@ -214,8 +191,6 @@ function returnToStepsWidget(event) {
   hideArea(stepsButton,stepsWidget,returnStepsWidgetButton);
 };
 
-
-// helperFunctions
 function showArea(area1, area2, area3) {
   area1.classList.add("hidden");
   area2.classList.remove("hidden");
@@ -273,4 +248,8 @@ function displayAverageSleepDataForAllTime(type) {
 function returnToSleepWidget(event) {
   event.preventDefault();
   hideArea(sleepWidgetButton, sleepWidget, returnSleepWidgetButton);
+};
+
+function enableSubmit() { 
+  calendarSub.disabled = false;
 };

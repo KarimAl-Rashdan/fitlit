@@ -1,13 +1,10 @@
 body,
 html {
-  background-image: linear-gradient(
-    to top,
-    #ff9a9e 0%,
-    #fecfef 99%,
-    #fecfef 100%
-  );
+  background-color: rgb(225, 230, 236);
   background-repeat: no-repeat;
-  height: 100%;
+  font-family: "Barlow", sans-serif;
+  height: 100vh;
+  text-transform: uppercase;
 }
 
 .background-container {
@@ -35,7 +32,7 @@ html {
   width: 100%;
 }
 
-.weclome-container {
+.welcome-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,103 +43,156 @@ html {
 }
 
 .user-info {
-  font-size: large;
-}
-
-.header-and-calendar {
-  border: 2px solid black;
-  display: flex;
-  flex-direction: row;
-  width: 65%;
-  justify-content: space-around;
-}
-.widgets {
-  height: 45vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-}
-
-footer {
-  border: 2px solid black;
-  height: 20vh;
-  width: 50%
-}
-
-.turing-logo {
-  border: 2px solid black;
-  height: 17vh;
-  width: 10%;
-}
-
-aside {
-  border: 2px solid black;
-  width: 20%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: flex-start;
-}
-
-.user-friends {
-  border: 2px solid black;
-  display: flex;
-  justify-content: space-around;
-  width: 70%;
-  align-items: center;
-  margin: 30px;
-}
-
-button {
-  width: 25%;
-  margin: 10px;
-}
-
-h2,
-h3 {
   font-size: small;
 }
 
+.header-and-calendar {
+  background-color: #50bfe6;
+  border: 2px solid gray;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 65%;
+}
+
+.widgets {
+  align-items: stretch;
+  display: flex;
+  height: 52vh;
+  justify-content: center;
+  width: 100%;
+}
+
+footer {
+  border: 2px solid gray;
+  height: 20vh;
+  width: 70vw;
+}
+footer > img {
+  height: 20vh;
+  width: 70vw;
+}
+
+.turing-logo {
+  height: 17vh;
+  width: 12%;
+}
+
+aside {
+  background-color: rgb(220, 226, 234);
+  border: none;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.friends-info {
+  width: 23vw;
+}
+
+.return-to-widget {
+  background-color: #db91ef;
+  border: 1px solid gray;
+  border-radius: 5px;
+  display: block;
+  font-family: "Barlow", sans-serif;
+  font-size: 13px;
+  height: 33px;
+  padding-bottom: 3px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+ul {
+  background-color: white;
+  justify-content: space-evenly;
+  list-style-type: none;
+  margin: 0px;
+  margin-inline: 10px; 
+  transition-duration: 0.4s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 45vh;
+  padding: 10px;
+}
+
 aside > img {
-  border: 2px solid black;
   height: 10vh;
   margin-left: 20px;
 }
 
+.user-friends> h2 {
+  width:100%;
+}
+.user-friends > h3 {
+  width:35%;
+}
+
+.friends-info {
+  width: 23vw;
+}
+
+.user-friends{
+  align-items: center;
+  background-color: #ffcff1;
+  border: 2px solid gray;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  margin: 15px;
+  width: 80%;
+}
 
 .sleep-widget,
 .hydration-widget,
 .step-goal-widget {
-  width: 100%;
-}
-
-ul {
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 45vh;
-  margin: 0px;
-  border: 2px solid black;
-  padding: 10px;
   margin-inline: 10px;
-  /* width:65%; */
+  width: 20vw;
+  background-color: white;
 }
+
 li {
-  border: 1px solid black;
-  width: 52%;
+  font-size: small;
+  font-weight: bold;
+  width: 15vw;
+}
+p {
+  margin: 5px;
 }
 
-.step-container {
+.step-container,
+.sleep-container,
+.hydration-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
+  height: 52vh;
 }
 
-.sleep-container {
-  display: flex;
-  flex-direction: column;
+.sleep,
+.hydration,
+.step-goal {
+  background-color: #50bfe6;
+  border: 1px solid gray;
+  border-radius: 10px;
+  font-family: "Barlow", sans-serif;
+  font-size: 30px;
+  text-transform: uppercase;
+  margin-inline: 10px;
+  width: 25%;
+}
+
+.step-goal {
+  margin-inline: 10px;
+}
+
+.sleep:hover,
+.hydration:hover,
+.step-goal:hover {
+  background-color: white;
 }
 
 .hidden {

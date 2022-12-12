@@ -2,82 +2,68 @@
 <html lang="en-US">
   <head>
     <meta charset="UTF-8" />
-    <!-- <link rel="stylesheet" href="../src/css/styles.css"/> -->
-    <link href="" rel="stylesheet" alt="font" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@200&family=Nunito:wght@200&family=Poppins:wght@300&family=Quicksand:wght@500&display=swap" rel="stylesheet">
     <title>Fitlit</title>
   </head>
   <body class="background-container">
     <main class="main-container">
       <section class="welcome-section">
-
-        <img class="turing-logo"
-          src="./images/turing-logo.png"
-          alt="turing-logo"
-          height="100px"
-          width="100px"
-        />
+        <img class="turing-logo" src="./images/turing-logo.png" alt="turing-logo" height="100px" width="100px"/>
         <div class="header-and-calendar">
           <header class="welcome-container" id="user-info">
-            <h1 class="user-name">Welcome, UserFirstName!</h1>
-            <h2 class="user-info">All User Info Displayed(address, email)</h2>
+            <h1 class="user-name"></h1>
+            <h2 class="user-info"></h2>
           </header>
-
-          <form>
-            <label  class='hidden'for="calendar"> Calendar:</label>
-            <input type="date" id="dateSelected" name="date">
-            <input type="submit" id="dateInput">
-          </form>
-
-
         </div>
       </section>
       <section class="widgets">
-        <button class="sleep" id="sleep" type="submit">Sleep Widget</button>
+        <button class="sleep" id="sleep" type="submit"><img src="./images/sleeping.png" alt="Sleep Icon">Sleep Widget</button>
         <div class="sleep-container">
           <section class="sleep-widget hidden" id="sleep-widget">
-            <ul>
-              <li>today's data(quality and hrs)</li>
-              <li>week of hrs</li>
-              <li>week of quality</li>
-              <li>all time avg(quality, hours)</li>
+            <ul class="widget-section">
             </ul>
           </section>
           <button class="return-to-widget hidden" id="return-to-sleep-widget" type="submit">Return</button>
         </div>
-        <button class="hydration" id="hydration" type="submit">
+        <button class="hydration" id="hydration" type="submit"><img src="./images/water.png" alt="Water Icon">
           Hydration Widget
         </button>
-        <section class="hydration-widget hidden">
-          <ul>
-            <li>today's intake</li>
-            <li>weekly average</li>
-            <li>all time average</li>
-          </ul>
-        </section>
-        <button class="step-goal" id="steps" type="submit">
+        <div class="hydration-container">
+          <section class="hydration-widget hidden">
+            <ul class="widget-section">
+              <li id="todaysOz">today's intake</li>
+              <li id="weeklyAvg">Hey, Please Select a Date In The Calendar! 👇🏽</li>
+              <form>
+                <label class='hidden'for="calendar"> Calendar:</label>
+                <input type="date" id="dateSelected" name="date" required>
+                <input type="submit" id="dateInput"disabled>
+              </form>
+              <li id="allTimeAvg">all time average</li>
+            </ul>
+          </section>
+          <button class="back-home return-to-widget hidden" id="toggleHome" type="submit">Return</button>
+        </div>
+        <button class="step-goal widget" id="steps" type="submit"><img src="./images/exercise.png" alt="Running Icon">
           Step Goals Widget
         </button>
         <div class="step-container">
           <section class="step-goal-widget hidden" id="steps-widget">
-            <ul>
-              <li>stride length</li>
-              <li>daily step goal</li>
-              <li>average step goal for all users</li>
+            <ul class="widget-section">
             </ul>
           </section>
           <button class="return-to-widget hidden" id="return-to-widget" type="submit">Return</button>
         </div>
       </section>
       <footer class="footer-image">
-        <img src="" alt="Exercise Image" />
+        <img src="./images/intro.jpg" alt="Exercise Image" />
       </footer>
     </main>
     <aside class="side-bar-container" id="friends-container">
-      <img src="" alt="Friends Logo" />
-      <section class="friends-info" id="friends-info">
-      </section>
+      <img src="./images/friends.png" alt="Friends Logo" />
+      <section class="friends-info" id="friends-info"></section>
     </aside>
     <script src="bundle.js"></script>
-   
   </body>
 </html>

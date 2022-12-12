@@ -1,78 +1,56 @@
-# FitLit Starter Kit
+# FitLit
 
-The details of this project are outline in [this project spec](http://frontend.turing.io/projects/fitlit.html).
+FitLit is a proof-of-concept for a fitness tracking web application. The app breaks down a users hydration, sleep patterns, step goal levels, and present it on a dashboard. It runs in the web browser and is deployed to GitHub Pages here. [here](https://karimal-rashdan.github.io/fitlit/).
+![FitLit gif](https://media.giphy.com/media/NWY49FseE1d6dTUNTu/giphy.gif)
 
-## Setup
+### `How to Use the App:`
 
-1. Within your group, decide on one person to have the project repository (repo) on their GitHub account. Then, that person should fork this repo - on the top right corner of this page, click the **Fork** button.
-1. Both memebers of the group should clone down the _forked_ repo. Since you don't want to name your project "activity-tracker-starter", you can use an optional argument when you run git clone (you replace the [...] with the terminal command arguments): `git clone [remote-address] [what you want to name the repo]`
-1. Once you have cloned the repo, change into the directory and install the project dependencies. Run `npm install` to install project dependencies.
-1. Run `npm start` in the terminal to see the HTML page (you should see some boilerplate HTML displayed on the page).  `Control + C` is the command to stop running the local server.  Closing the terminal without stopping the server first could allow the server to continue to run in the background and cause problems. This command is not specific to Webpack; make note of it for future use.   
-1. Make sure both members of your team are collaborators on the forked repo.  
-1. Do not run `npm audit fix --force`.  This will update to the latest version of packages.  We need to be using `webpack-dev-server@3.11.2` which is not the latest version.  If you start to run into Webpack errors, first check that all group members are using the correct version.  
+- Clone down this repo to your computer
+- Access the root folder in your Terminal
+- Type `npm install` to install all required dependencies
+- Type `npm start` to start local server  
+- Paste `http://localhost:8080/` into your web browser to view the application
 
-## Testing
+After the above steps have been followed, please do the following in order to access the data from a local server:
 
-There is no boilerplate for testing in this starter-kit repo. You will need to set this up yourself. However, if you ran `npm install`, then the tooling you need to start testing is already installed (`mocha` and `chai`).
+- Clone [this](https://frontend.turing.edu/projects/Fitlit-part-one.html) repo 
+- Access the root folder in your Terminal
+- Type `npm install` to install all required dependencies
+- Type `npm start` to start local server  
+
+### `Technologies and Skills`
+
+FitLit uses...
+* HTML and CSS adhering to BEM naming conventions.
+* Old School Vanilla JavaScript (OSVJS).
+* [Charts.js](https://www.chartjs.org/) to visualize weekly data. 
+* [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/) for unit testing.  
+
+## `Architecture`
+FitLit currently uses prototype data found in our `data` folder. Most of the functionality is housed in our `src` folder, which includes all of our classes (ex: `User-Class.js`) as well as our JS logic (`scripts.js`), HTML (`index.html`), and CSS (`styles.css`). We also have a testing suite, housed in our `test` folder.
 
 
-## Data Model
+### `Contributors:`
+1. Karim Al-Rashdan
+    * [GitHub](https://github.com/KarimAl-Rashdan)
+    * [LinkedIn](https://www.linkedin.com/in/karimal-rashdan/)
+2. Karrar Qasim
+    * [GitHub](https://github.com/KarrarQ)
+    * [LinkedIn](https://www.linkedin.com/in/karrar-qasim-b6307024b/)
+3. Andrew Cerveny
+    * [GitHub](https://github.com/AndrewCerveny)
+    * [LinkedIn](https://www.linkedin.com/in/andrewcerveny/)
+4. Blanche Haddad
+    * [GitHub](https://github.com/BHaddad1)
+    * [LinkedIn](https://www.linkedin.com/in/blanche-haddad-denver/)
 
-**Users**
+## `Team Wins:`
+- Able to implement Fetch API functionality and successfully import and post data from API.
+- Followed Test-driven development principles.
+- Achieved accessibility goals
 
-```
-[
-  {
-    "id": [number],
-    "name": [string],
-    "address": [string],
-    "email": [string],
-    "strideLength": [number - feet],
-    "dailyStepGoal": [number - steps],
-    "friends": [array - one-way connection to other user(s)]
-  },
-  ...more user data
-]
-```
-
-**Activity**
-
-```
-[
-  {
-    "userID": [number],
-    "date": [string YYYY/MM/DD],
-    "numSteps": [number - steps],
-    "minutesActive": [number - minutes],
-    "flightsOfStairs": [number - flights]
-  },
-  ...more activity data
-]
-```
-
-**Hydration**
-
-```
-[
-  {
-    "userID": [number],
-    "date": [string YYYY/MM/DD],
-    "numOunces": [number - ounces]
-  },
-  ...more hydration data
-]
-```
-
-**Sleep**
-
-```
-[
-  {
-    "userID": [number],
-    "date": [string YYYY/MM/DD],
-    "hoursSlept": [number - hours],
-    "sleepQuality": [number - unitless]
-  },
-  ...more sleep data
-]
-```
+## `Future Iterations:`
+- User login
+- Display user's friends
+- Compare data between user and friends
+- Drag and drop widgets

@@ -72,16 +72,20 @@ hydrationBtn.addEventListener("click",function() {
   showHydrationArea();
   displayHydrationDom();
 });
-toggleHomeBtn.addEventListener("click", homeWidget);
+toggleHomeBtn.addEventListener("click", (event) => {
+  returnToWidget(event, hydrationBtn, toggleHomeBtn, hydrationDisplay);
+});
 window.addEventListener("load", function(){
   getPageData();
 });
 stepsButton.addEventListener("click", updateStepWidget);
 returnStepsWidgetButton.addEventListener("click", (event) => {
-  returnToStepsWidget(event);
+  returnToWidget(event, stepsButton, stepsWidget, returnStepsWidgetButton);
 });
 sleepWidgetButton.addEventListener("click", updateSleepData);
-returnSleepWidgetButton.addEventListener("click", returnToSleepWidget);
+returnSleepWidgetButton.addEventListener("click", (event) => {
+  returnToWidget(event, sleepWidgetButton, sleepWidget, returnSleepWidgetButton)
+});
 calendarSub.addEventListener('click',displayWeeklyAverage);
 ;
 calendarDate.addEventListener('mousedown',enableSubmit) 
@@ -123,10 +127,6 @@ function updateFriendsInfo() {
 
 function showHydrationArea() {
 	showArea(hydrationBtn,toggleHomeBtn,hydrationDisplay);
-};
-
-function homeWidget(){
-	hideArea(hydrationBtn,toggleHomeBtn,hydrationDisplay);
 };
 
 function displayHydrationDom() {
@@ -171,9 +171,9 @@ function displayWeeklyAverage(e) {
 };
 
 function displayAverageConsumed() {
-const averageWaterAllTime = hydrationRepository.getAverageHydration(currentUserID);
-const roundedAverage = Math.trunc(averageWaterAllTime);
-hydroAllTimeAvgArea.innerText = `All time average oz consumed is ${roundedAverage} oz !`;
+  const averageWaterAllTime = hydrationRepository.getAverageHydration(currentUserID);
+  const roundedAverage = Math.trunc(averageWaterAllTime);
+  hydroAllTimeAvgArea.innerText = `All time average oz consumed is ${roundedAverage} oz !`;
 };
 
 function updateStepWidget() {
@@ -186,9 +186,9 @@ function updateStepWidget() {
     </ul>`;
 };
 
-function returnToStepsWidget(event) {
+function returnToWidget(event, area1, area2, area3) {
   event.preventDefault();
-  hideArea(stepsButton,stepsWidget,returnStepsWidgetButton);
+  hideArea(area1, area2, area3);
 };
 
 function showArea(area1, area2, area3) {
@@ -243,11 +243,6 @@ function findLatestWeeksSleepData(id, type) {
 
 function displayAverageSleepDataForAllTime(type) {
   return sleepRepository.calcAvgSleepStats(type);
-};
-
-function returnToSleepWidget(event) {
-  event.preventDefault();
-  hideArea(sleepWidgetButton, sleepWidget, returnSleepWidgetButton);
 };
 
 function enableSubmit() { 

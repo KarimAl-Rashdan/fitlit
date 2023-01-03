@@ -17,19 +17,17 @@ describe("User", function() {
         4,
         8
       ]
-    })
-  })
+    });
+  });
 
   it('should be a function', function() {
-  expect(User).to.be.a('function')
+  expect(User).to.be.a('function');
   })
-
   it('should initialize a User object', function() {
-    expect(user.name).to.equal(user['name'])
-    expect(user.friends[1]).to.equal(4)
-  })
-
+    expect(user.name).to.equal(user['name']);
+    expect(user.friends[1]).to.equal(4);
+  });
   it('should return the user/s first name', function() {
-    expect(user.firstName()).to.be.equal('Luisa')
-  })
-})
+    expect(user.firstName()).to.be.equal('Luisa');
+  });
+});

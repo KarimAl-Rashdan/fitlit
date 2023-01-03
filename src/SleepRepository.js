@@ -20,11 +20,15 @@ class SleepRepository {
   }
 
   calculateSleepByDate(date, type, id) {
-    let value = this.filterSleepByUser(id)
+    if(date) {
+      let value = this.filterSleepByUser(id)
     let dataByDate = value
     .filter(user => user.date === date)
     .map(user => user[type])
     return dataByDate
+    } else {
+      return 'Pick a date'
+    }
   }
 
   calculateSleepPerWeek(date, id) {

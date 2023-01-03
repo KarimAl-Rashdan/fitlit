@@ -5,6 +5,7 @@ import Hydration from "../src/Hydration"
 describe('Hydration Class', () => {
     let hydration;
     let hydrationObj;
+    
     beforeEach(() => {
         hydrationObj = hydrationData[0];
         hydration = new Hydration(hydrationObj);

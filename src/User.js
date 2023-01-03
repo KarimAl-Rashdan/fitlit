@@ -6,12 +6,11 @@ class User {
     this.email = userData.email;
     this.strideLength = userData.strideLength;
     this.dailyStepGoal = userData.dailyStepGoal;
-    this.friends = userData.friends
+    this.friends = userData.friends;
   }
-
   firstName() {
-    let names = this.name.split(' ')
-    return names[0]
+    let names = this.name.split(' ');
+    return names[0];
   }
 }
 

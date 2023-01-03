@@ -235,7 +235,7 @@ function findLatestWeeksSleepData(id, type) {
   dateForWeek = sleepRepository.findTodaysData(id).date;
   let dataForWeek = sleepRepository.calculateSleepPerWeek(dateForWeek, id);
   let dataResult = dataForWeek.reduce((acc, cur, index) => {
-    acc.push(` day ${index + 1}: ${cur[type]} `);
+    acc.push(` ${cur.date}: ${cur[type]} `);
     return acc;
   }, []);
   return dataResult;

@@ -46,7 +46,7 @@ function getPageData() {
       restrictCalendarRangeMax();
     })
     .catch((error) => {
-      console.log(error);
+      fetchFailureDisplay.classList.remove('hidden');
     });
 };
 
@@ -66,6 +66,8 @@ const returnStepsWidgetButton = document.getElementById("return-to-widget");
 const sleepWidgetButton = document.getElementById("sleep");
 const sleepWidget = document.getElementById("sleep-widget");
 const returnSleepWidgetButton = document.getElementById("return-to-sleep-widget");
+const fetchFailureDisplay = document.getElementById('fetch-failure');
+const postFailureDisplay = document.getElementById('post-failure');
 
 
 hydrationBtn.addEventListener("click",function() {

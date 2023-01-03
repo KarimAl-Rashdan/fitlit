@@ -138,12 +138,8 @@ function restrictCalendarRangeMin() {
   const min = usersRecordedDates.sort((a,b)=> new Date(a.date) - new Date(b.date));
   const minDateEdit = min[0].date;
   const minValue = minDateEdit.replaceAll('/','-');
-
-  const reverseRecordedDates = hydrationRepository.filterHydrationByUser(currentUserID);
-  const max = reverseRecordedDates.sort((a,b)=> new Date(b.date) - new Date(a.date));
-  const maxDateEdit = max[0].date;
-  const maxValue = maxDateEdit.replaceAll('/','-');
-  
+  const max = min.reverse()[0].date;
+  const maxValue = max.replaceAll('/','-');
   calendarDate.setAttribute('max',maxValue);
   calendarDate.setAttribute('min',minValue);
 };

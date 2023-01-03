@@ -43,7 +43,6 @@ function getPageData() {
       createClassInstances(allUserData, allSleepData, allHydroData);
       getRandomUser(allUserData);
       restrictCalendarRangeMin();
-      restrictCalendarRangeMax();
     })
     .catch((error) => {
       console.log(error);
@@ -139,15 +138,14 @@ function restrictCalendarRangeMin() {
   const min = usersRecordedDates.sort((a,b)=> new Date(a.date) - new Date(b.date));
   const minDateEdit = min[0].date;
   const minValue = minDateEdit.replaceAll('/','-');
-  return calendarDate.setAttribute('min',minValue);
-};
 
-function restrictCalendarRangeMax() {
-  const usersRecordedDates = hydrationRepository.filterHydrationByUser(currentUserID);
-  const max = usersRecordedDates.sort((a,b)=> new Date(b.date) - new Date(a.date));
+  const reverseRecordedDates = hydrationRepository.filterHydrationByUser(currentUserID);
+  const max = reverseRecordedDates.sort((a,b)=> new Date(b.date) - new Date(a.date));
   const maxDateEdit = max[0].date;
   const maxValue = maxDateEdit.replaceAll('/','-');
-  return calendarDate.setAttribute('max',maxValue);
+  
+  calendarDate.setAttribute('max',maxValue);
+  calendarDate.setAttribute('min',minValue);
 };
 
 function displayTodaysHydration(hydrationRepository,currentUserID) {
@@ -198,9 +196,9 @@ function showArea(area1, area2, area3) {
 };
 
 function hideArea(area1, area2, area3) {
-area1.classList.remove('hidden');
-area2.classList.add('hidden');
-area3.classList.add('hidden');
+  area1.classList.remove('hidden');
+  area2.classList.add('hidden');
+  area3.classList.add('hidden');
 };
 
 function updateSleepData() {

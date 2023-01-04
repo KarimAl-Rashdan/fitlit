@@ -18,6 +18,7 @@ import dayjs from "dayjs";
 let allUserData;
 let allSleepData;
 let allHydroData;
+let allActivityData;
 let userRepository;
 let currentUser;
 let currentUserID;
@@ -26,20 +27,24 @@ let hydrationRepository;
 let dateForWeek;
 
 
-const userAPI = "https://fitlit-api.herokuapp.com/api/v1/users";
-const sleepAPI = "https://fitlit-api.herokuapp.com/api/v1/sleep";
-const hydrationAPI = "https://fitlit-api.herokuapp.com/api/v1/hydration";
+const userAPI = 'http://localhost:3001/api/v1/users';
+const sleepAPI = 'http://localhost:3001/api/v1/sleep';
+const hydrationAPI = 'http://localhost:3001/api/v1/hydration';
+const activityAPI = 'http://localhost:3001/api/v1/activity';
+
 
 function getPageData() {
   Promise.all([
     getAPIData(userAPI),
     getAPIData(sleepAPI),
     getAPIData(hydrationAPI),
+    getAPIData(activityAPI)
   ])
     .then((response) => {
       allUserData = response[0].userData;
       allSleepData = response[1].sleepData;
       allHydroData = response[2].hydrationData;
+      allActivityData = response[3].activityData;
       createClassInstances(allUserData, allSleepData, allHydroData);
       getRandomUser(allUserData);
       restrictCalendarRangeMin();
@@ -48,6 +53,7 @@ function getPageData() {
       fetchFailureDisplay.classList.remove('hidden');
     });
 };
+
 
 const hydrationBtn = document.querySelector("#hydration");
 const hydrationDisplay = document.querySelector(".hydration-widget");

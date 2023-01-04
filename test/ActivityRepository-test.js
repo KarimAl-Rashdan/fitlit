@@ -30,7 +30,7 @@ describe('ActivityRepository', () => {
   it("should be a function", function() {
     expect(ActivityRepository).to.be.a("function")
   })
-
+  
 
 
 

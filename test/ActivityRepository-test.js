@@ -40,7 +40,7 @@ describe('ActivityRepository', () => {
     expect(activity1.currentUsersActivities).to.equal(null)
   })
   it('should give back all activity data that matches the current user', function() {
-    const usersActivities = [
+    const currentuserlist = [
       {
         userID: 1,
         date: '2019/06/15',
@@ -91,7 +91,66 @@ describe('ActivityRepository', () => {
         flightsOfStairs: 5
       }
     ]
-    expect(activity1.filterById(1)).to.deep.equal(usersActivities)
+    expect(activity1.filterById(1)).to.deep.equal(currentuserlist)
+  })
+  it("should store the current users information", function() {
+    const currentuserlist = [
+      {
+        userID: 1,
+        date: '2019/06/15',
+        numSteps: 3577,
+        minutesActive: 140,
+        flightsOfStairs: 16
+      },
+      {
+        userID: 1,
+        date: '2019/06/16',
+        numSteps: 4294,
+        minutesActive: 138,
+        flightsOfStairs: 10
+      },
+      {
+        userID: 1,
+        date: '2019/06/17',
+        numSteps: 7402,
+        minutesActive: 116,
+        flightsOfStairs: 33
+      },
+      {
+        userID: 1,
+        date: '2019/06/18',
+        numSteps: 3486,
+        minutesActive: 114,
+        flightsOfStairs: 32
+      },
+      {
+        userID: 1,
+        date: '2019/06/19',
+        numSteps: 11374,
+        minutesActive: 213,
+        flightsOfStairs: 13
+      },
+      {
+        userID: 1,
+        date: '2019/06/20',
+        numSteps: 14810,
+        minutesActive: 287,
+        flightsOfStairs: 18
+      },
+      {
+        userID: 1,
+        date: '2019/06/21',
+        numSteps: 2634,
+        minutesActive: 107,
+        flightsOfStairs: 5
+      }
+    ]
+    activity1.filterById(1)
+    expect(activity1.currentUsersActivities).to.deep.equal(currentuserlist)
+  })
+  it('should find miles walked by a specified date', function() {
+    activity1.filterById(1)
+    expect(activity1.findMilesWalked('2019/06/21', user1)).to.equal(2.15)
   })
 
 

@@ -168,4 +168,25 @@ describe('ActivityRepository', () => {
     activity1.filterById(1)
     expect(activity1.findAvgMinGivenWeek('2019/06/15')).to.equal(159)
   })
+
+  it('should tell the user to pick a date', function() {
+    activity1.filterById(1)
+    expect(activity1.findAvgMinGivenWeek(null)).to.equal('Please pick a date!')
+  })
+  it('should determine if a step goal was met on a specific date', function() {
+    activity1.filterById(1)
+    expect(activity1.determineGoalMet('2019/06/21', user1)).to.be.equal(false)
+    expect(activity1.determineGoalMet('2019/06/19', user1)).to.be.equal(true)
+  })
+  it("should return today's data", function() {
+    const todaysData = {
+      userID: 1,
+      date: '2019/06/21',
+      numSteps: 2634,
+      minutesActive: 107,
+      flightsOfStairs: 5
+    }
+    activity1.filterById(1)
+    expect(activity1.determineTodayData()).to.deep.equal(todaysData)
+  })
 })

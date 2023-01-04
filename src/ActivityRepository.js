@@ -31,13 +31,29 @@ class ActivityRepository {
     }
   }
   findAvgMinGivenWeek(date) {
-    const findIndex = this.currentUsersActivities.findIndex((activity) => activity.date === date)
-    const weeklyActivity = this.currentUsersActivities.slice(findIndex, findIndex + 7)
-    const weeklyAvg = weeklyActivity.reduce((num, day) => {
-      num += day.minutesActive
-      return num
-    }, 0)/weeklyActivity.length
-    return Math.trunc(weeklyAvg)
+    if(!date) {
+      return 'Please pick a date!'
+    }else {
+      const findIndex = this.currentUsersActivities.findIndex((activity) => activity.date === date)
+      const weeklyActivity = this.currentUsersActivities.slice(findIndex, findIndex + 7)
+      const weeklyAvg = weeklyActivity.reduce((num, day) => {
+        num += day.minutesActive
+        return num
+      }, 0)/weeklyActivity.length
+      return Math.trunc(weeklyAvg)
+    }
+  }
+  determineGoalMet(date, currentUser) {
+    const specifiedDate = this.findDate(date)
+    if(specifiedDate.numSteps >= currentUser.dailyStepGoal) {
+      return true
+    } else {
+      return false
+    }
+  }
+  determineTodayData() {
+    const latestDate = this.currentUsersActivities.sort((a,b) => new Date(b.date) - new Date(a.date))[0]
+    return latestDate
   }
 }
 

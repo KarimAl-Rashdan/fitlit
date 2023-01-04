@@ -30,8 +30,12 @@ describe('ActivityRepository', () => {
   it("should be a function", function() {
     expect(ActivityRepository).to.be.a("function")
   })
-  
-
+  it("should make an instance of ActivityRepository", function() {
+    expect(activity1).to.be.an.instanceOf(ActivityRepository)
+  })
+  it("should hold an array of activity data", function() {
+    expect(activity1.activityData).to.eql(activityData)
+  })
 
 
 })

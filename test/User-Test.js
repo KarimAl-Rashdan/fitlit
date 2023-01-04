@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import User from '../src/User-Class';
+import User from '../src/User';
 
 describe("User", function() {
   let user;

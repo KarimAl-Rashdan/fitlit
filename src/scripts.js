@@ -10,7 +10,7 @@ import UserRepository from "./UserRepository";
 import getAPIData from "./apiCalls";
 import User from "./User";
 import Hydration from "./Hydration";
-import HydrationRepository from "./Hydration-Repository";
+import HydrationRepository from "./HydrationRepository";
 import Sleep from "./Sleep.js";
 import SleepRepository from "./SleepRepository";
 import dayjs from "dayjs";

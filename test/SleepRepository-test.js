@@ -6,7 +6,6 @@ import weekData from '../src/data/sample-weekSleepData'
 
 
 describe('SleepRepository-test', () => {
-
   let sleepRepo, sleepRepo2;
 
   beforeEach(function() {

@@ -45,7 +45,7 @@ function getPageData() {
       restrictCalendarRangeMin();
     })
     .catch((error) => {
-      console.log(error);
+      fetchFailureDisplay.classList.remove('hidden');
     });
 };
 
@@ -65,22 +65,28 @@ const returnStepsWidgetButton = document.getElementById("return-to-widget");
 const sleepWidgetButton = document.getElementById("sleep");
 const sleepWidget = document.getElementById("sleep-widget");
 const returnSleepWidgetButton = document.getElementById("return-to-sleep-widget");
+const fetchFailureDisplay = document.getElementById('fetch-failure');
+const postFailureDisplay = document.getElementById('post-failure');
 
 
 hydrationBtn.addEventListener("click",function() {
   showHydrationArea();
   displayHydrationDom();
 });
-toggleHomeBtn.addEventListener("click", homeWidget);
+toggleHomeBtn.addEventListener("click", (event) => {
+  returnToWidget(event, hydrationBtn, toggleHomeBtn, hydrationDisplay);
+});
 window.addEventListener("load", function(){
   getPageData();
 });
 stepsButton.addEventListener("click", updateStepWidget);
 returnStepsWidgetButton.addEventListener("click", (event) => {
-  returnToStepsWidget(event);
+  returnToWidget(event, stepsButton, stepsWidget, returnStepsWidgetButton);
 });
 sleepWidgetButton.addEventListener("click", updateSleepData);
-returnSleepWidgetButton.addEventListener("click", returnToSleepWidget);
+returnSleepWidgetButton.addEventListener("click", (event) => {
+  returnToWidget(event, sleepWidgetButton, sleepWidget, returnSleepWidgetButton)
+});
 calendarSub.addEventListener('click',displayWeeklyAverage);
 ;
 calendarDate.addEventListener('mousedown',enableSubmit) 
@@ -124,10 +130,6 @@ function showHydrationArea() {
 	showArea(hydrationBtn,toggleHomeBtn,hydrationDisplay);
 };
 
-function homeWidget(){
-	hideArea(hydrationBtn,toggleHomeBtn,hydrationDisplay);
-};
-
 function displayHydrationDom() {
  displayTodaysHydration(hydrationRepository,currentUserID);
  displayAverageConsumed();
@@ -165,9 +167,9 @@ function displayWeeklyAverage(e) {
 };
 
 function displayAverageConsumed() {
-const averageWaterAllTime = hydrationRepository.getAverageHydration(currentUserID);
-const roundedAverage = Math.trunc(averageWaterAllTime);
-hydroAllTimeAvgArea.innerText = `All time average oz consumed is ${roundedAverage} oz !`;
+  const averageWaterAllTime = hydrationRepository.getAverageHydration(currentUserID);
+  const roundedAverage = Math.trunc(averageWaterAllTime);
+  hydroAllTimeAvgArea.innerText = `All time average oz consumed is ${roundedAverage} oz !`;
 };
 
 function updateStepWidget() {
@@ -180,9 +182,9 @@ function updateStepWidget() {
     </ul>`;
 };
 
-function returnToStepsWidget(event) {
+function returnToWidget(event, area1, area2, area3) {
   event.preventDefault();
-  hideArea(stepsButton,stepsWidget,returnStepsWidgetButton);
+  hideArea(area1, area2, area3);
 };
 
 function showArea(area1, area2, area3) {
@@ -229,7 +231,7 @@ function findLatestWeeksSleepData(id, type) {
   dateForWeek = sleepRepository.findTodaysData(id).date;
   let dataForWeek = sleepRepository.calculateSleepPerWeek(dateForWeek, id);
   let dataResult = dataForWeek.reduce((acc, cur, index) => {
-    acc.push(` day ${index + 1}: ${cur[type]} `);
+    acc.push(` ${cur.date}: ${cur[type]} `);
     return acc;
   }, []);
   return dataResult;
@@ -237,11 +239,6 @@ function findLatestWeeksSleepData(id, type) {
 
 function displayAverageSleepDataForAllTime(type) {
   return sleepRepository.calcAvgSleepStats(type);
-};
-
-function returnToSleepWidget(event) {
-  event.preventDefault();
-  hideArea(sleepWidgetButton, sleepWidget, returnSleepWidgetButton);
 };
 
 function enableSubmit() { 

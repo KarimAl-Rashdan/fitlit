@@ -152,6 +152,20 @@ describe('ActivityRepository', () => {
     activity1.filterById(1)
     expect(activity1.findMilesWalked('2019/06/21', user1)).to.equal(2.15)
   })
-
-
+  it('should tell the user to pick a date', function() {
+    activity1.filterById(1)
+    expect(activity1.findMilesWalked(null, user1)).to.equal('Please pick a date!')
+  })
+  it('should find the minimum activity on a specific date', function() {
+    activity1.filterById(1) 
+    expect(activity1.findActiveMinOnDay('2019/06/21')).to.equal(107)
+  })
+  it('should tell the user to pick a date', function() {
+    activity1.filterById(1)
+    expect(activity1.findActiveMinOnDay(null)).to.equal('Please pick a date!')
+  })
+  it("should find average minutes active specified by date", function() {
+    activity1.filterById(1)
+    expect(activity1.findAvgMinGivenWeek('2019/06/15')).to.equal(159)
+  })
 })

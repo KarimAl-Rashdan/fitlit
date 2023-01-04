@@ -1,4 +1,4 @@
-import User from "../src/User-Class";
+import User from "./User";
 
 class UserRepository {
 	constructor(allUserData) {

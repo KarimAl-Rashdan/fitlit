@@ -37,9 +37,17 @@ describe('SleepRepository-test', () => {
   it('should calculate sleep hours per day by date', function() {
     expect(sleepRepo.calculateSleepByDate('2019/06/15', 'hoursSlept', 1)).to.eql([6.1]);
   });
+  it('should throw an error if date is undefined', function() {
+    expect(sleepRepo.calculateSleepByDate(null, 'hoursSlept', 1)).to.equal('Pick a date')
+  })
+  
   it('should calculate sleep quality per day by date', function() {
     expect(sleepRepo.calculateSleepByDate('2019/06/15', 'sleepQuality', 1)).to.eql([2.2]);
   });
+  it('should throw an error if date is undefined', function() {
+    expect(sleepRepo.calculateSleepByDate(null, 'sleepQuality', 1)).to.equal('Pick a date')
+  })
+
   it('should calculate the hours slept in any given week', function() {
     expect(sleepRepo2.calculateSleepPerWeek('2019/06/22', 1)).to.eql([
       {date: '2019/06/15', hoursSlept: 6.1, sleepQuality: 2.2},

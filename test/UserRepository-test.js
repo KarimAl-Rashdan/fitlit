@@ -1,14 +1,15 @@
 import {expect} from 'chai';
 import UserRepository from '../src/UserRepository';
 import UserData from '../src/data/users';
-import User from '../src/User-Class'
+import User from '../src/User'
 
 describe('User Repository', () => {
   let userRepository;
+  
   beforeEach(() => {
-    userRepository = new UserRepository(UserData)
+    userRepository = new UserRepository(UserData);
   })
-  it('should be a function', function () {
+  it('Should be a function', function () {
     expect(UserRepository).to.be.a('function');
   });
   it('Should be an instance of UserRepository',() => {

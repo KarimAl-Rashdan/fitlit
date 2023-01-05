@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import User from '../src/User-Class';
+import User from '../src/User';
 
 describe("User", function() {
   let user;
@@ -22,7 +22,7 @@ describe("User", function() {
 
   it('should be a function', function() {
   expect(User).to.be.a('function');
-  })
+  });
   it('should initialize a User object', function() {
     expect(user.name).to.equal(user['name']);
     expect(user.friends[1]).to.equal(4);

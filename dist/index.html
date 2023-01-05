@@ -2,6 +2,8 @@
 <html lang="en-US">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@200&family=Nunito:wght@200&family=Poppins:wght@300&family=Quicksand:wght@500&display=swap" rel="stylesheet">
@@ -17,6 +19,10 @@
             <h2 class="user-info"></h2>
           </header>
         </div>
+      </section>
+      <section class="fetch-failure-section">
+        <h2 class="fetch-failure-display hidden" id="fetch-failure">Sorry, failed to fetch! Please try again! </h2>
+        <h2 class='post-failure-display hidden' id="post-failure">Sorry, failed to post! Please try again! </h2>
       </section>
       <section class="widgets">
         <button class="sleep" id="sleep" type="submit"><img src="./images/sleeping.png" alt="Sleep Icon">Sleep Widget</button>
@@ -36,9 +42,9 @@
               <li id="todaysOz">today's intake</li>
               <li id="weeklyAvg">Hey, Please Select a Date In The Calendar! 👇🏽</li>
               <form>
-                <label class='hidden'for="calendar"> Calendar:</label>
-                <input type="date" id="dateSelected" name="date" required>
-                <input type="submit" id="dateInput"disabled>
+                <label class='hidden' for="calendar"> Calendar:</label>
+                <input type="date" id="calendar" name="calendar" required>
+                <button type="submit" id="dateInput" disabled> submit </button> 
               </form>
               <li id="allTimeAvg">all time average</li>
             </ul>

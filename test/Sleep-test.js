@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import Sleep from '../src/Sleep-Class';
+import Sleep from '../src/Sleep';
 
 
 describe('Sleep', () => {
@@ -7,10 +7,10 @@ describe('Sleep', () => {
 
   beforeEach(() => {
     sleepData = {
-    "userID": 2,
-    "date": '2019/06/15',
-    "hoursSlept": 6.1,
-    "sleepQuality": 2.2
+      "userID": 2,
+      "date": '2019/06/15',
+      "hoursSlept": 6.1,
+      "sleepQuality": 2.2
     };
     sleep = new Sleep(sleepData);
   });

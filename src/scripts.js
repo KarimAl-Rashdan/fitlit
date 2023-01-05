@@ -14,6 +14,9 @@ import HydrationRepository from "./HydrationRepository";
 import Sleep from "./Sleep.js";
 import SleepRepository from "./SleepRepository";
 import dayjs from "dayjs";
+import Activity from "./Activity"
+import ActivityRepository from "./ActivityRepository"
+
 
 let allUserData;
 let allSleepData;
@@ -25,6 +28,8 @@ let currentUserID;
 let sleepRepository;
 let hydrationRepository;
 let dateForWeek;
+let activityRepository;
+
 
 
 const userAPI = 'http://localhost:3001/api/v1/users';
@@ -45,7 +50,7 @@ function getPageData() {
       allSleepData = response[1].sleepData;
       allHydroData = response[2].hydrationData;
       allActivityData = response[3].activityData;
-      createClassInstances(allUserData, allSleepData, allHydroData);
+      createClassInstances(allUserData, allSleepData, allHydroData, allActivityData);
       getRandomUser(allUserData);
       restrictCalendarRangeMin();
     })
@@ -99,13 +104,15 @@ calendarDate.addEventListener('mousedown',enableSubmit)
 
 
 
-function createClassInstances(dataSet1, dataSet2, dataSet3) {
+function createClassInstances(dataSet1, dataSet2, dataSet3, dataSet4) {
   allUserData = dataSet1.map((user) => new User(user));
   userRepository = new UserRepository(allUserData);
   allSleepData = dataSet2.map((data) => new Sleep(data));
   sleepRepository = new SleepRepository(allSleepData);
   allHydroData = dataSet3.map(data => new Hydration(data));
   hydrationRepository = new HydrationRepository(allHydroData);
+  allActivityData = dataSet4.map(data => new Activity(data));
+  activityRepository = new ActivityRepository(allActivityData);
 };
 
 function getRandomUser(allUserData) {

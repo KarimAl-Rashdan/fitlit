@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import UserRepository from '../src/UserRepository';
 import UserData from '../src/data/users';
-import User from '../src/User-Class'
+import User from '../src/User'
 
 describe('User Repository', () => {
   let userRepository;

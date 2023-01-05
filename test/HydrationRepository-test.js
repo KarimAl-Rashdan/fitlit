@@ -1,7 +1,7 @@
 import { expect } from "chai";
 
 import hydrationData from "../src/data/hydration-data";
-import  HydrationRepository from "../src/Hydration-Repository"
+import  HydrationRepository from "../src/HydrationRepository"
 
 
 

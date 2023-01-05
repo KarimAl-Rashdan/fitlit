@@ -187,8 +187,21 @@ function displayAverageConsumed() {
 
 function updateStepWidget() {
   showArea(stepsButton,stepsWidget,returnStepsWidgetButton);
+  const userActivity = activityRepository.filterById(currentUserID);
+  const todayActivity = activityRepository.determineTodayData();
+  const userStepsToday = todayActivity.numSteps;
+  const userMinActiveToday = todayActivity.minutesActive;
+  const userStairsClimbed = todayActivity.flightsOfStairs;
+  const numOfMiles = activityRepository.findMilesWalked(todayActivity.date, currentUser);
+  
+
+
+
   stepsWidget.innerHTML = `<ul> 
       <li>Stride Length: ${currentUser.strideLength} </li>
+      <li> Today's Steps: ${userStepsToday} </li>
+      <li> Your Activity For Today: ${userMinActiveToday} minutes </li>
+      
       <li>Your Daily Step Goal: ${
         currentUser.dailyStepGoal
       } Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>

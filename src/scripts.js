@@ -193,7 +193,10 @@ function updateStepWidget() {
   const userMinActiveToday = todayActivity.minutesActive;
   const userStairsClimbed = todayActivity.flightsOfStairs;
   const numOfMiles = activityRepository.findMilesWalked(todayActivity.date, currentUser);
-  
+  const avgSteps = activityRepository.getUsersAvgForDay(todayActivity.date, 'numSteps');
+  const avgMinActive = activityRepository.getUsersAvgForDay(todayActivity.date, 'minutesActive');
+  const avgStairsClimbed = activityRepository.getUsersAvgForDay(todayActivity.date, 'flightsOfStairs');
+
 
 
 
@@ -201,7 +204,13 @@ function updateStepWidget() {
       <li>Stride Length: ${currentUser.strideLength} </li>
       <li> Today's Steps: ${userStepsToday} </li>
       <li> Your Activity For Today: ${userMinActiveToday} minutes </li>
-      
+        <ul>
+          <li> Your Activity vs Avg of All Users Activity </li>
+          <li> Steps Activity: ${userStepsToday} vs ${avgSteps} </li>
+          <li> Minutes Activity: ${userMinActiveToday} vs ${avgMinActive} </li>
+          <li> Stairs Climbed: ${userStairsClimbed} vs ${avgStairsClimbed} </li>
+        </ul>
+      <li> Miles Walked Today: ${numOfMiles} miles </li>
       <li>Your Daily Step Goal: ${
         currentUser.dailyStepGoal
       } Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>

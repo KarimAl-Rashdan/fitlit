@@ -55,6 +55,23 @@ class ActivityRepository {
     const latestDate = this.currentUsersActivities.sort((a,b) => new Date(b.date) - new Date(a.date))[0]
     return latestDate
   }
+  findDaysExceededGoal(userID, currentUser) {
+    const activityData = this.filterById(userID);
+    return activityData.filter(activity => activity.numSteps > currentUser.dailyStepGoal);
+  }
+  findClimbingRecord(userID) {
+    const userActivity = this.filterById(userID);
+    const climbData = userActivity.map(activity => activity.flightsOfStairs);
+    return Math.max(...climbData);
+  }
+  getUsersAvgForDay(date, key) {
+    const dataForDay = this.activityData.filter(activity => activity.date === date);
+    const totalForDay = dataForDay.reduce((total, activity) => {
+      return total += activity[key];
+    }, 0) / dataForDay.length;
+    return Math.round(totalForDay)
+  }
 }
 
 export default ActivityRepository;
+

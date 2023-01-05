@@ -70,6 +70,7 @@ const hydrationWeeklyAvg = document.getElementById("weeklyAvg");
 const hydroAllTimeAvgArea = document.getElementById("allTimeAvg");
 const welcomeContainer = document.getElementById("user-info");
 const stepsWidget = document.getElementById("steps-widget");
+const weeklyViewSection = document.getElementById("weekly-view-section");
 const stepsButton = document.getElementById("steps");
 const userFriendsSection = document.getElementById("friends-info");
 const returnStepsWidgetButton = document.getElementById("return-to-widget");
@@ -100,7 +101,7 @@ returnSleepWidgetButton.addEventListener("click", (event) => {
 });
 calendarSub.addEventListener('click',displayWeeklyAverage);
 ;
-calendarDate.addEventListener('mousedown',enableSubmit) 
+calendarDate.addEventListener('mousedown',enableSubmit);
 
 
 
@@ -185,6 +186,18 @@ function displayAverageConsumed() {
   hydroAllTimeAvgArea.innerText = `All time average oz consumed is ${roundedAverage} oz !`;
 };
 
+function findWeeklyData(date) {
+  const weeklyData = activityRepository.findWeeklyData(date).reverse();
+  const weeklyKey = weeklyData.forEach(dayActivity => {
+    weeklyViewSection.innerHTML += `
+      <li>${dayActivity.date}: </li>
+      <li>Steps: ${dayActivity.numSteps}</li>
+      <li>Stairs Climbed: ${dayActivity.flightsOfStairs}</li>
+      <li>Minutes Active: ${dayActivity.minutesActive}</li>
+    `
+  });
+};
+
 function updateStepWidget() {
   showArea(stepsButton,stepsWidget,returnStepsWidgetButton);
   const userActivity = activityRepository.filterById(currentUserID);
@@ -196,10 +209,6 @@ function updateStepWidget() {
   const avgSteps = activityRepository.getUsersAvgForDay(todayActivity.date, 'numSteps');
   const avgMinActive = activityRepository.getUsersAvgForDay(todayActivity.date, 'minutesActive');
   const avgStairsClimbed = activityRepository.getUsersAvgForDay(todayActivity.date, 'flightsOfStairs');
-
-
-
-
   stepsWidget.innerHTML = `<ul> 
       <li>Stride Length: ${currentUser.strideLength} </li>
       <li> Today's Steps: ${userStepsToday} </li>
@@ -215,6 +224,7 @@ function updateStepWidget() {
         currentUser.dailyStepGoal
       } Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>
     </ul>`;
+    findWeeklyData(todayActivity.date);
 };
 
 function returnToWidget(event, area1, area2, area3) {

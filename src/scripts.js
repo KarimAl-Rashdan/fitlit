@@ -343,15 +343,21 @@ function createPostObject(event) {
   event.preventDefault()
   if(inputSleepQuality.value && inputHoursSlept.value) {
     const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: inputHoursSlept.value, sleepQuality: inputSleepQuality.value}
-    console.log("a")
-    console.log("sleepObject", sleepObject)
+    const sleepEndPoint = "sleep"
+    postInformation(sleepEndPoint, sleepObject)
   } else if(inputOzDrank.value) {
     const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: inputOzDrank.value}
-    console.log('b', hydrationObject)
+    const hydrationEndpoint = "hydration"
+    postInformation(hydrationEndPoint, hydrationObject)
   }else if(inputStairs.value && inputMinActive.value && inputSteps.value) {
     const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: inputStairs.value, minutesActive: inputMinActive.value, numSteps: inputSteps.value}
-    console.log('c', activityObject)
+    const activityEndpoint = "activity"
+    postInformation(activityEndPoint, activityObject)
   }
+}
+
+function postInformation(endPoint, data) {
+  
 }
 /*const inputHoursSlept = document.querySelector("hours-Slept");
 const inputSleepQuality = document.querySelector("sleep-Quality");

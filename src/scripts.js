@@ -14,6 +14,9 @@ import HydrationRepository from "./HydrationRepository";
 import Sleep from "./Sleep.js";
 import SleepRepository from "./SleepRepository";
 import dayjs from "dayjs";
+import Activity from "./Activity"
+import ActivityRepository from "./ActivityRepository"
+
 
 let allUserData;
 let allSleepData;
@@ -25,6 +28,8 @@ let currentUserID;
 let sleepRepository;
 let hydrationRepository;
 let dateForWeek;
+let activityRepository;
+
 
 
 const userAPI = 'http://localhost:3001/api/v1/users';
@@ -45,7 +50,7 @@ function getPageData() {
       allSleepData = response[1].sleepData;
       allHydroData = response[2].hydrationData;
       allActivityData = response[3].activityData;
-      createClassInstances(allUserData, allSleepData, allHydroData);
+      createClassInstances(allUserData, allSleepData, allHydroData, allActivityData);
       getRandomUser(allUserData);
       restrictCalendarRangeMin();
     })
@@ -65,6 +70,7 @@ const hydrationWeeklyAvg = document.getElementById("weeklyAvg");
 const hydroAllTimeAvgArea = document.getElementById("allTimeAvg");
 const welcomeContainer = document.getElementById("user-info");
 const stepsWidget = document.getElementById("steps-widget");
+const weeklyViewSection = document.getElementById("weekly-view-section");
 const stepsButton = document.getElementById("steps");
 const userFriendsSection = document.getElementById("friends-info");
 const returnStepsWidgetButton = document.getElementById("return-to-widget");
@@ -95,17 +101,19 @@ returnSleepWidgetButton.addEventListener("click", (event) => {
 });
 calendarSub.addEventListener('click',displayWeeklyAverage);
 ;
-calendarDate.addEventListener('mousedown',enableSubmit) 
+calendarDate.addEventListener('mousedown',enableSubmit);
 
 
 
-function createClassInstances(dataSet1, dataSet2, dataSet3) {
+function createClassInstances(dataSet1, dataSet2, dataSet3, dataSet4) {
   allUserData = dataSet1.map((user) => new User(user));
   userRepository = new UserRepository(allUserData);
   allSleepData = dataSet2.map((data) => new Sleep(data));
   sleepRepository = new SleepRepository(allSleepData);
   allHydroData = dataSet3.map(data => new Hydration(data));
   hydrationRepository = new HydrationRepository(allHydroData);
+  allActivityData = dataSet4.map(data => new Activity(data));
+  activityRepository = new ActivityRepository(allActivityData);
 };
 
 function getRandomUser(allUserData) {
@@ -178,14 +186,45 @@ function displayAverageConsumed() {
   hydroAllTimeAvgArea.innerText = `All time average oz consumed is ${roundedAverage} oz !`;
 };
 
+function findWeeklyData(date) {
+  const weeklyData = activityRepository.findWeeklyData(date).reverse();
+  const weeklyKey = weeklyData.forEach(dayActivity => {
+    weeklyViewSection.innerHTML += `
+      <li>${dayActivity.date}: </li>
+      <li>Steps: ${dayActivity.numSteps}</li>
+      <li>Stairs Climbed: ${dayActivity.flightsOfStairs}</li>
+      <li>Minutes Active: ${dayActivity.minutesActive}</li>
+    `
+  });
+};
+
 function updateStepWidget() {
   showArea(stepsButton,stepsWidget,returnStepsWidgetButton);
+  const userActivity = activityRepository.filterById(currentUserID);
+  const todayActivity = activityRepository.determineTodayData();
+  const userStepsToday = todayActivity.numSteps;
+  const userMinActiveToday = todayActivity.minutesActive;
+  const userStairsClimbed = todayActivity.flightsOfStairs;
+  const numOfMiles = activityRepository.findMilesWalked(todayActivity.date, currentUser);
+  const avgSteps = activityRepository.getUsersAvgForDay(todayActivity.date, 'numSteps');
+  const avgMinActive = activityRepository.getUsersAvgForDay(todayActivity.date, 'minutesActive');
+  const avgStairsClimbed = activityRepository.getUsersAvgForDay(todayActivity.date, 'flightsOfStairs');
   stepsWidget.innerHTML = `<ul> 
       <li>Stride Length: ${currentUser.strideLength} </li>
+      <li> Today's Steps: ${userStepsToday} </li>
+      <li> Your Activity For Today: ${userMinActiveToday} minutes </li>
+        <ul>
+          <li> Your Activity vs Avg of All Users Activity </li>
+          <li> Steps Activity: ${userStepsToday} vs ${avgSteps} </li>
+          <li> Minutes Activity: ${userMinActiveToday} vs ${avgMinActive} </li>
+          <li> Stairs Climbed: ${userStairsClimbed} vs ${avgStairsClimbed} </li>
+        </ul>
+      <li> Miles Walked Today: ${numOfMiles} miles </li>
       <li>Your Daily Step Goal: ${
         currentUser.dailyStepGoal
       } Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>
     </ul>`;
+    findWeeklyData(todayActivity.date);
 };
 
 function returnToWidget(event, area1, area2, area3) {

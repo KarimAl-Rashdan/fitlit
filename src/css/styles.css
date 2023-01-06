@@ -75,6 +75,7 @@ footer {
   width: 70vw;
 }
 footer > img {
+  display: none;
   height: 20vh;
   width: 70vw;
 }
@@ -160,11 +161,17 @@ aside > img {
   background-color: white;
 }
 
+.step-container {
+  flex-wrap: wrap;
+}
+
 li {
   font-size: small;
   font-weight: bold;
+  list-style-type: none;
   width: 15vw;
 }
+
 p {
   margin: 5px;
 }

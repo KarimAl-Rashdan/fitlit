@@ -70,7 +70,9 @@ const hydrationWeeklyAvg = document.getElementById("weeklyAvg");
 const hydroAllTimeAvgArea = document.getElementById("allTimeAvg");
 const welcomeContainer = document.getElementById("user-info");
 const stepsWidget = document.getElementById("steps-widget");
-const weeklyViewSection = document.getElementById("weekly-view-section");
+const activityWidget = document.getElementById("activity-widget");
+const activityButton = document.getElementById("activity")
+const returnActivityWidgetButton = document.getElementById("return-to-activity-widget")
 const stepsButton = document.getElementById("steps");
 const userFriendsSection = document.getElementById("friends-info");
 const returnStepsWidgetButton = document.getElementById("return-to-widget");
@@ -100,6 +102,10 @@ window.addEventListener("load", function(){
   getPageData();
 });
 stepsButton.addEventListener("click", updateStepWidget);
+activityButton.addEventListener("click", findWeeklyData)
+returnActivityWidgetButton.addEventListener("click", (event) => {
+  returnToWidget(event, activityButton, activityWidget, returnActivityWidgetButton)
+})
 returnStepsWidgetButton.addEventListener("click", (event) => {
   returnToWidget(event, stepsButton, stepsWidget, returnStepsWidgetButton);
 });
@@ -107,9 +113,8 @@ sleepWidgetButton.addEventListener("click", updateSleepData);
 returnSleepWidgetButton.addEventListener("click", (event) => {
   returnToWidget(event, sleepWidgetButton, sleepWidget, returnSleepWidgetButton)
 });
-calendarSub.addEventListener('click',displayWeeklyAverage);
-;
-calendarDate.addEventListener('mousedown',enableSubmit);
+calendarSub.addEventListener('click', displayWeeklyAverage);
+calendarDate.addEventListener('mousedown', enableSubmit);
 inputBtn.addEventListener('click', showInputForm);
 
 
@@ -195,16 +200,22 @@ function displayAverageConsumed() {
   hydroAllTimeAvgArea.innerText = `All time average oz consumed is ${roundedAverage} oz !`;
 };
 
-function findWeeklyData(date) {
-  const weeklyData = activityRepository.findWeeklyData(date).reverse();
+function findWeeklyData() {
+  showArea(activityButton,activityWidget,returnActivityWidgetButton);
+  activityWidget.innerHTML = ""
+  const userActivity = activityRepository.filterById(currentUserID);
+  const todayActivity = activityRepository.determineTodayData();
+  const weeklyData = activityRepository.findWeeklyData(todayActivity.date).reverse();
   const weeklyKey = weeklyData.forEach(dayActivity => {
-    weeklyViewSection.innerHTML += `
+    activityWidget.innerHTML += `<ul>
       <li>${dayActivity.date}: </li>
       <li>Steps: ${dayActivity.numSteps}</li>
       <li>Stairs Climbed: ${dayActivity.flightsOfStairs}</li>
       <li>Minutes Active: ${dayActivity.minutesActive}</li>
+      </ul>
     `
   });
+  console.log("weeklyKey", weeklyKey)
 };
 
 function updateStepWidget() {
@@ -233,7 +244,7 @@ function updateStepWidget() {
         currentUser.dailyStepGoal
       } Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>
     </ul>`;
-    findWeeklyData(todayActivity.date);
+    // findWeeklyData(todayActivity.date);
 };
 
 function returnToWidget(event, area1, area2, area3) {

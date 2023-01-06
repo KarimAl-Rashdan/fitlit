@@ -126,6 +126,11 @@ ul {
   padding: 10px;
 }
 
+.activity-week-widget > ul {
+  justify-content: flex-start;
+  height: 8vh;
+}
+
 aside > img {
   height: 10vh;
   margin-left: 20px;
@@ -155,14 +160,15 @@ aside > img {
 
 .sleep-widget,
 .hydration-widget,
-.step-goal-widget {
+.step-goal-widget, 
+.activity-week-widget {
   margin-inline: 10px;
   width: 20vw;
   background-color: white;
 }
 
-.step-container {
-  flex-wrap: wrap;
+.activity-container {
+  overflow-y: scroll;
 }
 
 li {
@@ -187,7 +193,8 @@ p {
 
 .sleep,
 .hydration,
-.step-goal {
+.step-goal,
+.activity {
   background-color: #50bfe6;
   border: 1px solid gray;
   border-radius: 10px;
@@ -204,7 +211,8 @@ p {
 
 .sleep:hover,
 .hydration:hover,
-.step-goal:hover {
+.step-goal:hover,
+.activity:hover {
   background-color: white;
 }
 

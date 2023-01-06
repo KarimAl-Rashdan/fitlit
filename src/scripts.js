@@ -351,13 +351,27 @@ function createPostObject(event) {
     postInformation(hydrationEndPoint, hydrationObject)
   }else if(inputStairs.value && inputMinActive.value && inputSteps.value) {
     const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: inputStairs.value, minutesActive: inputMinActive.value, numSteps: inputSteps.value}
-    const activityEndpoint = "activity"
+    const activityEndPoint = "activity"
     postInformation(activityEndPoint, activityObject)
   }
 }
 
 function postInformation(endPoint, data) {
-  
+  fetch(`http://localhost:3001/api/v1/${endPoint}`, {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => {
+    if(!res.ok) {
+      throw new Error();
+    }
+    return res.json();
+  })
+  .then(obj => console.log(obj))
+  .catch(err => postFailureDisplay.classList.remove('hidden'))
 }
 /*const inputHoursSlept = document.querySelector("hours-Slept");
 const inputSleepQuality = document.querySelector("sleep-Quality");

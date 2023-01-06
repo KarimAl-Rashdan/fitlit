@@ -60,9 +60,6 @@
             </ul>
           </section>
           <button class="return-to-widget hidden" id="return-to-widget" type="submit">Return</button>
-          <!-- <section id="weekly-view-section">
-            <li>Weekly View</li>
-          </section> -->
         </div>
         <button class="activity widget" id="activity" type="submit"><img src="" alt="Activity Icon">
           Activity Widget
@@ -87,23 +84,24 @@
               <input type="radio" id="activity-input" name="activity" value="sleep">Activity
             </label>
             <label>
-              <input type="submit" id="input-btn" name="activity" value="Submit">
+              <input type="submit" id="input-btn" name="activity" value="Show Form">
             </label>
           </fieldset>
           <section class="input-form" id="input-form">
-            <input class="input-date" type="date" placeholder="Date" disabled required>
+            <input class="input-date hidden" type="date" placeholder="Date">
             <div class="sleep-form hidden">
-              <input class="hours-Slept" type="number" placeholder="Hours slept" min= 0 max=12 step=0.1 disabled required>
-              <input class="sleep-Quality" type="number" placeholder="Sleep Quality" min=0 max=5 step=0.1 required>
+              <input class="hours-Slept" type="number" placeholder="Hours slept" min= 0 max=12 step=0.1>
+              <input class="sleep-Quality" type="number" placeholder="Sleep Quality" min=0 max=5 step=0.1>
             </div>
             <div class="hydration-form hidden">
-              <input class="number-of-oz" type="number" placeholder="Number of oz drank" max=200 disabled required>
+              <input class="number-of-oz" type="number" placeholder="Number of oz drank" max=200>
             </div>
             <div class="activity-form hidden">
-              <input class="flights-of-stairs" type="number" placeholder="Flights of stairs" disabled required>
-              <input class="minutes-active" type="number" placeholder="Minutes active" disabled required>
-              <input class="number-of-steps" type="number" placeholder="Number of steps" disabled required>
+              <input class="flights-of-stairs" type="number" placeholder="Flights of stairs">
+              <input class="minutes-active" type="number" placeholder="Minutes active">
+              <input class="number-of-steps" type="number" placeholder="Number of steps">
             </div>
+            <button class="form-submit hidden">Submit Form</button>
           </section> 
         </form>
       </footer>

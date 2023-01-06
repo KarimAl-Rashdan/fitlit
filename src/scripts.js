@@ -71,7 +71,7 @@ const hydroAllTimeAvgArea = document.getElementById("allTimeAvg");
 const welcomeContainer = document.getElementById("user-info");
 const stepsWidget = document.getElementById("steps-widget");
 const activityWidget = document.getElementById("activity-widget");
-const activityButton = document.getElementById("activity")
+const activityButton = document.getElementById("activity");
 const returnActivityWidgetButton = document.getElementById("return-to-activity-widget")
 const stepsButton = document.getElementById("steps");
 const userFriendsSection = document.getElementById("friends-info");
@@ -82,13 +82,15 @@ const returnSleepWidgetButton = document.getElementById("return-to-sleep-widget"
 const fetchFailureDisplay = document.getElementById('fetch-failure');
 const postFailureDisplay = document.getElementById('post-failure');
 const inputForm = document.getElementById('input-form');
-const inputBtn = document.getElementById('input-btn')
+const showFormBtn = document.getElementById('input-btn');
 const radioSleep = document.getElementById('sleep-input');
 const radioHydration = document.getElementById('hydration-input');
 const radioActivity = document.getElementById('activity-input');
 const sleepForm = document.querySelector('.sleep-form');
 const hydrationForm = document.querySelector('.hydration-form');
 const activityForm = document.querySelector('.activity-form');
+const inputSub = document.querySelector(".form-submit");
+const inputDate = document.querySelector(".input-date")
 
 
 hydrationBtn.addEventListener("click",function() {
@@ -114,8 +116,10 @@ returnSleepWidgetButton.addEventListener("click", (event) => {
   returnToWidget(event, sleepWidgetButton, sleepWidget, returnSleepWidgetButton)
 });
 calendarSub.addEventListener('click', displayWeeklyAverage);
-calendarDate.addEventListener('mousedown', enableSubmit);
-inputBtn.addEventListener('click', showInputForm);
+// calendarDate.addEventListener('mousedown', enableSubmit);
+showFormBtn.addEventListener('click', (event) => {
+  showInputForm(event)
+});
 
 
 
@@ -305,3 +309,36 @@ function findLatestWeeksSleepData(id, type) {
 function displayAverageSleepDataForAllTime(type) {
   return sleepRepository.calcAvgSleepStats(type);
 };
+
+function showInputForm(event) {
+  event.preventDefault()
+  inputDate.classList.remove('hidden')
+  inputSub.classList.remove('hidden')
+
+ if(radioSleep.checked) {
+  hideArea(sleepForm, hydrationForm, activityForm)
+
+  // sleepForm.classList.remove('hidden');
+  // hydrationForm.classList.add('hidden')
+  // activityForm.classList.add('hidden')
+ } else if(radioHydration.checked) {
+  hideArea(hydrationForm, sleepForm, activityForm)
+  // hydrationForm.classList.remove('hidden');
+ } else if(radioActivity.checked) {
+  hideArea(activityForm, hydrationForm, sleepForm)
+  // activityForm.classList.remove('hidden');
+  // hydrationForm.classList.add('hidden')
+ } else {
+  return "Pick Category!"
+ }
+}
+
+/*const inputForm = document.getElementById('input-form');
+const showFormBtn = document.getElementById('input-btn');
+const radioSleep = document.getElementById('sleep-input');
+const radioHydration = document.getElementById('hydration-input');
+const radioActivity = document.getElementById('activity-input');
+const sleepForm = document.querySelector('.sleep-form');
+const hydrationForm = document.querySelector('.hydration-form');
+const activityForm = document.querySelector('.activity-form');
+const inputSub = document.querySelector(".form-submit"); */

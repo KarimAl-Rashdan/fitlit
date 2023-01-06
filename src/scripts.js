@@ -344,19 +344,19 @@ function createPostObject(event) {
   if(inputSleepQuality.value && inputHoursSlept.value) {
     const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: inputHoursSlept.value, sleepQuality: inputSleepQuality.value}
     const sleepEndPoint = "sleep"
-    postInformation(sleepEndPoint, sleepObject)
+    postInformation(sleepEndPoint, sleepObject, allSleepData)
   } else if(inputOzDrank.value) {
     const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: inputOzDrank.value}
     const hydrationEndpoint = "hydration"
-    postInformation(hydrationEndPoint, hydrationObject)
+    postInformation(hydrationEndPoint, hydrationObject, allHydroData)
   }else if(inputStairs.value && inputMinActive.value && inputSteps.value) {
     const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: inputStairs.value, minutesActive: inputMinActive.value, numSteps: inputSteps.value}
     const activityEndPoint = "activity"
-    postInformation(activityEndPoint, activityObject)
+    postInformation(activityEndPoint, activityObject, allActivityData)
   }
 }
 
-function postInformation(endPoint, data) {
+function postInformation(endPoint, data, array) {
   fetch(`http://localhost:3001/api/v1/${endPoint}`, {
     method: 'POST', 
     headers: {
@@ -370,7 +370,11 @@ function postInformation(endPoint, data) {
     }
     return res.json();
   })
-  .then(obj => console.log(obj))
+  .then(obj => {
+    console.log("beforePost", array)
+    array.push(obj)
+    console.log("AFTERPOST", array)
+  })
   .catch(err => postFailureDisplay.classList.remove('hidden'))
 }
 /*const inputHoursSlept = document.querySelector("hours-Slept");

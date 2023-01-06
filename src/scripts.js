@@ -126,6 +126,9 @@ calendarSub.addEventListener('click', displayWeeklyAverage);
 showFormBtn.addEventListener('click', (event) => {
   showInputForm(event)
 });
+inputSub.addEventListener('click', (event) => {
+  createPostObject(event)
+})
 
 
 
@@ -317,19 +320,27 @@ function displayAverageSleepDataForAllTime(type) {
 };
 
 function showInputForm(event) {
-  event.preventDefault()
-  inputDate.classList.remove('hidden')
-  inputSub.classList.remove('hidden')
-  inputDate.setAttribute('required', true)
-
+  event.preventDefault();
+  inputDate.classList.remove('hidden');
+  inputSub.classList.remove('hidden');
+  inputDate.setAttribute('required', true);
  if(radioSleep.checked) {
-  hideArea(sleepForm, hydrationForm, activityForm)
-
+  hideArea(sleepForm, hydrationForm, activityForm);
+  inputSleepQuality.setAttribute('required', true);
+  inputHoursSlept.setAttribute('required', true);
  } else if(radioHydration.checked) {
-  hideArea(hydrationForm, sleepForm, activityForm)
+  hideArea(hydrationForm, sleepForm, activityForm);
+  inputOzDrank.setAttribute('required', true);
  } else if(radioActivity.checked) {
-  hideArea(activityForm, hydrationForm, sleepForm)
- } 
+  hideArea(activityForm, hydrationForm, sleepForm);
+  inputStairs.setAttribute('required', true);
+  inputMinActive.setAttribute('required', true);
+  inputSteps.setAttribute('required', true);
+ };
+};
+
+function createPostObject(event) {
+
 }
 /*const inputHoursSlept = document.querySelector("hours-Slept");
 const inputSleepQuality = document.querySelector("sleep-Quality");

@@ -90,7 +90,13 @@ const sleepForm = document.querySelector('.sleep-form');
 const hydrationForm = document.querySelector('.hydration-form');
 const activityForm = document.querySelector('.activity-form');
 const inputSub = document.querySelector(".form-submit");
-const inputDate = document.querySelector(".input-date")
+const inputDate = document.querySelector(".input-date");
+const inputHoursSlept = document.querySelector("hours-Slept");
+const inputSleepQuality = document.querySelector("sleep-Quality");
+const inputOzDrank = document.querySelector("number-of-oz");
+const inputStairs = document.querySelector("flights-of-stairs");
+const inputMinActive = document.querySelector("minutes-active");
+const inputSteps = document.querySelector("number-of-steps");
 
 
 hydrationBtn.addEventListener("click",function() {
@@ -314,25 +320,23 @@ function showInputForm(event) {
   event.preventDefault()
   inputDate.classList.remove('hidden')
   inputSub.classList.remove('hidden')
+  inputDate.setAttribute('required', true)
 
  if(radioSleep.checked) {
   hideArea(sleepForm, hydrationForm, activityForm)
 
-  // sleepForm.classList.remove('hidden');
-  // hydrationForm.classList.add('hidden')
-  // activityForm.classList.add('hidden')
  } else if(radioHydration.checked) {
   hideArea(hydrationForm, sleepForm, activityForm)
-  // hydrationForm.classList.remove('hidden');
  } else if(radioActivity.checked) {
   hideArea(activityForm, hydrationForm, sleepForm)
-  // activityForm.classList.remove('hidden');
-  // hydrationForm.classList.add('hidden')
- } else {
-  return "Pick Category!"
- }
+ } 
 }
-
+/*const inputHoursSlept = document.querySelector("hours-Slept");
+const inputSleepQuality = document.querySelector("sleep-Quality");
+const inputOzDrank = document.querySelector("number-of-oz");
+const inputStairs = document.querySelector("flights-of-stairs");
+const inputMinActive = document.querySelector("minutes-active");
+const inputSteps = document.querySelector("number-of-steps"); */
 /*const inputForm = document.getElementById('input-form');
 const showFormBtn = document.getElementById('input-btn');
 const radioSleep = document.getElementById('sleep-input');

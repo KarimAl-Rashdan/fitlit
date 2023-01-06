@@ -79,6 +79,14 @@ const sleepWidget = document.getElementById("sleep-widget");
 const returnSleepWidgetButton = document.getElementById("return-to-sleep-widget");
 const fetchFailureDisplay = document.getElementById('fetch-failure');
 const postFailureDisplay = document.getElementById('post-failure');
+const inputForm = document.getElementById('input-form');
+const inputBtn = document.getElementById('input-btn')
+const radioSleep = document.getElementById('sleep-input');
+const radioHydration = document.getElementById('hydration-input');
+const radioActivity = document.getElementById('activity-input');
+const sleepForm = document.querySelector('.sleep-form');
+const hydrationForm = document.querySelector('.hydration-form');
+const activityForm = document.querySelector('.activity-form');
 
 
 hydrationBtn.addEventListener("click",function() {
@@ -102,6 +110,7 @@ returnSleepWidgetButton.addEventListener("click", (event) => {
 calendarSub.addEventListener('click',displayWeeklyAverage);
 ;
 calendarDate.addEventListener('mousedown',enableSubmit);
+inputBtn.addEventListener('click', showInputForm);
 
 
 
@@ -284,8 +293,4 @@ function findLatestWeeksSleepData(id, type) {
 
 function displayAverageSleepDataForAllTime(type) {
   return sleepRepository.calcAvgSleepStats(type);
-};
-
-function enableSubmit() { 
-  calendarSub.disabled = false;
 };

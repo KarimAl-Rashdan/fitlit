@@ -79,10 +79,24 @@
               <input type="radio" id="activity-input" name="activity" value="sleep">Activity
             </label>
             <label>
-              <input type="submit" id="sleep" name="activity" value="Submit">
+              <input type="submit" id="input-btn" name="activity" value="Submit">
             </label>
           </fieldset>
-          <section class="input-form hidden"></section>
+          <section class="input-form" id="input-form">
+            <input class="input-date" type="date" placeholder="Date" disabled required>
+            <div class="sleep-form hidden">
+              <input class="hours-Slept" type="number" placeholder="Hours slept" min= 0 max=12 step=0.1 disabled required>
+              <input class="sleep-Quality" type="number" placeholder="Sleep Quality" min=0 max=5 step=0.1 required>
+            </div>
+            <div class="hydration-form hidden">
+              <input class="number-of-oz" type="number" placeholder="Number of oz drank" max=200 disabled required>
+            </div>
+            <div class="activity-form hidden">
+              <input class="flights-of-stairs" type="number" placeholder="Flights of stairs" disabled required>
+              <input class="minutes-active" type="number" placeholder="Minutes active" disabled required>
+              <input class="number-of-steps" type="number" placeholder="Number of steps" disabled required>
+            </div>
+          </section> 
         </form>
       </footer>
     </main>

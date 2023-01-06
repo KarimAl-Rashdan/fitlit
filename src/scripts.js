@@ -91,12 +91,12 @@ const hydrationForm = document.querySelector('.hydration-form');
 const activityForm = document.querySelector('.activity-form');
 const inputSub = document.querySelector(".form-submit");
 const inputDate = document.querySelector(".input-date");
-const inputHoursSlept = document.querySelector("hours-Slept");
-const inputSleepQuality = document.querySelector("sleep-Quality");
-const inputOzDrank = document.querySelector("number-of-oz");
-const inputStairs = document.querySelector("flights-of-stairs");
-const inputMinActive = document.querySelector("minutes-active");
-const inputSteps = document.querySelector("number-of-steps");
+const inputHoursSlept = document.querySelector(".hours-Slept");
+const inputSleepQuality = document.querySelector(".sleep-Quality");
+const inputOzDrank = document.querySelector(".number-of-oz");
+const inputStairs = document.querySelector(".flights-of-stairs");
+const inputMinActive = document.querySelector(".minutes-active");
+const inputSteps = document.querySelector(".number-of-steps");
 
 
 hydrationBtn.addEventListener("click",function() {
@@ -340,7 +340,18 @@ function showInputForm(event) {
 };
 
 function createPostObject(event) {
-
+  event.preventDefault()
+  if(inputSleepQuality.value && inputHoursSlept.value) {
+    const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: inputHoursSlept.value, sleepQuality: inputSleepQuality.value}
+    console.log("a")
+    console.log("sleepObject", sleepObject)
+  } else if(inputOzDrank.value) {
+    const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: inputOzDrank.value}
+    console.log('b', hydrationObject)
+  }else if(inputStairs.value && inputMinActive.value && inputSteps.value) {
+    const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: inputStairs.value, minutesActive: inputMinActive.value, numSteps: inputSteps.value}
+    console.log('c', activityObject)
+  }
 }
 /*const inputHoursSlept = document.querySelector("hours-Slept");
 const inputSleepQuality = document.querySelector("sleep-Quality");

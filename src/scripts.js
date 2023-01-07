@@ -52,7 +52,7 @@ function getPageData() {
       allActivityData = response[3].activityData;
       createClassInstances(allUserData, allSleepData, allHydroData, allActivityData);
       getRandomUser(allUserData);
-      restrictCalendarRangeMin();
+      // restrictCalendarRange();
     })
     .catch((error) => {
       fetchFailureDisplay.classList.remove('hidden');
@@ -81,7 +81,7 @@ const sleepWidget = document.getElementById("sleep-widget");
 const returnSleepWidgetButton = document.getElementById("return-to-sleep-widget");
 const fetchFailureDisplay = document.getElementById('fetch-failure');
 const postFailureDisplay = document.getElementById('post-failure');
-const inputForm = document.getElementById('input-form');
+// const inputForm = document.getElementById('input-form');
 const showFormBtn = document.getElementById('input-btn');
 const radioSleep = document.getElementById('sleep-input');
 const radioHydration = document.getElementById('hydration-input');
@@ -122,8 +122,10 @@ sleepWidgetButton.addEventListener("click", updateSleepData);
 returnSleepWidgetButton.addEventListener("click", (event) => {
   returnToWidget(event, sleepWidgetButton, sleepWidget, returnSleepWidgetButton)
 });
-calendarSub.addEventListener('click', displayWeeklyAverage);
-// calendarDate.addEventListener('mousedown', enableSubmit);
+calendarSub.addEventListener('click', (event) => {
+  displayWeeklyAverage(event)
+});
+calendarDate.addEventListener('mousedown', enableSubmit);
 showFormBtn.addEventListener('click', (event) => {
   showInputForm(event)
 });
@@ -175,9 +177,10 @@ function showHydrationArea() {
 function displayHydrationDom() {
  displayTodaysHydration(hydrationRepository,currentUserID);
  displayAverageConsumed();
+ restrictCalendarRange();
 };
 
-function restrictCalendarRangeMin() {
+function restrictCalendarRange() {
   const usersRecordedDates = hydrationRepository.filterHydrationByUser(currentUserID);
   const min = usersRecordedDates.sort((a,b)=> new Date(a.date) - new Date(b.date));
   const minDateEdit = min[0].date;
@@ -193,8 +196,10 @@ function displayTodaysHydration(hydrationRepository,currentUserID) {
 	ouncesDrankToday.innerText = `Today's you drank ${todaysOz} oz! `;
 };
 
-function displayWeeklyAverage() {
-  // e.preventDefault();
+function displayWeeklyAverage(e) {
+  e.preventDefault();
+  if(calendarDate.value) {
+  calendarSub.disabled = false
   hydrationWeeklyAvg.innerHTML = '';
 	const chosenDate = calendarDate.value; 
 	const alteredDate = chosenDate.replaceAll('-',"/");
@@ -205,7 +210,9 @@ function displayWeeklyAverage() {
 		  ${dayjs(recordedDay.date).format('dd/MMM/D/YYYY')} you consumed ${recordedDay.numOunces} ounces
 		</p>`;
 	});
+} else {
   calendarSub.disabled = true;
+}
 };
 
 function displayAverageConsumed() {
@@ -339,68 +346,70 @@ function showInputForm(event) {
   inputSteps.setAttribute('required', true);
  };
 };
+function enableSubmit() { 
+  calendarSub.disabled = false;
+};
+// function createPostObject(event) {
+//   event.preventDefault()
+//   if(inputSleepQuality.value && inputHoursSlept.value) {
+//     const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: inputHoursSlept.value, sleepQuality: inputSleepQuality.value}
+//     const sleepEndPoint = "sleep"
+//     postInformation(sleepEndPoint, sleepObject, allSleepData)
+//   } else if(inputOzDrank.value) {
+//     const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: inputOzDrank.value}
+//     const hydrationEndPoint = "hydration"
+//     postInformation(hydrationEndPoint, hydrationObject, allHydroData)
+//   }else if(inputStairs.value && inputMinActive.value && inputSteps.value) {
+//     const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: inputStairs.value, minutesActive: inputMinActive.value, numSteps: inputSteps.value}
+//     const activityEndPoint = "activity"
+//     postInformation(activityEndPoint, activityObject, allActivityData)
+//   }
+// }
 
-function createPostObject(event) {
-  event.preventDefault()
-  if(inputSleepQuality.value && inputHoursSlept.value) {
-    const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: inputHoursSlept.value, sleepQuality: inputSleepQuality.value}
-    const sleepEndPoint = "sleep"
-    postInformation(sleepEndPoint, sleepObject, allSleepData)
-  } else if(inputOzDrank.value) {
-    const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: inputOzDrank.value}
-    const hydrationEndPoint = "hydration"
-    postInformation(hydrationEndPoint, hydrationObject, allHydroData)
-  }else if(inputStairs.value && inputMinActive.value && inputSteps.value) {
-    const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: inputStairs.value, minutesActive: inputMinActive.value, numSteps: inputSteps.value}
-    const activityEndPoint = "activity"
-    postInformation(activityEndPoint, activityObject, allActivityData)
-  }
-}
-
-function postInformation(endPoint, data, array) {
-  fetch(`http://localhost:3001/api/v1/${endPoint}`, {
-    method: 'POST', 
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  .then(res => {
-    if(!res.ok) {
-      throw new Error();
-    }
-    return res.json();
-  })
-  .then(obj => {
-    postSuccessDisplay.classList.remove('hidden')
-    return letsTry()
-    })
-    .catch((error) => {
-      fetchFailureDisplay.classList.remove('hidden');
-  })
-  // .catch(err => postFailureDisplay.classList.remove('hidden'))
-}
-function letsTry() {
-  Promise.all([
-    getAPIData(userAPI),
-    getAPIData(sleepAPI),
-    getAPIData(hydrationAPI),
-    getAPIData(activityAPI)
-  ])
-  .then((response) => {
-    console.log(updateSleepData())
-    // console.log("look here", response)
-    allUserData = response[0].userData;
-    allSleepData = response[1].sleepData;
-    allHydroData = response[2].hydrationData;
-    allActivityData = response[3].activityData;
-    createClassInstances(allUserData, allSleepData, allHydroData, allActivityData);
-    console.log("hey this should update", allSleepData)
-    updateSleepData()
-    displayHydrationDom()
-    displayWeeklyAverage()
-})
-}
+// function postInformation(endPoint, data, array) {
+//   fetch(`http://localhost:3001/api/v1/${endPoint}`, {
+//     method: 'POST', 
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(data)
+//   })
+//   .then(res => {
+//     if(!res.ok) {
+//       throw new Error();
+//     }
+//     return res.json();
+//   })
+//   .then(obj => {
+//     postSuccessDisplay.classList.remove('hidden')
+//     return letsTry()
+//     })
+//     .catch((error) => {
+//       fetchFailureDisplay.classList.remove('hidden');
+//   })
+//   // .catch(err => postFailureDisplay.classList.remove('hidden'))
+// }
+// function letsTry() {
+//   Promise.all([
+//     getAPIData(userAPI),
+//     getAPIData(sleepAPI),
+//     getAPIData(hydrationAPI),
+//     getAPIData(activityAPI)
+//   ])
+//   .then((response) => {
+//     console.log(updateSleepData())
+//     // console.log("look here", response)
+//     allUserData = response[0].userData;
+//     allSleepData = response[1].sleepData;
+//     allHydroData = response[2].hydrationData;
+//     allActivityData = response[3].activityData;
+//     createClassInstances(allUserData, allSleepData, allHydroData, allActivityData);
+//     console.log("hey this should update", allSleepData)
+//     updateSleepData()
+//     displayHydrationDom()
+//     displayWeeklyAverage()
+// })
+// }
 /*const inputHoursSlept = document.querySelector("hours-Slept");
 const inputSleepQuality = document.querySelector("sleep-Quality");
 const inputOzDrank = document.querySelector("number-of-oz");

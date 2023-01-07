@@ -101,6 +101,7 @@ const inputStairs = document.querySelector(".flights-of-stairs");
 const inputMinActive = document.querySelector(".minutes-active");
 const inputSteps = document.querySelector(".number-of-steps");
 const postSuccessDisplay = document.querySelector(".post-success-section");
+const postForm = document.getElementById("post-form");
 
 hydrationBtn.addEventListener("click", function () {
   showHydrationArea();
@@ -136,25 +137,14 @@ returnSleepWidgetButton.addEventListener("click", (event) => {
   );
 });
 calendarSub.addEventListener("click", displayWeeklyAverage);
-calendarDate.addEventListener("mousedown", enableSubmit);
+// calendarDate.addEventListener("mousedown", enableSubmit);
 showFormBtn.addEventListener("click", (event) => {
   showInputForm(event);
 });
 inputSub.addEventListener("click", (event) => {
   createPostObject(event);
 });
-radioSleep.focus();
-radioHydration.focus();
-radioActivity.focus();
-radioSleep.addEventListener("change", () => {
-  radioSleep.setAttribute("aria-checked", true);
-});
-radioHydration.addEventListener("change", () => {
-  radioHydration.setAttribute("aria-checked", true);
-});
-radioActivity.addEventListener("change", () => {
-  radioActivity.setAttribute("aria-checked", true);
-});
+postForm.addEventListener("click", toggleAriaChecked);
 
 function createClassInstances(dataSet1, dataSet2, dataSet3, dataSet4) {
   allUserData = dataSet1.map((user) => new User(user));
@@ -428,12 +418,9 @@ function postInformation(endPoint, data, array) {
       if (!res.ok) {
         throw new Error();
       }
-      radioSleep.checked = false;
-      radioActivity.checked = false;
-      radioHydration.checked = false;
-      radioSleep.setAttribute("aria-checked", false);
-      radioActivity.setAttribute("aria-checked", false);
-      radioHydration.setAttribute("aria-checked", false);
+      // radioSleep.setAttribute("aria-checked", false);
+      // radioActivity.setAttribute("aria-checked", false);
+      // radioHydration.setAttribute("aria-checked", false);
       return res.json();
     })
     .then((obj) => {
@@ -471,18 +458,11 @@ function letsTry() {
     displayWeeklyAverage();
   });
 }
-/*const inputHoursSlept = document.querySelector("hours-Slept");
-const inputSleepQuality = document.querySelector("sleep-Quality");
-const inputOzDrank = document.querySelector("number-of-oz");
-const inputStairs = document.querySelector("flights-of-stairs");
-const inputMinActive = document.querySelector("minutes-active");
-const inputSteps = document.querySelector("number-of-steps"); */
-/*const inputForm = document.getElementById('input-form');
-const showFormBtn = document.getElementById('input-btn');
-const radioSleep = document.getElementById('sleep-input');
-const radioHydration = document.getElementById('hydration-input');
-const radioActivity = document.getElementById('activity-input');
-const sleepForm = document.querySelector('.sleep-form');
-const hydrationForm = document.querySelector('.hydration-form');
-const activityForm = document.querySelector('.activity-form');
-const inputSub = document.querySelector(".form-submit"); */
+
+function toggleAriaChecked() {
+  radioSleep.setAttribute("aria-checked", radioSleep.checked ? true : false);
+  radioHydration.setAttribute("aria-checked", radioHydration.checked ? true : false
+  );
+  radioActivity.setAttribute("aria-checked", radioActivity.checked ? true : false);
+}
+

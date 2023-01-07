@@ -1,4 +1,3 @@
-
 import "../src/css/styles.css";
 import "../src/images/turing-logo.png";
 import "../src/images/exercise.png";
@@ -14,9 +13,8 @@ import HydrationRepository from "./HydrationRepository";
 import Sleep from "./Sleep.js";
 import SleepRepository from "./SleepRepository";
 import dayjs from "dayjs";
-import Activity from "./Activity"
-import ActivityRepository from "./ActivityRepository"
-
+import Activity from "./Activity";
+import ActivityRepository from "./ActivityRepository";
 
 let allUserData;
 let allSleepData;
@@ -30,35 +28,36 @@ let hydrationRepository;
 let dateForWeek;
 let activityRepository;
 
-
-
-const userAPI = 'http://localhost:3001/api/v1/users';
-const sleepAPI = 'http://localhost:3001/api/v1/sleep';
-const hydrationAPI = 'http://localhost:3001/api/v1/hydration';
-const activityAPI = 'http://localhost:3001/api/v1/activity';
-
+const userAPI = "http://localhost:3001/api/v1/users";
+const sleepAPI = "http://localhost:3001/api/v1/sleep";
+const hydrationAPI = "http://localhost:3001/api/v1/hydration";
+const activityAPI = "http://localhost:3001/api/v1/activity";
 
 function getPageData() {
   Promise.all([
     getAPIData(userAPI),
     getAPIData(sleepAPI),
     getAPIData(hydrationAPI),
-    getAPIData(activityAPI)
+    getAPIData(activityAPI),
   ])
     .then((response) => {
       allUserData = response[0].userData;
       allSleepData = response[1].sleepData;
       allHydroData = response[2].hydrationData;
       allActivityData = response[3].activityData;
-      createClassInstances(allUserData, allSleepData, allHydroData, allActivityData);
+      createClassInstances(
+        allUserData,
+        allSleepData,
+        allHydroData,
+        allActivityData
+      );
       getRandomUser(allUserData);
       restrictCalendarRangeMin();
     })
     .catch((error) => {
-      fetchFailureDisplay.classList.remove('hidden');
+      fetchFailureDisplay.classList.remove("hidden");
     });
-};
-
+}
 
 const hydrationBtn = document.querySelector("#hydration");
 const hydrationDisplay = document.querySelector(".hydration-widget");
@@ -72,23 +71,27 @@ const welcomeContainer = document.getElementById("user-info");
 const stepsWidget = document.getElementById("steps-widget");
 const activityWidget = document.getElementById("activity-widget");
 const activityButton = document.getElementById("activity");
-const returnActivityWidgetButton = document.getElementById("return-to-activity-widget")
+const returnActivityWidgetButton = document.getElementById(
+  "return-to-activity-widget"
+);
 const stepsButton = document.getElementById("steps");
 const userFriendsSection = document.getElementById("friends-info");
 const returnStepsWidgetButton = document.getElementById("return-to-widget");
 const sleepWidgetButton = document.getElementById("sleep");
 const sleepWidget = document.getElementById("sleep-widget");
-const returnSleepWidgetButton = document.getElementById("return-to-sleep-widget");
-const fetchFailureDisplay = document.getElementById('fetch-failure');
-const postFailureDisplay = document.getElementById('post-failure');
-const inputForm = document.getElementById('input-form');
-const showFormBtn = document.getElementById('input-btn');
-const radioSleep = document.getElementById('sleep-input');
-const radioHydration = document.getElementById('hydration-input');
-const radioActivity = document.getElementById('activity-input');
-const sleepForm = document.querySelector('.sleep-form');
-const hydrationForm = document.querySelector('.hydration-form');
-const activityForm = document.querySelector('.activity-form');
+const returnSleepWidgetButton = document.getElementById(
+  "return-to-sleep-widget"
+);
+const fetchFailureDisplay = document.getElementById("fetch-failure");
+const postFailureDisplay = document.getElementById("post-failure");
+const inputForm = document.getElementById("input-form");
+const showFormBtn = document.getElementById("input-btn");
+const radioSleep = document.getElementById("sleep-input");
+const radioHydration = document.getElementById("hydration-input");
+const radioActivity = document.getElementById("activity-input");
+const sleepForm = document.querySelector(".sleep-form");
+const hydrationForm = document.querySelector(".hydration-form");
+const activityForm = document.querySelector(".activity-form");
 const inputSub = document.querySelector(".form-submit");
 const inputDate = document.querySelector(".input-date");
 const inputHoursSlept = document.querySelector(".hours-Slept");
@@ -97,52 +100,72 @@ const inputOzDrank = document.querySelector(".number-of-oz");
 const inputStairs = document.querySelector(".flights-of-stairs");
 const inputMinActive = document.querySelector(".minutes-active");
 const inputSteps = document.querySelector(".number-of-steps");
-const postSuccessDisplay = document.querySelector(".post-success-section")
+const postSuccessDisplay = document.querySelector(".post-success-section");
 
-
-hydrationBtn.addEventListener("click",function() {
+hydrationBtn.addEventListener("click", function () {
   showHydrationArea();
   displayHydrationDom();
 });
 toggleHomeBtn.addEventListener("click", (event) => {
   returnToWidget(event, hydrationBtn, toggleHomeBtn, hydrationDisplay);
 });
-window.addEventListener("load", function(){
+window.addEventListener("load", function () {
+  calendarSub.disabled = true;
   getPageData();
 });
 stepsButton.addEventListener("click", updateStepWidget);
-activityButton.addEventListener("click", findWeeklyData)
+activityButton.addEventListener("click", findWeeklyData);
 returnActivityWidgetButton.addEventListener("click", (event) => {
-  returnToWidget(event, activityButton, activityWidget, returnActivityWidgetButton)
-})
+  returnToWidget(
+    event,
+    activityButton,
+    activityWidget,
+    returnActivityWidgetButton
+  );
+});
 returnStepsWidgetButton.addEventListener("click", (event) => {
   returnToWidget(event, stepsButton, stepsWidget, returnStepsWidgetButton);
 });
 sleepWidgetButton.addEventListener("click", updateSleepData);
 returnSleepWidgetButton.addEventListener("click", (event) => {
-  returnToWidget(event, sleepWidgetButton, sleepWidget, returnSleepWidgetButton)
+  returnToWidget(
+    event,
+    sleepWidgetButton,
+    sleepWidget,
+    returnSleepWidgetButton
+  );
 });
-calendarSub.addEventListener('click', displayWeeklyAverage);
-// calendarDate.addEventListener('mousedown', enableSubmit);
-showFormBtn.addEventListener('click', (event) => {
-  showInputForm(event)
+calendarSub.addEventListener("click", displayWeeklyAverage);
+calendarDate.addEventListener("mousedown", enableSubmit);
+showFormBtn.addEventListener("click", (event) => {
+  showInputForm(event);
 });
-inputSub.addEventListener('click', (event) => {
-  createPostObject(event)
-})
-
-
+inputSub.addEventListener("click", (event) => {
+  createPostObject(event);
+});
+radioSleep.focus();
+radioHydration.focus();
+radioActivity.focus();
+radioSleep.addEventListener("change", () => {
+  radioSleep.setAttribute("aria-checked", true);
+});
+radioHydration.addEventListener("change", () => {
+  radioHydration.setAttribute("aria-checked", true);
+});
+radioActivity.addEventListener("change", () => {
+  radioActivity.setAttribute("aria-checked", true);
+});
 
 function createClassInstances(dataSet1, dataSet2, dataSet3, dataSet4) {
   allUserData = dataSet1.map((user) => new User(user));
   userRepository = new UserRepository(allUserData);
   allSleepData = dataSet2.map((data) => new Sleep(data));
   sleepRepository = new SleepRepository(allSleepData);
-  allHydroData = dataSet3.map(data => new Hydration(data));
+  allHydroData = dataSet3.map((data) => new Hydration(data));
   hydrationRepository = new HydrationRepository(allHydroData);
-  allActivityData = dataSet4.map(data => new Activity(data));
+  allActivityData = dataSet4.map((data) => new Activity(data));
   activityRepository = new ActivityRepository(allActivityData);
-};
+}
 
 function getRandomUser(allUserData) {
   const randomID = Math.floor(Math.random() * allUserData.length);
@@ -151,13 +174,13 @@ function getRandomUser(allUserData) {
   updateUserInfo();
   updateFriendsInfo();
   return currentUserID;
-};
+}
 
 function updateUserInfo() {
   welcomeContainer.innerHTML = `
   <h1 class="user-name">Welcome, ${currentUser.firstName()}!</h1>
   <h2 class="user-info">${currentUser.address}, ${currentUser.email}</h2>`;
-};
+}
 
 function updateFriendsInfo() {
   allUserData[currentUserID].friends.forEach((friend) => {
@@ -166,83 +189,104 @@ function updateFriendsInfo() {
       <h3>Step Goal: ${userRepository.findUser(friend).dailyStepGoal}</h3>
     </div>`;
   });
-};
+}
 
 function showHydrationArea() {
-	showArea(hydrationBtn,toggleHomeBtn,hydrationDisplay);
-};
+  showArea(hydrationBtn, toggleHomeBtn, hydrationDisplay);
+}
 
 function displayHydrationDom() {
- displayTodaysHydration(hydrationRepository,currentUserID);
- displayAverageConsumed();
-};
+  displayTodaysHydration(hydrationRepository, currentUserID);
+  displayAverageConsumed();
+}
 
 function restrictCalendarRangeMin() {
-  const usersRecordedDates = hydrationRepository.filterHydrationByUser(currentUserID);
-  const min = usersRecordedDates.sort((a,b)=> new Date(a.date) - new Date(b.date));
+  const usersRecordedDates =
+    hydrationRepository.filterHydrationByUser(currentUserID);
+  const min = usersRecordedDates.sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
   const minDateEdit = min[0].date;
-  const minValue = minDateEdit.replaceAll('/','-');
+  const minValue = minDateEdit.replaceAll("/", "-");
   const max = min.reverse()[0].date;
-  const maxValue = max.replaceAll('/','-');
-  calendarDate.setAttribute('max',maxValue);
-  calendarDate.setAttribute('min',minValue);
-};
+  const maxValue = max.replaceAll("/", "-");
+  calendarDate.setAttribute("max", maxValue);
+  calendarDate.setAttribute("min", minValue);
+}
 
-function displayTodaysHydration(hydrationRepository,currentUserID) {
+function displayTodaysHydration(hydrationRepository, currentUserID) {
   const todaysOz = hydrationRepository.findTodaysHydration(currentUserID);
-	ouncesDrankToday.innerText = `Today's you drank ${todaysOz} oz! `;
-};
+  ouncesDrankToday.innerText = `Today's you drank ${todaysOz} oz! `;
+}
 
 function displayWeeklyAverage() {
   // e.preventDefault();
-  hydrationWeeklyAvg.innerHTML = '';
-	const chosenDate = calendarDate.value; 
-	const alteredDate = chosenDate.replaceAll('-',"/");
-	const userWeeklyData = hydrationRepository.findWeeklyHydration(alteredDate,currentUserID);
-	userWeeklyData.forEach((recordedDay) => {
-		hydrationWeeklyAvg.innerHTML += 
-    `<p class="hydration-weekly">
-		  ${dayjs(recordedDay.date).format('dd/MMM/D/YYYY')} you consumed ${recordedDay.numOunces} ounces
+  hydrationWeeklyAvg.innerHTML = "";
+  const chosenDate = calendarDate.value;
+  const alteredDate = chosenDate.replaceAll("-", "/");
+  const userWeeklyData = hydrationRepository.findWeeklyHydration(
+    alteredDate,
+    currentUserID
+  );
+  userWeeklyData.forEach((recordedDay) => {
+    hydrationWeeklyAvg.innerHTML += `<p class="hydration-weekly">
+		  ${dayjs(recordedDay.date).format("dd/MMM/D/YYYY")} you consumed ${
+      recordedDay.numOunces
+    } ounces
 		</p>`;
-	});
-  calendarSub.disabled = true;
-};
+  });
+}
 
 function displayAverageConsumed() {
-  const averageWaterAllTime = hydrationRepository.getAverageHydration(currentUserID);
+  const averageWaterAllTime =
+    hydrationRepository.getAverageHydration(currentUserID);
   const roundedAverage = Math.trunc(averageWaterAllTime);
   hydroAllTimeAvgArea.innerText = `All time average oz consumed is ${roundedAverage} oz !`;
-};
+}
 
 function findWeeklyData() {
-  showArea(activityButton,activityWidget,returnActivityWidgetButton);
-  activityWidget.innerHTML = ""
+  showArea(activityButton, activityWidget, returnActivityWidgetButton);
+  activityWidget.innerHTML = "";
   const userActivity = activityRepository.filterById(currentUserID);
   const todayActivity = activityRepository.determineTodayData();
-  const weeklyData = activityRepository.findWeeklyData(todayActivity.date).reverse();
-  const weeklyKey = weeklyData.forEach(dayActivity => {
+  const weeklyData = activityRepository
+    .findWeeklyData(todayActivity.date)
+    .reverse();
+  const weeklyKey = weeklyData.forEach((dayActivity) => {
     activityWidget.innerHTML += `<ul>
       <li>${dayActivity.date}: </li>
       <li>Steps: ${dayActivity.numSteps}</li>
       <li>Stairs Climbed: ${dayActivity.flightsOfStairs}</li>
       <li>Minutes Active: ${dayActivity.minutesActive}</li>
       </ul>
-    `
+    `;
   });
-  console.log("weeklyKey", weeklyKey)
-};
+  console.log("weeklyKey", weeklyKey);
+}
 
 function updateStepWidget() {
-  showArea(stepsButton,stepsWidget,returnStepsWidgetButton);
+  showArea(stepsButton, stepsWidget, returnStepsWidgetButton);
   const userActivity = activityRepository.filterById(currentUserID);
   const todayActivity = activityRepository.determineTodayData();
   const userStepsToday = todayActivity.numSteps;
   const userMinActiveToday = todayActivity.minutesActive;
   const userStairsClimbed = todayActivity.flightsOfStairs;
-  const numOfMiles = activityRepository.findMilesWalked(todayActivity.date, currentUser);
-  const avgSteps = activityRepository.getUsersAvgForDay(todayActivity.date, 'numSteps');
-  const avgMinActive = activityRepository.getUsersAvgForDay(todayActivity.date, 'minutesActive');
-  const avgStairsClimbed = activityRepository.getUsersAvgForDay(todayActivity.date, 'flightsOfStairs');
+  const numOfMiles = activityRepository.findMilesWalked(
+    todayActivity.date,
+    currentUser
+  );
+  const avgSteps = activityRepository.getUsersAvgForDay(
+    todayActivity.date,
+    "numSteps"
+  );
+  const avgMinActive = activityRepository.getUsersAvgForDay(
+    todayActivity.date,
+    "minutesActive"
+  );
+  const avgStairsClimbed = activityRepository.getUsersAvgForDay(
+    todayActivity.date,
+    "flightsOfStairs"
+  );
   stepsWidget.innerHTML = `<ul> 
       <li>Stride Length: ${currentUser.strideLength} </li>
       <li> Today's Steps: ${userStepsToday} </li>
@@ -258,25 +302,25 @@ function updateStepWidget() {
         currentUser.dailyStepGoal
       } Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>
     </ul>`;
-    // findWeeklyData(todayActivity.date);
-};
+  // findWeeklyData(todayActivity.date);
+}
 
 function returnToWidget(event, area1, area2, area3) {
   event.preventDefault();
   hideArea(area1, area2, area3);
-};
+}
 
 function showArea(area1, area2, area3) {
   area1.classList.add("hidden");
   area2.classList.remove("hidden");
   area3.classList.remove("hidden");
-};
+}
 
 function hideArea(area1, area2, area3) {
-  area1.classList.remove('hidden');
-  area2.classList.add('hidden');
-  area3.classList.add('hidden');
-};
+  area1.classList.remove("hidden");
+  area2.classList.add("hidden");
+  area3.classList.add("hidden");
+}
 
 function updateSleepData() {
   showArea(sleepWidgetButton, sleepWidget, returnSleepWidgetButton);
@@ -304,7 +348,7 @@ function updateSleepData() {
             )}</li>
           </ul>
           `;
-};
+}
 
 function findLatestWeeksSleepData(id, type) {
   dateForWeek = sleepRepository.findTodaysData(id).date;
@@ -314,92 +358,118 @@ function findLatestWeeksSleepData(id, type) {
     return acc;
   }, []);
   return dataResult;
-};
+}
 
 function displayAverageSleepDataForAllTime(type) {
   return sleepRepository.calcAvgSleepStats(type);
-};
+}
 
 function showInputForm(event) {
   event.preventDefault();
-  inputDate.classList.remove('hidden');
-  inputSub.classList.remove('hidden');
-  inputDate.setAttribute('required', true);
- if(radioSleep.checked) {
-  hideArea(sleepForm, hydrationForm, activityForm);
-  inputSleepQuality.setAttribute('required', true);
-  inputHoursSlept.setAttribute('required', true);
- } else if(radioHydration.checked) {
-  hideArea(hydrationForm, sleepForm, activityForm);
-  inputOzDrank.setAttribute('required', true);
- } else if(radioActivity.checked) {
-  hideArea(activityForm, hydrationForm, sleepForm);
-  inputStairs.setAttribute('required', true);
-  inputMinActive.setAttribute('required', true);
-  inputSteps.setAttribute('required', true);
- };
-};
+  inputDate.classList.remove("hidden");
+  inputSub.classList.remove("hidden");
+  inputDate.setAttribute("required", true);
+  if (radioSleep.checked) {
+    hideArea(sleepForm, hydrationForm, activityForm);
+    inputSleepQuality.setAttribute("required", true);
+    inputHoursSlept.setAttribute("required", true);
+  } else if (radioHydration.checked) {
+    hideArea(hydrationForm, sleepForm, activityForm);
+    inputOzDrank.setAttribute("required", true);
+  } else if (radioActivity.checked) {
+    hideArea(activityForm, hydrationForm, sleepForm);
+    inputStairs.setAttribute("required", true);
+    inputMinActive.setAttribute("required", true);
+    inputSteps.setAttribute("required", true);
+  }
+}
 
 function createPostObject(event) {
-  event.preventDefault()
-  if(inputSleepQuality.value && inputHoursSlept.value) {
-    const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: inputHoursSlept.value, sleepQuality: inputSleepQuality.value}
-    const sleepEndPoint = "sleep"
-    postInformation(sleepEndPoint, sleepObject, allSleepData)
-  } else if(inputOzDrank.value) {
-    const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: inputOzDrank.value}
-    const hydrationEndPoint = "hydration"
-    postInformation(hydrationEndPoint, hydrationObject, allHydroData)
-  }else if(inputStairs.value && inputMinActive.value && inputSteps.value) {
-    const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: inputStairs.value, minutesActive: inputMinActive.value, numSteps: inputSteps.value}
-    const activityEndPoint = "activity"
-    postInformation(activityEndPoint, activityObject, allActivityData)
+  event.preventDefault();
+  if (inputSleepQuality.value && inputHoursSlept.value) {
+    const sleepObject = {
+      userID: currentUserID,
+      date: inputDate.value.replaceAll("-", "/"),
+      hoursSlept: inputHoursSlept.value,
+      sleepQuality: inputSleepQuality.value,
+    };
+    const sleepEndPoint = "sleep";
+    postInformation(sleepEndPoint, sleepObject, allSleepData);
+  } else if (inputOzDrank.value) {
+    const hydrationObject = {
+      userID: currentUserID,
+      date: inputDate.value.replaceAll("-", "/"),
+      numOunces: inputOzDrank.value,
+    };
+    const hydrationEndPoint = "hydration";
+    postInformation(hydrationEndPoint, hydrationObject, allHydroData);
+  } else if (inputStairs.value && inputMinActive.value && inputSteps.value) {
+    const activityObject = {
+      userID: currentUserID,
+      date: inputDate.value.replaceAll("-", "/"),
+      flightsOfStairs: inputStairs.value,
+      minutesActive: inputMinActive.value,
+      numSteps: inputSteps.value,
+    };
+    const activityEndPoint = "activity";
+    postInformation(activityEndPoint, activityObject, allActivityData);
   }
 }
 
 function postInformation(endPoint, data, array) {
   fetch(`http://localhost:3001/api/v1/${endPoint}`, {
-    method: 'POST', 
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   })
-  .then(res => {
-    if(!res.ok) {
-      throw new Error();
-    }
-    return res.json();
-  })
-  .then(obj => {
-    postSuccessDisplay.classList.remove('hidden')
-    return letsTry()
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error();
+      }
+      radioSleep.checked = false;
+      radioActivity.checked = false;
+      radioHydration.checked = false;
+      radioSleep.setAttribute("aria-checked", false);
+      radioActivity.setAttribute("aria-checked", false);
+      radioHydration.setAttribute("aria-checked", false);
+      return res.json();
+    })
+    .then((obj) => {
+      postSuccessDisplay.classList.remove("hidden");
+      return letsTry();
     })
     .catch((error) => {
-      fetchFailureDisplay.classList.remove('hidden');
-  })
+      fetchFailureDisplay.classList.remove("hidden");
+    });
   // .catch(err => postFailureDisplay.classList.remove('hidden'))
 }
+
 function letsTry() {
   Promise.all([
     getAPIData(userAPI),
     getAPIData(sleepAPI),
     getAPIData(hydrationAPI),
-    getAPIData(activityAPI)
-  ])
-  .then((response) => {
-    console.log(updateSleepData())
+    getAPIData(activityAPI),
+  ]).then((response) => {
+    console.log(updateSleepData());
     // console.log("look here", response)
     allUserData = response[0].userData;
     allSleepData = response[1].sleepData;
     allHydroData = response[2].hydrationData;
     allActivityData = response[3].activityData;
-    createClassInstances(allUserData, allSleepData, allHydroData, allActivityData);
-    console.log("hey this should update", allSleepData)
-    updateSleepData()
-    displayHydrationDom()
-    displayWeeklyAverage()
-})
+    createClassInstances(
+      allUserData,
+      allSleepData,
+      allHydroData,
+      allActivityData
+    );
+    console.log("hey this should update", allSleepData);
+    updateSleepData();
+    displayHydrationDom();
+    displayWeeklyAverage();
+  });
 }
 /*const inputHoursSlept = document.querySelector("hours-Slept");
 const inputSleepQuality = document.querySelector("sleep-Quality");

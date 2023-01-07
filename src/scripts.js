@@ -97,6 +97,7 @@ const inputOzDrank = document.querySelector(".number-of-oz");
 const inputStairs = document.querySelector(".flights-of-stairs");
 const inputMinActive = document.querySelector(".minutes-active");
 const inputSteps = document.querySelector(".number-of-steps");
+const postSuccessDisplay = document.querySelector(".post-success-section")
 
 
 hydrationBtn.addEventListener("click",function() {
@@ -192,8 +193,8 @@ function displayTodaysHydration(hydrationRepository,currentUserID) {
 	ouncesDrankToday.innerText = `Today's you drank ${todaysOz} oz! `;
 };
 
-function displayWeeklyAverage(e) {
-  e.preventDefault();
+function displayWeeklyAverage() {
+  // e.preventDefault();
   hydrationWeeklyAvg.innerHTML = '';
 	const chosenDate = calendarDate.value; 
 	const alteredDate = chosenDate.replaceAll('-',"/");
@@ -347,7 +348,7 @@ function createPostObject(event) {
     postInformation(sleepEndPoint, sleepObject, allSleepData)
   } else if(inputOzDrank.value) {
     const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: inputOzDrank.value}
-    const hydrationEndpoint = "hydration"
+    const hydrationEndPoint = "hydration"
     postInformation(hydrationEndPoint, hydrationObject, allHydroData)
   }else if(inputStairs.value && inputMinActive.value && inputSteps.value) {
     const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: inputStairs.value, minutesActive: inputMinActive.value, numSteps: inputSteps.value}
@@ -371,11 +372,34 @@ function postInformation(endPoint, data, array) {
     return res.json();
   })
   .then(obj => {
-    console.log("beforePost", array)
-    array.push(obj)
-    console.log("AFTERPOST", array)
+    postSuccessDisplay.classList.remove('hidden')
+    return letsTry()
+    })
+    .catch((error) => {
+      fetchFailureDisplay.classList.remove('hidden');
   })
-  .catch(err => postFailureDisplay.classList.remove('hidden'))
+  // .catch(err => postFailureDisplay.classList.remove('hidden'))
+}
+function letsTry() {
+  Promise.all([
+    getAPIData(userAPI),
+    getAPIData(sleepAPI),
+    getAPIData(hydrationAPI),
+    getAPIData(activityAPI)
+  ])
+  .then((response) => {
+    console.log(updateSleepData())
+    // console.log("look here", response)
+    allUserData = response[0].userData;
+    allSleepData = response[1].sleepData;
+    allHydroData = response[2].hydrationData;
+    allActivityData = response[3].activityData;
+    createClassInstances(allUserData, allSleepData, allHydroData, allActivityData);
+    console.log("hey this should update", allSleepData)
+    updateSleepData()
+    displayHydrationDom()
+    displayWeeklyAverage()
+})
 }
 /*const inputHoursSlept = document.querySelector("hours-Slept");
 const inputSleepQuality = document.querySelector("sleep-Quality");

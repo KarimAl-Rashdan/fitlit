@@ -27,20 +27,16 @@ class SleepRepository {
       return 'Pick a date';
     }
   }
-  calculateSleepPerWeek(date, id) {
+  calculateAvgSleepPerWeek(date, id, type) {
     let value = this.filterSleepByUser(id);
     let findentryDate = value.find(entry => entry.date === date);
     let startingIndex = value.indexOf(findentryDate);
     let selectedWeek = value.slice(startingIndex - 6, startingIndex + 1);
-    let result = selectedWeek.map(entry => {
-      let weeklySleep = {
-        date: entry.date, 
-        hoursSlept: entry.hoursSlept, 
-        sleepQuality: entry.sleepQuality 
-      };
-      return weeklySleep;
-    })
-    return result;
+    const result = selectedWeek.reduce((num, day) => {
+      num += day[type]
+      return num
+    }, 0)/selectedWeek.length
+    return Math.round(result)
   }
   calcAvgSleepStats(type) {
     let total = this.sleepData.reduce((total, num) => {

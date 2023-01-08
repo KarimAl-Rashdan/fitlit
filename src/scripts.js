@@ -81,7 +81,7 @@ const sleepWidget = document.getElementById("sleep-widget");
 const returnSleepWidgetButton = document.getElementById("return-to-sleep-widget");
 const fetchFailureDisplay = document.getElementById('fetch-failure');
 const postFailureDisplay = document.getElementById('post-failure');
-// const inputForm = document.getElementById('input-form');
+const inputForm = document.getElementById('input-form');
 const showFormBtn = document.getElementById('input-btn');
 const radioSleep = document.getElementById('sleep-input');
 const radioHydration = document.getElementById('hydration-input');
@@ -387,21 +387,35 @@ function createPostObject(event) {
   if(inputSleepQuality.value && inputHoursSlept.value) {
     const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: Number(inputHoursSlept.value), sleepQuality: Number(inputSleepQuality.value)}
     const sleepEndPoint = "sleep"
-    console.log('weellshit',sleepObject)
+     console.log('SLEEEPObj',sleepObject)
+    
     // postInformation(sleepEndPoint, sleepObject, allSleepData)
+    inputSleepQuality.value = '';
+    inputHoursSlept.value = '';
+    inputDate.value = ''
   } else if(inputOzDrank.value) {
     const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: Number(inputOzDrank.value)}
     const hydrationEndPoint = "hydration"
-    console.log('Blanket',currentUserID)
-    console.log('HydroObject',hydrationObject)
-    console.log('endpoint',hydrationEndPoint)
+    console.log('HYDROBJ',hydrationObject)
     // postInformation(hydrationEndPoint, hydrationObject, allHydroData)
+    inputOzDrank.value = '';
+    inputDate.value = ''
   }else if(inputStairs.value && inputMinActive.value && inputSteps.value) {
     const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: Number(inputStairs.value), minutesActive: Number(inputMinActive.value), numSteps: Number(inputSteps.value)}
     const activityEndPoint = "activity"
+    console.log('ACT',activityObject)
     // postInformation(activityEndPoint, activityObject, allActivityData)
+   inputStairs.value = '';
+   inputMinActive.value = '';
+   inputSteps.value = '';
+   inputDate.value = ''
   }
+ 
+   
 }
+// function clearValues(input1,input2){
+
+// }
 
 // function postInformation(endPoint, data, array) {
 //   fetch(`http://localhost:3001/api/v1/${endPoint}`, {

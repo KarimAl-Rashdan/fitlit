@@ -382,22 +382,26 @@ function showInputForm(event) {
 function enableSubmit() { 
   calendarSub.disabled = false;
 };
-// function createPostObject(event) {
-//   event.preventDefault()
-//   if(inputSleepQuality.value && inputHoursSlept.value) {
-//     const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: inputHoursSlept.value, sleepQuality: inputSleepQuality.value}
-//     const sleepEndPoint = "sleep"
-//     postInformation(sleepEndPoint, sleepObject, allSleepData)
-//   } else if(inputOzDrank.value) {
-//     const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: inputOzDrank.value}
-//     const hydrationEndPoint = "hydration"
-//     postInformation(hydrationEndPoint, hydrationObject, allHydroData)
-//   }else if(inputStairs.value && inputMinActive.value && inputSteps.value) {
-//     const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: inputStairs.value, minutesActive: inputMinActive.value, numSteps: inputSteps.value}
-//     const activityEndPoint = "activity"
-//     postInformation(activityEndPoint, activityObject, allActivityData)
-//   }
-// }
+function createPostObject(event) {
+  event.preventDefault()
+  if(inputSleepQuality.value && inputHoursSlept.value) {
+    const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: Number(inputHoursSlept.value), sleepQuality: Number(inputSleepQuality.value)}
+    const sleepEndPoint = "sleep"
+    console.log('weellshit',sleepObject)
+    // postInformation(sleepEndPoint, sleepObject, allSleepData)
+  } else if(inputOzDrank.value) {
+    const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: Number(inputOzDrank.value)}
+    const hydrationEndPoint = "hydration"
+    console.log('Blanket',currentUserID)
+    console.log('HydroObject',hydrationObject)
+    console.log('endpoint',hydrationEndPoint)
+    // postInformation(hydrationEndPoint, hydrationObject, allHydroData)
+  }else if(inputStairs.value && inputMinActive.value && inputSteps.value) {
+    const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: Number(inputStairs.value), minutesActive: Number(inputMinActive.value), numSteps: Number(inputSteps.value)}
+    const activityEndPoint = "activity"
+    // postInformation(activityEndPoint, activityObject, allActivityData)
+  }
+}
 
 // function postInformation(endPoint, data, array) {
 //   fetch(`http://localhost:3001/api/v1/${endPoint}`, {

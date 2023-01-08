@@ -368,25 +368,41 @@ function enableSubmit() {
 
 function createPostObject(event) {
   event.preventDefault()
-  if(inputSleepQuality.value && inputHoursSlept.value) {
-    const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: Number(inputHoursSlept.value), sleepQuality: Number(inputSleepQuality.value)}
-    const sleepEndPoint = "sleep"
-    postInformation(sleepEndPoint, sleepObject)
-    clearValues(inputSleepQuality,inputHoursSlept)
-    inputDate.value = ''
-  } else if(inputOzDrank.value) {
-    const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: Number(inputOzDrank.value)}
-    const hydrationEndPoint = "hydration"
-    postInformation(hydrationEndPoint, hydrationObject)
-    clearValues(inputOzDrank,inputDate)
-  } else if(inputStairs.value && inputMinActive.value && inputSteps.value) {
-    const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: Number(inputStairs.value), minutesActive: Number(inputMinActive.value), numSteps: Number(inputSteps.value)}
-    const activityEndPoint = "activity"
-    postInformation(activityEndPoint, activityObject)
-    clearValues(inputStairs, inputMinActive)
-    clearValues(inputSteps, inputDate)
-  
+  if(findExistingData(allSleepData, currentUserID, inputDate.value)) {
+    return
   }
+  else {
+    if(inputSleepQuality.value && inputHoursSlept.value) {
+      const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: Number(inputHoursSlept.value), sleepQuality: Number(inputSleepQuality.value)}
+      const sleepEndPoint = "sleep"
+      postInformation(sleepEndPoint, sleepObject)
+      clearValues(inputSleepQuality,inputHoursSlept)
+      inputDate.value = ''
+    }
+  }
+    if(findExistingData(allHydroData, currentUserID, inputDate.value)) {
+      return
+    }
+    else {
+      if(inputOzDrank.value) {
+        const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: Number(inputOzDrank.value)}
+        const hydrationEndPoint = "hydration"
+        postInformation(hydrationEndPoint, hydrationObject)
+        clearValues(inputOzDrank,inputDate)
+      }
+    }
+    if(findExistingData(allActivityData, currentUserID, inputDate.value)) {
+      return
+    } else {
+      if(inputStairs.value && inputMinActive.value && inputSteps.value) {
+        const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: Number(inputStairs.value), minutesActive: Number(inputMinActive.value), numSteps: Number(inputSteps.value)}
+        const activityEndPoint = "activity"
+        postInformation(activityEndPoint, activityObject)
+        clearValues(inputStairs, inputMinActive)
+        clearValues(inputSteps, inputDate)
+      }
+    }
+  
 }
 
 function clearValues(input1, input2) {
@@ -442,3 +458,9 @@ function toggleAriaChecked() {
   radioHydration.setAttribute("aria-checked", radioHydration.checked ? true : false);
   radioActivity.setAttribute("aria-checked", radioActivity.checked ? true : false);
 }
+
+function findExistingData(data, userId, date) {
+  data.find(obj => {
+    return obj.userID === userId && obj.date === date
+  })
+} 

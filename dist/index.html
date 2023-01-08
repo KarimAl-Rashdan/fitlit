@@ -10,9 +10,20 @@
     <title>Fitlit</title>
   </head>
   <body class="background-container">
+    <section class="log-in-section" id="logInSection">
+      <form class="log-in-form" id="logInForm">
+        <h2 class="log-in-title">Sign In</h2>
+        <label for="username">Username</label>
+        <input class ="log-in-input" id="username" type="text" name="username" value="" required>
+        <label for="password">Password</label>
+        <input class ="log-in-input" id="password" type="password" name="password" value="" required>
+        <button class="log-in-btn" type="button" name="button" id="logInBtn">Log In</button>
+      </form>
+    </section>
     <main class="main-container">
       <section class="welcome-section">
         <img class="turing-logo" src="./images/turing-logo.png" alt="turing-logo" height="100px" width="100px"/>
+        <button class="sign-out-button" id="signOutBtn" type="button" name="button">Sign Out</button>
         <div class="header-and-calendar">
           <header class="welcome-container" id="user-info">
             <h1 class="user-name"></h1>
@@ -44,7 +55,7 @@
               <form>
                 <label class='hidden' for="calendar"> Calendar:</label>
                 <input type="date" id="calendar" name="calendar" required>
-                <button type="submit" id="dateInput" disabled> submit </button> 
+                <button type="submit" id="dateInput">submit</button> 
               </form>
               <li id="allTimeAvg">all time average</li>
             </ul>

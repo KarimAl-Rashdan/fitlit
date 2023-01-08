@@ -98,6 +98,71 @@ const inputStairs = document.querySelector(".flights-of-stairs");
 const inputMinActive = document.querySelector(".minutes-active");
 const inputSteps = document.querySelector(".number-of-steps");
 const postSuccessDisplay = document.querySelector(".post-success-section")
+const body = document.querySelector('.main-container')
+const friendsSection = document.getElementById('friends-container')
+const logInSection = document.getElementById('logInSection')
+
+
+const logInForm = document.getElementById('logInForm');
+const username = document.getElementById('username');
+const password = document.getElementById('password');
+const signOutBtn = document.getElementById('signOutBtn');
+const logInBtn = document.getElementById('logInBtn');
+
+logInBtn.addEventListener('click', checkLogInCredentials)
+signOutBtn.addEventListener('click', showLogInSection)
+
+const domUpdates = {
+  displayInvalidLogIn: function() {
+    window.alert('Sorry, please enter a valid username and password')
+  },
+
+  resetInnerHTML: function(element) {
+    element.innerText = ``
+  },
+
+  showSection: function(element) {
+    element.classList.remove('hidden');
+  },
+
+  hideSection: function(element) {
+    element.classList.add('hidden');
+  }
+}
+
+function showLogInSection() {
+  // domUpdates.hideSection(signOutBtn)
+  domUpdates.hideSection(body)
+  domUpdates.hideSection(friendsSection)
+  domUpdates.showSection(logInSection)
+}
+
+function hideLogInSection() {
+  // domUpdates.showSection(signOutBtn)
+  domUpdates.showSection(body)
+  domUpdates.showSection(friendsSection)
+  domUpdates.showSection(signOutBtn)
+  domUpdates.hideSection(logInSection)
+}
+
+function checkLogInCredentials() {
+  const id = 'Karrar'
+  console.log(username.value)
+  console.log(id)
+  if (0 < id.length && id.length <= 50 && password.value === 'fitlit') {
+    console.log("valid id")
+
+    hideLogInSection()
+    getAPIData(userAPI)
+    logInForm.reset()
+    return id
+  } else {
+    console.log("not a valid id")
+    domUpdates.displayInvalidLogIn()
+    logInForm.reset()
+  }
+}
+
 
 
 hydrationBtn.addEventListener("click",function() {
@@ -109,6 +174,8 @@ toggleHomeBtn.addEventListener("click", (event) => {
 });
 window.addEventListener("load", function(){
   getPageData();
+  showLogInSection();
+  checkLogInCredentials();
 });
 stepsButton.addEventListener("click", updateStepWidget);
 activityButton.addEventListener("click", findWeeklyData)

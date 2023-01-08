@@ -70,6 +70,7 @@ class ActivityRepository {
     const latestDate = this.currentUsersActivities.sort(
       (a, b) => new Date(b.date) - new Date(a.date)
     )[0];
+    console.log('TodayActivity',latestDate)
     return latestDate;
   }
   findDaysExceededGoal(userID, currentUser) {

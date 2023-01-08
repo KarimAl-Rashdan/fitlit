@@ -461,8 +461,7 @@ function letsTry() {
 
 function toggleAriaChecked() {
   radioSleep.setAttribute("aria-checked", radioSleep.checked ? true : false);
-  radioHydration.setAttribute("aria-checked", radioHydration.checked ? true : false
-  );
+  radioHydration.setAttribute("aria-checked", radioHydration.checked ? true : false);
   radioActivity.setAttribute("aria-checked", radioActivity.checked ? true : false);
 }
 

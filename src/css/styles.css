@@ -204,6 +204,16 @@ p {
   width: 25%;
 }
 
+.sleep:focus,
+.hydration:focus,
+.step-goal:focus,
+.activity:focus,
+.return-to-widget:focus,
+.input-btn:focus {
+  outline-style: solid;
+  outline-width: 10px;
+}
+
 .step-goal {
   margin-inline: 10px;
 }

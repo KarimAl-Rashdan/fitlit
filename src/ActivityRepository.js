@@ -42,12 +42,13 @@ class ActivityRepository {
         findIndex,
         findIndex + 7
         );
+        console.log("weeklyactivity", weeklyActivity)
         return weeklyActivity;
       
     }
     findAvgMinGivenWeek(date) {
     if (!date) {
-      console.log("this is hitting")
+      // console.log("this is hitting")
       return "Please pick a date!";
     } else {
     const weeklyActivity = this.findWeeklyData(date);

@@ -185,6 +185,59 @@ describe("ActivityRepository", () => {
     activityRepo.filterById(1);
     expect(activityRepo.findActiveMinOnDay(null)).to.equal('Please pick a date!');
   });
+  it("Should return an array of the latest week's activity", function () {
+    activityRepo.filterById(1)
+    const user1LatestWeek = [{
+      userID: 1,
+      date: "2019/06/15",
+      numSteps: 3577,
+      minutesActive: 140,
+      flightsOfStairs: 16
+      },
+      {
+      userID: 1,
+      date: "2019/06/16",
+      numSteps: 4294,
+      minutesActive: 138,
+      flightsOfStairs: 10
+      },
+      {
+      userID: 1,
+      date: "2019/06/17",
+      numSteps: 7402,
+      minutesActive: 116,
+      flightsOfStairs: 33
+      },
+      {
+      userID: 1,
+      date: "2019/06/18",
+      numSteps: 3486,
+      minutesActive: 114,
+      flightsOfStairs: 32
+      },
+      {
+      userID: 1,
+      date: "2019/06/19",
+      numSteps: 11374,
+      minutesActive: 213,
+      flightsOfStairs: 13
+      },
+      {
+      userID: 1,
+      date: "2019/06/20",
+      numSteps: 14810,
+      minutesActive: 287,
+      flightsOfStairs: 18
+      },
+      {
+      userID: 1,
+      date: "2019/06/21",
+      numSteps: 2634,
+      minutesActive: 107,
+      flightsOfStairs: 5
+      }]
+    expect(activityRepo.findWeeklyData('2019/06/15')).to.deep.equal(user1LatestWeek)
+  })
   it("Should find average minutes active specified by date", function() {
     activityRepo.filterById(1);
     expect(activityRepo.findAvgMinGivenWeek('2019/06/15')).to.equal(159);

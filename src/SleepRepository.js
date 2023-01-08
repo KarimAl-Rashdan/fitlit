@@ -29,7 +29,6 @@ class SleepRepository {
       return 'Pick a date';
     }
   }
-
   findWeeklyData(date, id) {
     const userSleepInfo = this.filterSleepByUser(id)
     const lastIndex = userSleepInfo.findIndex((user) => user.date === date);

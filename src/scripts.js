@@ -304,7 +304,7 @@ function updateSleepData() {
     
     sleepWeek.innerHTML += `<ul>
       <li>${dayActivity.date}: </li>
-      <li>Hours Slept: ${dayActivity.hoursSlept}</li>
+      <li><span style="font-weight:bold">Hours Slept:</span> ${dayActivity.hoursSlept}</li>
       <li>Sleep Quality: ${dayActivity.sleepQuality}</li>
       </ul>
     `

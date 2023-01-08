@@ -64,7 +64,18 @@ describe("SleepRepository", () => {
       "Pick a date"
     );
   });
-
+  it("Should return a specified week of sleep data", function() {
+    const sampleWeek = [
+      {userID: 1, date: "2019/06/16", hoursSlept: 4.1, sleepQuality: 3.8},
+      {userID: 1, date: "2019/06/18", hoursSlept: 10.4, sleepQuality: 3.1},
+      {userID: 1, date: "2019/06/19", hoursSlept: 10.7, sleepQuality: 1.2},
+      {userID: 1, date: "2019/06/20", hoursSlept: 9.3, sleepQuality: 1.2},
+      {userID: 1, date: "2019/06/21", hoursSlept: 7.8, sleepQuality: 4.2},
+      {userID: 1, date: '2019/06/22', hoursSlept: 10.8, sleepQuality: 4.7},
+      {userID: 1, date: '2019/06/23', hoursSlept: 10.5, sleepQuality: 3.7}
+    ]
+    expect(sleepRepo2.findWeeklyData('2019/06/23',1)).to.eql(sampleWeek)
+  })
   it("should calculate the hours slept in any given week", function () {
     expect(sleepRepo2.calculateAvgSleepPerWeek("2019/06/22", 1, "hoursSlept")).to.equal(8);
     expect(sleepRepo2.calculateAvgSleepPerWeek("2019/06/22", 1, "sleepQuality")).to.equal(3);

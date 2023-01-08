@@ -242,7 +242,7 @@ function findWeeklyData() {
       </ul>
     `
   });
-  console.log("weeklyKey", weeklyKey)
+  console.log('WEEKData', weeklyData)
 };
 
 function updateStepWidget() {
@@ -296,15 +296,12 @@ function updateSleepData() {
   const userSleep = sleepRepository.filterSleepByUser(currentUserID);
   const todaySleep = sleepRepository.findTodaysData(currentUserID);
   const weeklySleep = sleepRepository.findWeeklyData(todaySleep.date, currentUserID);
-  // calculateAvgSleepPerWeek(date, id, type)
-  const avgHoursSlept = sleepRepository.calculateAvgSleepPerWeek(todaySleep.date, currentUserID, "hoursSlept")
-  const avgSleepQuality = sleepRepository.calculateAvgSleepPerWeek(todaySleep.date, currentUserID, "sleepQuality")
-  sleepWeek.innerHTML =''
-  console.log('SHOES',weeklySleep)
-  
+  const avgHoursSlept = sleepRepository.calculateAvgSleepPerWeek(todaySleep.date, currentUserID, "hoursSlept");
+  const avgSleepQuality = sleepRepository.calculateAvgSleepPerWeek(todaySleep.date, currentUserID, "sleepQuality");
+  sleepWeek.innerHTML ='';
 
   const weeklyKey = weeklySleep.forEach(dayActivity => {
-    console.log('dayActivity', dayActivity)
+    
     sleepWeek.innerHTML += `<ul>
       <li>${dayActivity.date}: </li>
       <li>Hours Slept: ${dayActivity.hoursSlept}</li>
@@ -400,14 +397,14 @@ function createPostObject(event) {
   } else if(inputOzDrank.value) {
     const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: Number(inputOzDrank.value)}
     const hydrationEndPoint = "hydration"
-    // postInformation(hydrationEndPoint, hydrationObject, allHydroData)
+    postInformation(hydrationEndPoint, hydrationObject)
     inputOzDrank.value = '';
     inputDate.value = ''
   }else if(inputStairs.value && inputMinActive.value && inputSteps.value) {
     const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: Number(inputStairs.value), minutesActive: Number(inputMinActive.value), numSteps: Number(inputSteps.value)}
     const activityEndPoint = "activity"
     console.log('ACT',activityObject)
-    // postInformation(activityEndPoint, activityObject, allActivityData)
+    postInformation(activityEndPoint, activityObject)
    inputStairs.value = '';
    inputMinActive.value = '';
    inputSteps.value = '';
@@ -451,17 +448,15 @@ function letsTry() {
     getAPIData(activityAPI)
   ])
   .then((response) => {
-   
-    console.log("look here", response)
     allUserData = response[0].userData;
     allSleepData = response[1].sleepData;
     allHydroData = response[2].hydrationData;
     allActivityData = response[3].activityData;
     createClassInstances(allUserData, allSleepData, allHydroData, allActivityData);
-    console.log(" updated??", allSleepData)
     updateSleepData()
     displayHydrationDom()
     displayWeeklyAverage()
+    findWeeklyData()
   })
 }
 /*const inputHoursSlept = document.querySelector("hours-Slept");

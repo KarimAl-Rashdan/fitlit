@@ -35,8 +35,6 @@ class SleepRepository {
     const lastIndex = userSleepInfo.findIndex((user) => user.date === date);
     const todayIndex = lastIndex + 1
     const firstIndex = lastIndex - 6
-    console.log('FirstI',userSleepInfo[firstIndex])
-    console.log('SecondI',userSleepInfo[todayIndex])
     const weeklySleep = userSleepInfo.slice(firstIndex,todayIndex);
     return weeklySleep;
   }

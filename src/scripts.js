@@ -242,7 +242,7 @@ function findWeeklyData() {
       </ul>
     `
   });
-  console.log('WEEKData', weeklyData)
+  
 };
 
 function updateStepWidget() {
@@ -271,7 +271,7 @@ function updateStepWidget() {
         currentUser.dailyStepGoal
       } Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>
     </ul>`;
-    // findWeeklyData(todayActivity.date);
+    
 };
 
 function returnToWidget(event, area1, area2, area3) {
@@ -310,7 +310,6 @@ function updateSleepData() {
     `
   });
 
-  console.log("todays date", todaySleep.date)
   sleepWidget.innerHTML = `
           <ul class=widget>
             <li>Hours Slept Today: ${todaySleep.hoursSlept}</li>
@@ -321,47 +320,6 @@ function updateSleepData() {
           `;
 };
 
-
-
-// `
-//           <ul class=widget>
-//             <li>Hours Slept Today: ${
-//               sleepRepository.findTodaysData(currentUserID)
-//             }</li>
-//             <li>Sleep Quality for Today: ${
-//               sleepRepository.findTodaysData(currentUserID)
-//             }</li>
-//             <li>Hours Slept for the Week: ${sleepRepository.calculateAvgSleepPerWeek(
-//               // findLatestWeeksSleepData(
-//               currentUserID,
-//               "hoursSlept"
-//             )}</li>
-//             <li>Sleep Quality for the Week: ${findLatestWeeksSleepData(
-//               currentUserID,
-//               "sleepQuality"
-//             )}</li>
-//             <li>Your All Time Hours Slept Average: ${displayAverageSleepDataForAllTime(
-//               "hoursSlept"
-//             )} hours</li>
-//             <li>Your All Time Sleep Quality Average: ${displayAverageSleepDataForAllTime(
-//               "sleepQuality"
-//             )}</li>
-//           </ul>
-//           `;
-// function findLatestWeeksSleepData(id, type) {
-//   dateForWeek = sleepRepository.findTodaysData(id).date;
-//   let dataForWeek = sleepRepository.calculateAvgSleepPerWeek(dateForWeek, id, type);
-
-//   let dataResult = dataForWeek.reduce((acc, cur, index) => {
-//     acc.push(` ${cur.date}: ${cur[type]} `);
-//     return acc;
-//   }, []);
-//   return dataResult;
-// };
-
-function displayAverageSleepDataForAllTime(type) {
-  return sleepRepository.calcAvgSleepStats(type);
-};
 
 function showInputForm(event) {
   event.preventDefault();
@@ -391,31 +349,28 @@ function createPostObject(event) {
     const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: Number(inputHoursSlept.value), sleepQuality: Number(inputSleepQuality.value)}
     const sleepEndPoint = "sleep"
     postInformation(sleepEndPoint, sleepObject)
-    inputSleepQuality.value = '';
-    inputHoursSlept.value = '';
+    clearValues(inputSleepQuality,inputHoursSlept)
     inputDate.value = ''
   } else if(inputOzDrank.value) {
     const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: Number(inputOzDrank.value)}
     const hydrationEndPoint = "hydration"
     postInformation(hydrationEndPoint, hydrationObject)
-    inputOzDrank.value = '';
-    inputDate.value = ''
+    clearValues(inputOzDrank,inputDate)
+    
   }else if(inputStairs.value && inputMinActive.value && inputSteps.value) {
     const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: Number(inputStairs.value), minutesActive: Number(inputMinActive.value), numSteps: Number(inputSteps.value)}
     const activityEndPoint = "activity"
-    console.log('ACT',activityObject)
     postInformation(activityEndPoint, activityObject)
-   inputStairs.value = '';
-   inputMinActive.value = '';
-   inputSteps.value = '';
-   inputDate.value = ''
+    clearValues(inputStairs, inputMinActive)
+    clearValues(inputSteps, inputDate)
+  
   }
- 
-   
+  
 }
-// function clearValues(input1,input2){
-
-// }
+function clearValues(input1, input2) {
+ input1.value = ''
+ input2.value = ''
+}
 
 function postInformation(endPoint, data ) {
   fetch(`http://localhost:3001/api/v1/${endPoint}`, {
@@ -459,18 +414,3 @@ function letsTry() {
     findWeeklyData()
   })
 }
-/*const inputHoursSlept = document.querySelector("hours-Slept");
-const inputSleepQuality = document.querySelector("sleep-Quality");
-const inputOzDrank = document.querySelector("number-of-oz");
-const inputStairs = document.querySelector("flights-of-stairs");
-const inputMinActive = document.querySelector("minutes-active");
-const inputSteps = document.querySelector("number-of-steps"); */
-/*const inputForm = document.getElementById('input-form');
-const showFormBtn = document.getElementById('input-btn');
-const radioSleep = document.getElementById('sleep-input');
-const radioHydration = document.getElementById('hydration-input');
-const radioActivity = document.getElementById('activity-input');
-const sleepForm = document.querySelector('.sleep-form');
-const hydrationForm = document.querySelector('.hydration-form');
-const activityForm = document.querySelector('.activity-form');
-const inputSub = document.querySelector(".form-submit"); */

@@ -47,6 +47,7 @@ class SleepRepository {
       num += day[type]
       return num
     }, 0)/selectedWeek.length
+    
     return Math.round(result)
   }
   calcAvgSleepStats(type) {

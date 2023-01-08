@@ -35,20 +35,21 @@ class ActivityRepository {
     }
   }
   findWeeklyData(date) {
-    if (!date) {
-      return "Please pick a date!";
-    } else {
-      const findIndex = this.currentUsersActivities.findIndex(
-        (activity) => activity.date === date
+    const findIndex = this.currentUsersActivities.findIndex(
+      (activity) => activity.date === date
       );
       const weeklyActivity = this.currentUsersActivities.slice(
         findIndex,
         findIndex + 7
-      );
-      return weeklyActivity;
+        );
+        return weeklyActivity;
+      
     }
-  }
-  findAvgMinGivenWeek(date) {
+    findAvgMinGivenWeek(date) {
+    if (!date) {
+      console.log("this is hitting")
+      return "Please pick a date!";
+    } else {
     const weeklyActivity = this.findWeeklyData(date);
     const weeklyAvg =
       weeklyActivity.reduce((num, day) => {
@@ -56,6 +57,7 @@ class ActivityRepository {
         return num;
       }, 0) / weeklyActivity.length;
     return Math.trunc(weeklyAvg);
+    }
   }
   determineGoalMet(date, currentUser) {
     const specifiedDate = this.findDate(date);

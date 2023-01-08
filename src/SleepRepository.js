@@ -7,7 +7,9 @@ class SleepRepository {
     return totalUserData;
   }
   findTodaysData(id) {
-    return this.filterSleepByUser(id).pop();
+    const usersSleepData = this.filterSleepByUser(id).sort((a,b) => new Date(b.date)- new Date(a.date))
+    return usersSleepData[0]
+    
   }
   calculateAverageSleepPerDay(type, filterData, id) {
     let value = this.filterSleepByUser(id);
@@ -27,20 +29,25 @@ class SleepRepository {
       return 'Pick a date';
     }
   }
-  calculateSleepPerWeek(date, id) {
+  findWeeklyData(date, id) {
+    const userSleepInfo = this.filterSleepByUser(id)
+    const lastIndex = userSleepInfo.findIndex((user) => user.date === date);
+    const todayIndex = lastIndex + 1
+    const firstIndex = lastIndex - 6
+    const weeklySleep = userSleepInfo.slice(firstIndex,todayIndex);
+    return weeklySleep;
+  }
+  calculateAvgSleepPerWeek(date, id, type) {
     let value = this.filterSleepByUser(id);
     let findentryDate = value.find(entry => entry.date === date);
     let startingIndex = value.indexOf(findentryDate);
     let selectedWeek = value.slice(startingIndex - 6, startingIndex + 1);
-    let result = selectedWeek.map(entry => {
-      let weeklySleep = {
-        date: entry.date, 
-        hoursSlept: entry.hoursSlept, 
-        sleepQuality: entry.sleepQuality 
-      };
-      return weeklySleep;
-    })
-    return result;
+    const result = selectedWeek.reduce((num, day) => {
+      num += day[type]
+      return num
+    }, 0)/selectedWeek.length
+    
+    return Math.round(result)
   }
   calcAvgSleepStats(type) {
     let total = this.sleepData.reduce((total, num) => {

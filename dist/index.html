@@ -33,6 +33,7 @@
           </section>
           <button class="return-to-widget hidden" id="return-to-sleep-widget" type="submit">Return</button>
         </div>
+        <section class="sleep-week" id="sleep-week"></section>
         <button class="hydration" id="hydration" type="submit"><img src="./images/water.png" alt="Water Icon">
           Hydration Widget
         </button>
@@ -60,13 +61,53 @@
             </ul>
           </section>
           <button class="return-to-widget hidden" id="return-to-widget" type="submit">Return</button>
-          <section id="weekly-view-section">
-            <li>Weekly View</li>
+        </div>
+        <button class="activity widget" id="activity" type="submit"><img src="" alt="Activity Icon">
+          Activity Widget
+        </button>
+        <div class="activity-container">
+          <section class="activity-week-widget hidden" id="activity-widget">
           </section>
+          <button class="return-to-widget hidden" id="return-to-activity-widget" type="submit">Return</button>
         </div>
       </section>
-      <footer class="footer-image">
-        <img src="./images/intro.jpg" alt="Exercise Image" />
+      <footer class="Activity-form">
+        <form> 
+          <h2>Log your activity</h2>
+          <fieldset class='Activity-form'>
+            <label>
+              <input type="radio" id="sleep-input" name="activity" value="sleep">Sleep
+            </label>
+            <label>
+              <input type="radio" id="hydration-input" name="activity" value="sleep">Hydration
+            </label>
+            <label>
+              <input type="radio" id="activity-input" name="activity" value="sleep">Activity
+            </label>
+            <label>
+              <input type="submit" id="input-btn" name="activity" value="Show Form">
+            </label>
+          </fieldset>
+          <section class="input-form" id="input-form">
+            <input class="input-date hidden" type="date" placeholder="Date">
+            <div class="sleep-form hidden">
+              <input class="hours-Slept" type="number" placeholder="Hours slept" min= 0 max=12 step=0.1>
+              <input class="sleep-Quality" type="number" placeholder="Sleep Quality" min=0 max=5 step=0.1>
+            </div>
+            <div class="hydration-form hidden">
+              <input class="number-of-oz" type="number" placeholder="Number of oz drank" max=200>
+            </div>
+            <div class="activity-form hidden">
+              <input class="flights-of-stairs" type="number" placeholder="Flights of stairs">
+              <input class="minutes-active" type="number" placeholder="Minutes active">
+              <input class="number-of-steps" type="number" placeholder="Number of steps">
+            </div>
+            <button class="form-submit hidden">Submit Form</button>
+            <section class="post-success-section hidden">
+              <h2 class="post-success-display hidden" id="post-success">Post was successful!</h2>
+            </section>
+          </section> 
+        </form>
       </footer>
     </main>
     <aside class="side-bar-container" id="friends-container">

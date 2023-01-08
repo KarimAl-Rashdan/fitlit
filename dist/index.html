@@ -45,9 +45,9 @@
               <form>
                 <label class='hidden' for="calendar"> Calendar:</label>
                 <input type="date" id="calendar" name="calendar" required>
-                <button type="submit" id="dateInput" disabled> submit </button> 
+                <button type="submit" id="dateInput" tabindex="0">Submit</button> 
               </form>
-              <li id="allTimeAvg">all time average</li>
+              <li id="allTimeAvg">All time average</li>
             </ul>
           </section>
           <button class="back-home return-to-widget hidden" id="toggleHome" type="submit">Return</button>
@@ -74,34 +74,34 @@
       <footer class="Activity-form">
         <form> 
           <h2>Log your activity</h2>
-          <fieldset class='Activity-form'>
+          <fieldset class='Activity-form' id="post-form">
             <label>
-              <input type="radio" id="sleep-input" name="activity" value="sleep">Sleep
+              <input type="radio" id="sleep-input" name="activity" value="sleep" tabindex="0" aria-checked="false">Sleep
             </label>
             <label>
-              <input type="radio" id="hydration-input" name="activity" value="sleep">Hydration
+              <input type="radio" id="hydration-input" name="activity" tabindex="0" aria-checked="false">Hydration
             </label>
             <label>
-              <input type="radio" id="activity-input" name="activity" value="sleep">Activity
+              <input type="radio" id="activity-input" name="activity" tabindex="0" aria-checked="false">Activity
             </label>
             <label>
-              <input type="submit" id="input-btn" name="activity" value="Show Form">
+              <button type="submit" id="input-btn" name="activity" tabindex="0">Show Form</button>
             </label>
           </fieldset>
           <section class="input-form" id="input-form">
             <input class="input-date hidden" type="date" placeholder="Date">
-            <div class="sleep-form hidden">
+            <section class="sleep-form hidden">
               <input class="hours-Slept" type="number" placeholder="Hours slept" min= 0 max=12 step=0.1>
               <input class="sleep-Quality" type="number" placeholder="Sleep Quality" min=0 max=5 step=0.1>
-            </div>
-            <div class="hydration-form hidden">
+            </section>
+            <section class="hydration-form hidden">
               <input class="number-of-oz" type="number" placeholder="Number of oz drank" max=200>
-            </div>
-            <div class="activity-form hidden">
+            </section>
+            <section class="activity-form hidden">
               <input class="flights-of-stairs" type="number" placeholder="Flights of stairs">
               <input class="minutes-active" type="number" placeholder="Minutes active">
               <input class="number-of-steps" type="number" placeholder="Number of steps">
-            </div>
+            </section>
             <button class="form-submit hidden">Submit Form</button>
             <section class="post-success-section hidden">
               <h2 class="post-success-display hidden" id="post-success">Post was successful!</h2>

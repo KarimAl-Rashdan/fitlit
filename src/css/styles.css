@@ -1,4 +1,3 @@
-
 body,
 html {
   background-color: rgb(225, 230, 236);
@@ -117,7 +116,7 @@ ul {
   justify-content: space-evenly;
   list-style-type: none;
   margin: 0px;
-  margin-inline: 10px; 
+  margin-inline: 10px;
   transition-duration: 0.4s;
   display: flex;
   flex-direction: column;
@@ -136,18 +135,18 @@ aside > img {
   margin-left: 20px;
 }
 
-.user-friends> h2 {
-  width:100%;
+.user-friends > h2 {
+  width: 100%;
 }
 .user-friends > h3 {
-  width:35%;
+  width: 35%;
 }
 
 .friends-info {
   width: 23vw;
 }
 
-.user-friends{
+.user-friends {
   align-items: center;
   background-color: #ffcff1;
   border: 2px solid gray;
@@ -160,7 +159,7 @@ aside > img {
 
 .sleep-widget,
 .hydration-widget,
-.step-goal-widget, 
+.step-goal-widget,
 .activity-week-widget {
   margin-inline: 10px;
   width: 20vw;
@@ -210,6 +209,16 @@ p {
   width: 25%;
 }
 
+.sleep:focus,
+.hydration:focus,
+.step-goal:focus,
+.activity:focus,
+.return-to-widget:focus,
+.input-btn:focus {
+  outline-style: solid;
+  outline-width: 10px;
+}
+
 .step-goal {
   margin-inline: 10px;
 }
@@ -224,4 +233,3 @@ p {
 .hidden {
   display: none;
 }
-

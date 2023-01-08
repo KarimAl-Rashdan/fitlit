@@ -14,7 +14,6 @@ class ActivityRepository {
     const getDay = this.currentUsersActivities.find(
       (activity) => activity.date === date
     );
-    console.log("getDay", getDay)
     return getDay;
   }
   findMilesWalked(date, currentUser) {
@@ -43,13 +42,11 @@ class ActivityRepository {
         findIndex,
         findIndex + 7
         );
-        console.log("weeklyactivity", weeklyActivity)
         return weeklyActivity;
       
     }
     findAvgMinGivenWeek(date) {
     if (!date) {
-      // console.log("this is hitting")
       return "Please pick a date!";
     } else {
     const weeklyActivity = this.findWeeklyData(date);
@@ -84,7 +81,6 @@ class ActivityRepository {
   findClimbingRecord(userID) {
     const userActivity = this.filterById(userID);
     const climbData = userActivity.map((activity) => activity.flightsOfStairs);
-    console.log("climbData", climbData)
     return Math.max(...climbData);
   }
   getUsersAvgForDay(date, key) {
@@ -95,7 +91,6 @@ class ActivityRepository {
       dataForDay.reduce((total, activity) => {
         return (total += activity[key]);
       }, 0) / dataForDay.length;
-      console.log("getUsersAvgForDay", "totalForDay", totalForDay)
     return Math.round(totalForDay);
   }
 }

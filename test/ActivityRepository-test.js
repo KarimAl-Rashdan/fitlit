@@ -142,7 +142,7 @@ describe("ActivityRepository", () => {
     activityRepo.filterById(1);
     expect(activityRepo.currentUsersActivities).to.deep.equal(currentuserlist);
   });
-  it("Should reeturn activity of a specified date", function () {
+  it("Should return activity of a specified date", function () {
   const activitySpecifiedDate = {
     userID: 1,
     date: "2019/06/21",

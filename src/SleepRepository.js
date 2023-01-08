@@ -27,6 +27,17 @@ class SleepRepository {
       return 'Pick a date';
     }
   }
+
+  findWeeklyData(date, id) {
+    const userSleepInfo = this.filterSleepByUser(id)
+    const findIndex = userSleepInfo.findIndex((user) => user.date === date);
+    const firstIndex = findIndex - 7
+    const weeklySleep = userSleepInfo.slice(firstIndex,findIndex);
+    console.log("weeklySleep", weeklySleep)
+    console.log("findIndex", findIndex, firstIndex)
+    console.log(userSleepInfo.slice(firstIndex))
+    return weeklySleep;
+  }
   calculateAvgSleepPerWeek(date, id, type) {
     let value = this.filterSleepByUser(id);
     let findentryDate = value.find(entry => entry.date === date);

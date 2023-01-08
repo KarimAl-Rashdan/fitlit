@@ -170,7 +170,12 @@ aside > img {
 .activity-container {
   overflow-y: scroll;
 }
-
+.sleep-week {
+  overflow-y: scroll;
+}
+.sleep-week > ul {
+  height: 5vh;
+}
 li {
   font-size: small;
   font-weight: bold;

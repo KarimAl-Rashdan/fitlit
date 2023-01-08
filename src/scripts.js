@@ -98,6 +98,7 @@ const inputStairs = document.querySelector(".flights-of-stairs");
 const inputMinActive = document.querySelector(".minutes-active");
 const inputSteps = document.querySelector(".number-of-steps");
 const postSuccessDisplay = document.querySelector(".post-success-section")
+const sleepWeek = document.getElementById("sleep-week")
 
 
 hydrationBtn.addEventListener("click",function() {
@@ -118,8 +119,12 @@ returnActivityWidgetButton.addEventListener("click", (event) => {
 returnStepsWidgetButton.addEventListener("click", (event) => {
   returnToWidget(event, stepsButton, stepsWidget, returnStepsWidgetButton);
 });
-sleepWidgetButton.addEventListener("click", updateSleepData);
+sleepWidgetButton.addEventListener("click", () => {
+  updateSleepData()
+  sleepWeek.classList.remove('hidden')
+});
 returnSleepWidgetButton.addEventListener("click", (event) => {
+  sleepWeek.classList.add('hidden')
   returnToWidget(event, sleepWidgetButton, sleepWidget, returnSleepWidgetButton)
 });
 calendarSub.addEventListener('click', (event) => {
@@ -287,41 +292,69 @@ function hideArea(area1, area2, area3) {
 
 function updateSleepData() {
   showArea(sleepWidgetButton, sleepWidget, returnSleepWidgetButton);
+  const userSleep= sleepRepository.filterSleepByUser(currentUserID);
+  const todaySleep = sleepRepository.findTodaysData(currentUserID);
+  const weeklySleep = sleepRepository.findWeeklyData(todaySleep.date, currentUserID)
+  // calculateAvgSleepPerWeek(date, id, type)
+  const avgHoursSlept = sleepRepository.calculateAvgSleepPerWeek(todaySleep.date, currentUserID, "hoursSlept")
+  const avgSleepQuality = sleepRepository.calculateAvgSleepPerWeek(todaySleep.date, currentUserID, "sleepQuality")
+  const weeklyKey = weeklySleep.forEach(dayActivity => {
+    sleepWeek.innerHTML += `<ul>
+      <li>${dayActivity.date}: </li>
+      <li>Hours Slept: ${dayActivity.hoursSlept}</li>
+      <li>Sleep Quality: ${dayActivity.sleepQuality}</li>
+      </ul>
+    `
+  });
+
+  console.log("todays date", todaySleep.date)
   sleepWidget.innerHTML = `
           <ul class=widget>
-            <li>Hours Slept Today: ${
-              sleepRepository.findTodaysData(currentUserID).hoursSlept
-            }</li>
-            <li>Sleep Quality for Today: ${
-              sleepRepository.findTodaysData(currentUserID).sleepQuality
-            }</li>
-            <li>Hours Slept for the Week: ${findLatestWeeksSleepData(
-              currentUserID,
-              "hoursSlept"
-            )}</li>
-            <li>Sleep Quality for the Week: ${findLatestWeeksSleepData(
-              currentUserID,
-              "sleepQuality"
-            )}</li>
-            <li>Your All Time Hours Slept Average: ${displayAverageSleepDataForAllTime(
-              "hoursSlept"
-            )} hours</li>
-            <li>Your All Time Sleep Quality Average: ${displayAverageSleepDataForAllTime(
-              "sleepQuality"
-            )}</li>
+            <li>Hours Slept Today: ${todaySleep.hoursSlept}</li>
+            <li>Sleep Quality for Today: ${todaySleep.sleepQuality}</li>
+            <li>Your All Time Hours Slept Average: ${avgHoursSlept} hours</li>
+            <li>Your All Time Sleep Quality Average: ${avgSleepQuality}</li>
           </ul>
           `;
 };
 
-function findLatestWeeksSleepData(id, type) {
-  dateForWeek = sleepRepository.findTodaysData(id).date;
-  let dataForWeek = sleepRepository.calculateSleepPerWeek(dateForWeek, id);
-  let dataResult = dataForWeek.reduce((acc, cur, index) => {
-    acc.push(` ${cur.date}: ${cur[type]} `);
-    return acc;
-  }, []);
-  return dataResult;
-};
+
+
+// `
+//           <ul class=widget>
+//             <li>Hours Slept Today: ${
+//               sleepRepository.findTodaysData(currentUserID)
+//             }</li>
+//             <li>Sleep Quality for Today: ${
+//               sleepRepository.findTodaysData(currentUserID)
+//             }</li>
+//             <li>Hours Slept for the Week: ${sleepRepository.calculateAvgSleepPerWeek(
+//               // findLatestWeeksSleepData(
+//               currentUserID,
+//               "hoursSlept"
+//             )}</li>
+//             <li>Sleep Quality for the Week: ${findLatestWeeksSleepData(
+//               currentUserID,
+//               "sleepQuality"
+//             )}</li>
+//             <li>Your All Time Hours Slept Average: ${displayAverageSleepDataForAllTime(
+//               "hoursSlept"
+//             )} hours</li>
+//             <li>Your All Time Sleep Quality Average: ${displayAverageSleepDataForAllTime(
+//               "sleepQuality"
+//             )}</li>
+//           </ul>
+//           `;
+// function findLatestWeeksSleepData(id, type) {
+//   dateForWeek = sleepRepository.findTodaysData(id).date;
+//   let dataForWeek = sleepRepository.calculateAvgSleepPerWeek(dateForWeek, id, type);
+
+//   let dataResult = dataForWeek.reduce((acc, cur, index) => {
+//     acc.push(` ${cur.date}: ${cur[type]} `);
+//     return acc;
+//   }, []);
+//   return dataResult;
+// };
 
 function displayAverageSleepDataForAllTime(type) {
   return sleepRepository.calcAvgSleepStats(type);

@@ -101,8 +101,9 @@ const inputStairs = document.querySelector(".flights-of-stairs");
 const inputMinActive = document.querySelector(".minutes-active");
 const inputSteps = document.querySelector(".number-of-steps");
 const postForm = document.getElementById("post-form");
-const postSuccessDisplay = document.querySelector(".post-success-section")
-const sleepWeek = document.getElementById("sleep-week")
+const postSuccessDisplay = document.querySelector(".post-success-section");
+const sleepWeek = document.getElementById("sleep-week");
+const doublePostSection = document.getElementById('double-post-section');
 
 hydrationBtn.addEventListener("click", function () {
   showHydrationArea();
@@ -369,6 +370,7 @@ function enableSubmit() {
 function createPostObject(event) {
   event.preventDefault()
   if(findExistingData(allSleepData, currentUserID, inputDate.value)) {
+    doublePostSection.classList.remove("hidden")
     return
   }
   else {
@@ -381,6 +383,7 @@ function createPostObject(event) {
     }
   }
     if(findExistingData(allHydroData, currentUserID, inputDate.value)) {
+      doublePostSection.classList.remove("hidden")
       return
     }
     else {
@@ -392,6 +395,7 @@ function createPostObject(event) {
       }
     }
     if(findExistingData(allActivityData, currentUserID, inputDate.value)) {
+      doublePostSection.classList.remove("hidden")
       return
     } else {
       if(inputStairs.value && inputMinActive.value && inputSteps.value) {

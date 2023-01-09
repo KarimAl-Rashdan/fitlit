@@ -4,9 +4,7 @@ class ActivityRepository {
     this.currentUsersActivities = null;
   }
   filterById(currentUserId) {
-    const usersActivities = this.activityData.filter(
-      (activity) => activity.userID === currentUserId
-    );
+    const usersActivities = this.activityData.filter((activity) => activity.userID === currentUserId);
     this.currentUsersActivities = usersActivities;
     return usersActivities;
   }
@@ -35,27 +33,21 @@ class ActivityRepository {
     }
   }
   findWeeklyData(date) {
-    const findIndex = this.currentUsersActivities.findIndex(
-      (activity) => activity.date === date
-      );
-      const weeklyActivity = this.currentUsersActivities.slice(
-        findIndex,
-        findIndex + 7
-        );
-        return weeklyActivity;
-      
+    const findIndex = this.currentUsersActivities.findIndex((activity) => activity.date === date);
+    const weeklyActivity = this.currentUsersActivities.slice(findIndex, findIndex + 7);
+      return weeklyActivity;
     }
     findAvgMinGivenWeek(date) {
-    if (!date) {
-      return "Please pick a date!";
-    } else {
-    const weeklyActivity = this.findWeeklyData(date);
-    const weeklyAvg =
-      weeklyActivity.reduce((num, day) => {
-        num += day.minutesActive;
-        return num;
-      }, 0) / weeklyActivity.length;
-    return Math.trunc(weeklyAvg);
+      if (!date) {
+        return "Please pick a date!";
+      } else {
+      const weeklyActivity = this.findWeeklyData(date);
+      const weeklyAvg =
+        weeklyActivity.reduce((num, day) => {
+          num += day.minutesActive;
+          return num;
+        }, 0) / weeklyActivity.length;
+      return Math.trunc(weeklyAvg);
     }
   }
   determineGoalMet(date, currentUser) {
@@ -70,7 +62,6 @@ class ActivityRepository {
     const latestDate = this.currentUsersActivities.sort(
       (a, b) => new Date(b.date) - new Date(a.date)
     )[0];
-    console.log('TodayActivity',latestDate)
     return latestDate;
   }
   findDaysExceededGoal(userID, currentUser) {
@@ -85,9 +76,7 @@ class ActivityRepository {
     return Math.max(...climbData);
   }
   getUsersAvgForDay(date, key) {
-    const dataForDay = this.activityData.filter(
-      (activity) => activity.date === date
-    );
+    const dataForDay = this.activityData.filter((activity) => activity.date === date);
     const totalForDay =
       dataForDay.reduce((total, activity) => {
         return (total += activity[key]);

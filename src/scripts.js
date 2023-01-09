@@ -51,7 +51,6 @@ function getPageData() {
         allHydroData,
         allActivityData
       );
-      getRandomUser(allUserData);
       // restrictCalendarRange();
     })
     .catch((error) => {
@@ -104,8 +103,54 @@ const postForm = document.getElementById("post-form");
 const postSuccessDisplay = document.querySelector(".post-success-section");
 const sleepWeek = document.getElementById("sleep-week");
 const doublePostSection = document.getElementById('double-post-section');
+const body = document.querySelector('.main-container')
+const friendsSection = document.getElementById('friends-container')
+const logInSection = document.getElementById('logInSection')
 
-hydrationBtn.addEventListener("click", function () {
+
+const logInForm = document.getElementById('logInForm');
+const username = document.getElementById('username');
+const password = document.getElementById('password');
+const signOutBtn = document.getElementById('signOutBtn');
+const logInBtn = document.getElementById('logInBtn');
+
+logInBtn.addEventListener('click', checkLogInCredentials)
+signOutBtn.addEventListener('click', showLogInSection)
+
+const domUpdates = {
+  displayInvalidLogIn: function() {
+    window.alert('Sorry, please enter a valid username and password')
+  },
+
+  resetInnerHTML: function(element) {
+    element.innerText = ``
+  },
+
+  showSection: function(element) {
+    element.classList.remove('hidden');
+  },
+
+  hideSection: function(element) {
+    element.classList.add('hidden');
+  }
+}
+
+function showLogInSection() {
+  // domUpdates.hideSection(signOutBtn)
+  domUpdates.hideSection(body)
+  domUpdates.hideSection(friendsSection)
+  domUpdates.showSection(logInSection)
+}
+
+function hideLogInSection() {
+  // domUpdates.showSection(signOutBtn)
+  domUpdates.showSection(body)
+  domUpdates.showSection(friendsSection)
+  domUpdates.showSection(signOutBtn)
+  domUpdates.hideSection(logInSection)
+}
+
+hydrationBtn.addEventListener("click",function() {
   showHydrationArea();
   displayHydrationDom();
 });
@@ -115,6 +160,8 @@ toggleHomeBtn.addEventListener("click", (event) => {
 window.addEventListener("load", function () {
   calendarSub.disabled = true;
   getPageData();
+  showLogInSection();
+  checkLogInCredentials();
 });
 stepsButton.addEventListener("click", updateStepWidget);
 activityButton.addEventListener("click", findWeeklyData);
@@ -161,13 +208,30 @@ function createClassInstances(dataSet1, dataSet2, dataSet3, dataSet4) {
   activityRepository = new ActivityRepository(allActivityData);
 }
 
-function getRandomUser(allUserData) {
-  const randomID = Math.floor(Math.random() * allUserData.length);
-  currentUser = allUserData[randomID];
-  currentUserID = allUserData[randomID].id;
-  updateUserInfo();
-  updateFriendsInfo();
-  return currentUserID;
+function checkLogInCredentials() {
+  const test = username.value.substring(0,4)
+  if (test === 'user' && username.value.length >= 5 && username.value.length < 7 && password.value === 'fitlit') {
+    const allChar = username.value.split('')
+    const getNumber = allChar.filter(char =>{
+      return Number(char)
+    })
+    if(allChar[5] === '0') {
+      getNumber.push('0')
+    }
+    const getString = getNumber.join('')
+    const convertToNum = Number(getString);
+    const userObj = userRepository.findUser(convertToNum)
+    currentUser = userObj
+    currentUserID = userObj.id
+    updateUserInfo()
+    updateFriendsInfo()
+    hideLogInSection()
+    logInForm.reset()
+    return currentUserID
+  } else {
+    domUpdates.displayInvalidLogIn()
+    logInForm.reset()
+  }
 }
 
 function updateUserInfo() {
@@ -177,6 +241,7 @@ function updateUserInfo() {
 }
 
 function updateFriendsInfo() {
+  userFriendsSection.innerHTML = '';
   allUserData[currentUserID].friends.forEach((friend) => {
     userFriendsSection.innerHTML += `<div class="user-friends" id="friend">
       <h2>${userRepository.findUser(friend).name}</h2><br>

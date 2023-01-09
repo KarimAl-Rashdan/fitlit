@@ -230,6 +230,65 @@ p {
   background-color: white;
 }
 
+
+.log-in-title,
+button {
+  font-weight: 700;
+}
+
+.log-in-form label {
+  margin-bottom: 7px;
+}
+
+.log-in-input {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.log-in-input {
+  margin-bottom: 10px;
+}
+
+.sign-out-button,
+.log-in-btn {
+  width: 30%;
+  padding: 8px;
+  align-self: center;
+  margin: 4px 0;
+  border-radius: 21px;
+  background-color: #818cf8;
+  font-weight: 400;
+  font-size: 17px;
+}
+
+.sign-out-button {
+  width: 10%;
+}
+
+.log-in-section {
+  justify-content:space-around;
+  display: flex;
+}
+
+.log-in-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 25%;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  background-color: rgb(250 250 249);
+}
+
+.log-in-title {
+  text-align: center;
+}
+
+.log-in-btn {
+  width: 48%;
+}
+
 .hidden {
   display: none;
 }

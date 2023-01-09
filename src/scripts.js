@@ -1,8 +1,5 @@
 import "../src/css/styles.css";
-import "../src/images/turing-logo.png";
 import "../src/images/exercise.png";
-import "../src/images/friends.png";
-import "../src/images/intro.jpg";
 import "../src/images/sleeping.png";
 import "../src/images/water.png";
 import "../src/images/friends2.jpg";

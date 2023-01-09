@@ -15,12 +15,6 @@ html {
 }
 
 .main-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  max-height: max-content;
-  width: 100%;
   background: rgb(61, 19, 156);
   background: linear-gradient(
     90deg,
@@ -28,20 +22,26 @@ html {
     rgba(9, 149, 224, 1) 35%,
     rgba(227, 125, 245, 1) 100%
   );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  max-height: max-content;
+  width: 100%;
 }
 
 .welcome-section {
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  align-items: center;
   width: 100%;
 }
 
 .welcome-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .user-name {
@@ -71,57 +71,59 @@ html {
 }
 
 footer {
-  display: flex;
   background-color: aliceblue;
-  opacity: 90%;
-  justify-content: center;
   border: 2px solid gray;
-  height: 30vh;
-  width: 55vw;
   border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  height: 30vh;
+  opacity: 90%;
+  width: 55vw;
 }
+
 footer > form {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
+
 .header-form {
-  width: 100%;
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-evenly;
+  width: 100%;
 }
 
 .input-form {
-  display: flex;
-  height: 20vh;
-  flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 20vh;
+  justify-content: flex-start;
   margin: 10px;
   width: 100%;
 }
 
 .turing-logo {
+  border: 2px solid darkslateblue;
+  border-radius: 50%;
   height: 17vh;
   width: 20%;
-  border-radius: 50%;
-  border: 2px solid darkslateblue;
 }
 
 aside {
+  background: linear-gradient(
+    90deg,
+    rgba(227, 125, 245, 1) 0%,
+    rgba(61, 19, 156, 1) 100%
+    );
   border-left: 2px solid plum;
-  width: 15%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   max-height: max-content;
-  background: linear-gradient(
-    90deg,
-    rgba(227, 125, 245, 1) 0%,
-    rgba(61, 19, 156, 1) 100%
-  );
+  width: 15%;
 }
 
 .friends-info {
@@ -141,23 +143,23 @@ aside {
 }
 
 ul {
+  align-items: center;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: 45vh;
   justify-content: space-evenly;
   list-style-type: none;
   margin: 10px;
   transition-duration: 0.4s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 45vh;
   padding: 10px;
 }
 
 aside > img {
   border-radius: 50%;
   height: 10vh;
-  margin-left: 20px;
   margin-bottom: 10px;
+  margin-left: 20px;
 }
 
 .user-friends > h2 {
@@ -198,17 +200,18 @@ aside > img {
 
 .week-activity {
   border: 2px solid black;
-  overflow-y: scroll;
-  margin: 0px;
-  padding: 0px;
   display: flex;
   justify-content: flex-start;
+  margin: 0px;
+  overflow-y: scroll;
+  padding: 0px;
 }
 
 .sleep-week {
   border: 2px solid black;
   overflow-y: scroll;
 }
+
 .sleep-week > ul {
   height: 10vh;
 }
@@ -277,8 +280,8 @@ button {
 }
 
 .log-in-input {
-  padding: 10px;
   border-radius: 5px;
+  padding: 10px;
 }
 
 .log-in-input {
@@ -287,14 +290,14 @@ button {
 
 .sign-out-button,
 .log-in-btn {
-  width: 30%;
-  padding: 8px;
   align-self: center;
-  margin: 4px 0;
   border-radius: 21px;
   background-color: #818cf8;
-  font-weight: 400;
   font-size: 17px;
+  font-weight: 400;
+  margin: 4px 0;
+  padding: 8px;
+  width: 30%;
 }
 
 .sign-out-button {
@@ -303,35 +306,35 @@ button {
 
 .log-in-section {
   background-image: url("/src/images/runner.jpg");
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  width: 100%;
   background-position: center;
   background-size: 100%;
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
   overflow-y: scroll;
   overflow-x: unset;
-  height: 100vh;
+  width: 100%;
 }
 
 .log-in-form {
-  margin-top: 0%;
+  align-items: center;
+  background-color: aliceblue;
+  border-radius: 6px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   display: flex;
   flex-direction: column;
-  width: 50%;
   height: 50vh;
-  border-radius: 6px;
-  padding: 12px;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  background-color: aliceblue;
-  align-items: center;
+  margin-top: 0%;
   opacity: 80%;
+  padding: 12px;
   text-transform: uppercase;
+  width: 50%;
 }
 
 .log-in-title {
-  text-transform: uppercase;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .log-in-btn {
@@ -372,8 +375,8 @@ button {
 }
 
 span {
-  font-weight: normal;
   color: #50bfe6;
+  font-weight: normal;
 }
 
 .category-options {

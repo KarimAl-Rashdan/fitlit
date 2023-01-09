@@ -145,26 +145,6 @@ function hideLogInSection() {
   domUpdates.hideSection(logInSection)
 }
 
-function checkLogInCredentials() {
-  const id = 'Karrar'
-  console.log(username.value)
-  console.log(id)
-  if (0 < id.length && id.length <= 50 && password.value === 'fitlit') {
-    console.log("valid id")
-
-    hideLogInSection()
-    getAPIData(userAPI)
-    logInForm.reset()
-    return id
-  } else {
-    console.log("not a valid id")
-    domUpdates.displayInvalidLogIn()
-    logInForm.reset()
-  }
-}
-
-
-
 hydrationBtn.addEventListener("click",function() {
   showHydrationArea();
   displayHydrationDom();
@@ -211,6 +191,32 @@ function createClassInstances(dataSet1, dataSet2, dataSet3, dataSet4) {
   activityRepository = new ActivityRepository(allActivityData);
 };
 
+function checkLogInCredentials() {
+  const test = username.value.substring(0,4)
+  if (test === 'user' && username.value.length >= 5 && username.value.length < 7 && password.value === 'fitlit') {
+    const allChar = username.value.split('')
+    const getNumber = allChar.filter(char =>{
+      return Number(char)
+    })
+    if(allChar[5] === '0') {
+      getNumber.push('0')
+    }
+    const getString = getNumber.join('')
+    const convertToNum = Number(getString);
+    const userObj = userRepository.findUser(convertToNum)
+    currentUser = userObj
+    currentUserID = userObj.id
+    updateUserInfo()
+    updateFriendsInfo()
+    hideLogInSection()
+    logInForm.reset()
+    return currentUserID
+  } else {
+    domUpdates.displayInvalidLogIn()
+    logInForm.reset()
+  }
+}
+
 function getRandomUser(allUserData) {
   const randomID = Math.floor(Math.random() * allUserData.length);
   currentUser = allUserData[randomID];
@@ -227,6 +233,7 @@ function updateUserInfo() {
 };
 
 function updateFriendsInfo() {
+  userFriendsSection.innerHTML = '';
   allUserData[currentUserID].friends.forEach((friend) => {
     userFriendsSection.innerHTML += `<div class="user-friends" id="friend">
       <h2>${userRepository.findUser(friend).name}</h2><br>
@@ -468,18 +475,3 @@ function letsTry() {
     displayWeeklyAverage()
 })
 }
-/*const inputHoursSlept = document.querySelector("hours-Slept");
-const inputSleepQuality = document.querySelector("sleep-Quality");
-const inputOzDrank = document.querySelector("number-of-oz");
-const inputStairs = document.querySelector("flights-of-stairs");
-const inputMinActive = document.querySelector("minutes-active");
-const inputSteps = document.querySelector("number-of-steps"); */
-/*const inputForm = document.getElementById('input-form');
-const showFormBtn = document.getElementById('input-btn');
-const radioSleep = document.getElementById('sleep-input');
-const radioHydration = document.getElementById('hydration-input');
-const radioActivity = document.getElementById('activity-input');
-const sleepForm = document.querySelector('.sleep-form');
-const hydrationForm = document.querySelector('.hydration-form');
-const activityForm = document.querySelector('.activity-form');
-const inputSub = document.querySelector(".form-submit"); */

@@ -14,7 +14,6 @@ class HydrationRepository {
       return new Date(b.date) - new Date(a.date);
       
     });
-    console.log('TodayHydration',todaysData[0].date)
     return todaysData[0].numOunces;
   }
   findWeeklyHydration(date, id) {

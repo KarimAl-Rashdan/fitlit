@@ -51,7 +51,6 @@ function getPageData() {
       allHydroData = response[2].hydrationData;
       allActivityData = response[3].activityData;
       createClassInstances(allUserData, allSleepData, allHydroData, allActivityData);
-      getRandomUser(allUserData);
       restrictCalendarRangeMin();
     })
     .catch((error) => {
@@ -216,15 +215,6 @@ function checkLogInCredentials() {
     logInForm.reset()
   }
 }
-
-function getRandomUser(allUserData) {
-  const randomID = Math.floor(Math.random() * allUserData.length);
-  currentUser = allUserData[randomID];
-  currentUserID = allUserData[randomID].id;
-  updateUserInfo();
-  updateFriendsInfo();
-  return currentUserID;
-};
 
 function updateUserInfo() {
   welcomeContainer.innerHTML = `

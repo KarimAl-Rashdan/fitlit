@@ -461,8 +461,17 @@ function toggleAriaChecked() {
 }
 
 function findExistingData(data, userId, date) {
-  doublePostSection.classList.remove("hidden")
+  showError()
+  setTimeout(removeError, 3000)
   data.find(obj => {
     return obj.userID === userId && obj.date === date
   })
 } 
+
+function showError() {
+  doublePostSection.classList.remove("hidden")
+}
+
+function removeError() {
+  doublePostSection.classList.add("hidden")
+}

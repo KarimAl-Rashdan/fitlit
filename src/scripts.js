@@ -89,8 +89,6 @@ const sleepQualityDisplay = document.getElementById("sleepQuality");
 const avgHoursSleptDisplay = document.getElementById("avgHoursSlept");
 const avgSleepQualityDisplay = document.getElementById("avgSleepQuality");
 const fetchFailureDisplay = document.getElementById("fetch-failure");
-const postFailureDisplay = document.getElementById("post-failure");
-const inputForm = document.getElementById("input-form");
 const showFormBtn = document.getElementById("input-btn");
 const radioSleep = document.getElementById("sleep-input");
 const radioHydration = document.getElementById("hydration-input");
@@ -255,7 +253,7 @@ function displayHydrationDom() {
  displayTodaysHydration(hydrationRepository,currentUserID);
  displayAverageConsumed();
  restrictCalendarRange();
-};
+}
 
 function restrictCalendarRange() {
   const usersRecordedDates = hydrationRepository.filterHydrationByUser(currentUserID);
@@ -288,7 +286,7 @@ function displayWeeklyAverage() {
 } else {
   calendarSub.disabled = true;
 }
-};
+}
 
 function displayAverageConsumed() {
   const averageWaterAllTime =
@@ -310,7 +308,7 @@ function findWeeklyData() {
       <li>Minutes Active: <span>${dayActivity.minutesActive}</span></li>
     `;
   });
-};
+}
 
 function updateStepWidget() {
   showArea(stepsButton, stepsWidget, returnStepsWidgetButton);
@@ -333,7 +331,7 @@ function updateStepWidget() {
   todaysMilesDisplay.innerHTML = `<li> Miles Walked Today: <span>${numOfMiles} miles </span></li>`
   stepGoalDisplay.innerHTML = `<li>Your Daily Step Goal: <span>${currentUser.dailyStepGoal} Steps </span></li>`
   avgStepGoalDisplay.innerHTML= `<li>Average Step Goal for All Users: <span>${userRepository.calculateAverageStepGoal()} Steps</span></li>`
-};
+}
 
 function returnToWidget(event, area1, area2, area3) {
   event.preventDefault();
@@ -393,11 +391,11 @@ function showInputForm(event) {
   inputMinActive.setAttribute('required', true);
   inputSteps.setAttribute('required', true);
  };
-};
+}
 
 function enableSubmit() { 
   calendarSub.disabled = false;
-};
+}
 
 function createPostObject(event) {
   event.preventDefault()
@@ -419,14 +417,14 @@ function createPostObject(event) {
       return
     }
     else {
-      if(inputOzDrank.value) {
+      if (inputOzDrank.value) {
         const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: Number(inputOzDrank.value)}
         const hydrationEndPoint = "hydration"
         postInformation(hydrationEndPoint, hydrationObject)
         clearValues(inputOzDrank,inputDate)
       }
     }
-    if(findExistingData(allActivityData, currentUserID, inputDate.value)) {
+    if (findExistingData(allActivityData, currentUserID, inputDate.value)) {
       doublePostSection.classList.remove("hidden")
       return
     } else {
@@ -462,14 +460,14 @@ function postInformation(endPoint, data ) {
     })
     .then((obj) => {
       postSuccessDisplay.classList.remove("hidden");
-      return letsTry();
+      return reFetch();
     })
     .catch((error) => {
       fetchFailureDisplay.classList.remove("hidden");
     });
 }
 
-function letsTry() {
+function reFetch() {
   Promise.all([
     getAPIData(userAPI),
     getAPIData(sleepAPI),

@@ -3,16 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@200&family=Nunito:wght@200&family=Poppins:wght@300&family=Quicksand:wght@500&display=swap" rel="stylesheet">
     <title>Fitlit</title>
   </head>
   <body class="background-container">
-    <section class="log-in-section" id="logInSection">
+    <section class="log-in-section hidden" id="logInSection">
       <form class="log-in-form" id="logInForm">
-        <h2 class="log-in-title">Sign In</h2>
+        <h1 class="log-in-title">Sign In</h1>
         <label for="username">Username</label>
         <input class ="log-in-input" id="username" type="text" name="username" value="" required>
         <label for="password">Password</label>
@@ -22,30 +18,35 @@
     </section>
     <main class="main-container">
       <section class="welcome-section">
-        <img class="turing-logo" src="./images/turing-logo.png" alt="turing-logo" height="100px" width="100px"/>
-        <button class="sign-out-button" id="signOutBtn" type="button" name="button">Sign Out</button>
+        <img class="turing-logo" src="./images/logo.png" alt="turing-logo" height="100px" width="100px"/>
         <div class="header-and-calendar">
           <header class="welcome-container" id="user-info">
-            <h1 class="user-name"></h1>
-            <h2 class="user-info"></h2>
+            <h2 class="user-name">Welcome</h2>
+            <h2 class="user-info">User Info</h2>
           </header>
         </div>
+        <button class="sign-out-button" id="signOutBtn" type="button" name="button">Sign Out</button>
       </section>
       <section class="fetch-failure-section">
         <h2 class="fetch-failure-display hidden" id="fetch-failure">Sorry, failed to fetch! Please try again! </h2>
         <h2 class='post-failure-display hidden' id="post-failure">Sorry, failed to post! Please try again! </h2>
       </section>
       <section class="widgets">
-        <button class="sleep" id="sleep" type="submit"><img src="./images/sleeping.png" alt="Sleep Icon">Sleep Widget</button>
+        <button class="sleep" id="sleep" type="submit"><img src="./images/sleeping.png" alt="Sleep Icon"></br>Sleep Widget</button>
         <div class="sleep-container">
           <section class="sleep-widget hidden" id="sleep-widget">
             <ul class="widget-section">
+                <li id="hoursSlept">Hours Slept Today:</li>
+                <li id="sleepQuality">Sleep Quality for Today:</li>
+                <li class="sleep-week" id="sleep-week">Latest Week Data</li>
+                <li id="avgHoursSlept">Your All Time Hours Slept Average:</li>
+                <li id="avgSleepQuality">Your All Time Sleep Quality Average:</li>
             </ul>
+              <!-- <section class="sleep-week" id="sleep-week"></section> -->
           </section>
           <button class="return-to-widget hidden" id="return-to-sleep-widget" type="submit">Return</button>
         </div>
-        <section class="sleep-week" id="sleep-week"></section>
-        <button class="hydration" id="hydration" type="submit"><img src="./images/water.png" alt="Water Icon">
+        <button class="hydration" id="hydration" type="submit"><img src="./images/water.png" alt="Water Icon"></br>
           Hydration Widget
         </button>
         <div class="hydration-container">
@@ -63,55 +64,65 @@
           </section>
           <button class="back-home return-to-widget hidden" id="toggleHome" type="submit">Return</button>
         </div>
-        <button class="step-goal widget" id="steps" type="submit"><img src="./images/exercise.png" alt="Running Icon">
-          Step Goals Widget
+        <button class="step-goal widget" id="steps" type="submit"><img src="./images/exercise.png" alt="Running Icon"></br>
+          Step Widget
         </button>
         <div class="step-container">
           <section class="step-goal-widget hidden" id="steps-widget">
             <ul class="widget-section">
+              <li id="strideLength">Stride Length: </li>
+              <li id="todaysSteps"> Today's Steps: </li>
+              <li id="todaysActivity"> Your Activity For Today: </li>
+              <ul class="week-activity"></ul>
+              <ul class="compare-activity">
+                <li> Your Activity vs Avg of All Users Activity </li>
+                <li id="vsSteps"> Steps Activity:  </li>
+                <li id="vsMinActive"> Minutes Activity:  </li>
+                <li id="vsStairs"> Stairs Climbed: </li>
+              </ul>
+              <li id="todaysMiles"> Miles Walked Today: </li>
+              <li id="stepGoal">Your Daily Step Goal: </li>
+              <li id="avgStepGoal">Average Step Goal for All Users: </li>
             </ul>
           </section>
           <button class="return-to-widget hidden" id="return-to-widget" type="submit">Return</button>
         </div>
-        <button class="activity widget" id="activity" type="submit"><img src="" alt="Activity Icon">
-          Activity Widget
-        </button>
-        <div class="activity-container">
-          <section class="activity-week-widget hidden" id="activity-widget">
-          </section>
-          <button class="return-to-widget hidden" id="return-to-activity-widget" type="submit">Return</button>
-        </div>
       </section>
       <footer class="Activity-form">
         <form> 
-          <h2>Log your activity</h2>
-          <fieldset class='Activity-form' id="post-form">
-            <label>
-              <input type="radio" id="sleep-input" name="activity" value="sleep" tabindex="0" aria-checked="false">Sleep
-            </label>
-            <label>
-              <input type="radio" id="hydration-input" name="activity" tabindex="0" aria-checked="false">Hydration
-            </label>
-            <label>
-              <input type="radio" id="activity-input" name="activity" tabindex="0" aria-checked="false">Activity
-            </label>
-            <label>
-              <button type="submit" id="input-btn" name="activity" tabindex="0">Show Form</button>
-            </label>
+          <div class="header-form">
+            <h2>Log your activity</h2>
+            <label class="hidden" for="input-date">Calendar Input</label>
+            <input class="input-date hidden" id="input-date" type="date" placeholder="Date">
+          </div>
+          <fieldset class='category-options' id="post-form">
+            <legend class="hidden">Post Your Stats Here</legend>
+            <label for="sleep-input">Sleep</label>
+            <input type="radio" id="sleep-input" name="activity" value="sleep" tabindex="0" aria-checked="false">
+            <label for="hydration-input">Hydration</label>
+            <input type="radio" id="hydration-input" name="activity" tabindex="0" aria-checked="false">
+            <label for="activity-input">Activity</label>
+            <input type="radio" id="activity-input" name="activity" tabindex="0" aria-checked="false">
+            <button type="submit" id="input-btn" name="activity" tabindex="0">Show Form</button>
           </fieldset>
           <section class="input-form" id="input-form">
-            <input class="input-date hidden" type="date" placeholder="Date">
             <section class="sleep-form hidden">
-              <input class="hours-Slept" type="number" placeholder="Hours slept" min= 0 max=12 step=0.1>
-              <input class="sleep-Quality" type="number" placeholder="Sleep Quality" min=0 max=5 step=0.1>
+              <label for="sleep-stat-hours" class="hidden">Sleep Stat Hours</label>
+              <input class="hours-Slept" id="sleep-stat-hours" type="number" placeholder="Hours slept" min= 0 max=12 step=0.1>
+              <label for="sleep-stat-quality" class="hidden">Sleep Stat Quality</label>
+              <input class="sleep-Quality" id="sleep-stat-quality" type="number" placeholder="Sleep Quality" min=0 max=5 step=0.1>
             </section>
             <section class="hydration-form hidden">
-              <input class="number-of-oz" type="number" placeholder="Number of oz drank" max=200>
+              <label for="hydration-stat" class="hidden">Hydration Stat</label>
+              <input class="number-of-oz" id="hydration-stat" type="number" placeholder="Number of oz drank" max=200>
             </section>
             <section class="activity-form hidden">
-              <input class="flights-of-stairs" type="number" placeholder="Flights of stairs">
-              <input class="minutes-active" type="number" placeholder="Minutes active">
-              <input class="number-of-steps" type="number" placeholder="Number of steps">
+              <label for="activity-stat-stairs" class="hidden">Activity Stat</label>
+              <input class="flights-of-stairs" id="activity-stat-stairs" type="number" placeholder="Flights of stairs">
+              <label for="sleep-stat-minutes" class="hidden">Sleep Stat</label>
+              <input class="minutes-active" id="activity-stat-minutes" type="number" placeholder="Minutes active">
+              <label for="sleep-stat-steps" class="hidden">Sleep Stat</label>
+              <input class="number-of-steps" id="activity-stat-steps" type="number" placeholder="Number of steps">
             </section>
             <button class="form-submit hidden">Submit Form</button>
             <section class="post-success-section hidden">
@@ -125,7 +136,7 @@
       </footer>
     </main>
     <aside class="side-bar-container" id="friends-container">
-      <img src="./images/friends.png" alt="Friends Logo" />
+      <img src="./images/friends2.jpg" alt="Friends Logo" />
       <section class="friends-info" id="friends-info"></section>
     </aside>
     <script src="bundle.js"></script>

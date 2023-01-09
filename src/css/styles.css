@@ -230,6 +230,10 @@ p {
   background-color: white;
 }
 
+.double-post-error-section {
+  height: 10vh;
+}
+
 .hidden {
   display: none;
 }

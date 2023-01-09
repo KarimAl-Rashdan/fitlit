@@ -370,7 +370,6 @@ function enableSubmit() {
 function createPostObject(event) {
   event.preventDefault()
   if(findExistingData(allSleepData, currentUserID, inputDate.value)) {
-    doublePostSection.classList.remove("hidden")
     return
   }
   else {
@@ -383,7 +382,6 @@ function createPostObject(event) {
     }
   }
     if(findExistingData(allHydroData, currentUserID, inputDate.value)) {
-      doublePostSection.classList.remove("hidden")
       return
     }
     else {
@@ -395,7 +393,6 @@ function createPostObject(event) {
       }
     }
     if(findExistingData(allActivityData, currentUserID, inputDate.value)) {
-      doublePostSection.classList.remove("hidden")
       return
     } else {
       if(inputStairs.value && inputMinActive.value && inputSteps.value) {
@@ -464,6 +461,7 @@ function toggleAriaChecked() {
 }
 
 function findExistingData(data, userId, date) {
+  doublePostSection.classList.remove("hidden")
   data.find(obj => {
     return obj.userID === userId && obj.date === date
   })

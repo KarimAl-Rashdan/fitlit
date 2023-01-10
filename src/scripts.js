@@ -1,10 +1,8 @@
 import "../src/css/styles.css";
-import "../src/images/turing-logo.png";
 import "../src/images/exercise.png";
-import "../src/images/friends.png";
-import "../src/images/intro.jpg";
 import "../src/images/sleeping.png";
 import "../src/images/water.png";
+import "../src/images/friends2.jpg";
 import UserRepository from "./UserRepository";
 import getAPIData from "./apiCalls";
 import User from "./User";
@@ -51,8 +49,6 @@ function getPageData() {
         allHydroData,
         allActivityData
       );
-      getRandomUser(allUserData);
-      // restrictCalendarRange();
     })
     .catch((error) => {
       fetchFailureDisplay.classList.remove("hidden");
@@ -69,22 +65,27 @@ const hydrationWeeklyAvg = document.getElementById("weeklyAvg");
 const hydroAllTimeAvgArea = document.getElementById("allTimeAvg");
 const welcomeContainer = document.getElementById("user-info");
 const stepsWidget = document.getElementById("steps-widget");
-const activityWidget = document.getElementById("activity-widget");
-const activityButton = document.getElementById("activity");
-const returnActivityWidgetButton = document.getElementById(
-  "return-to-activity-widget"
-);
 const stepsButton = document.getElementById("steps");
+const strideLengthDisplay = document.getElementById("strideLength");
+const todaysStepsDisplay = document.getElementById("todaysSteps");
+const todaysActivity = document.getElementById("todaysActivity");
+const weekActivityDisplay = document.querySelector(".week-activity");
+const todaysMilesDisplay = document.getElementById("todaysMiles");
+const stepGoalDisplay = document.getElementById("stepGoal");
+const avgStepGoalDisplay = document.getElementById("avgStepGoal");
+const compareSteps = document.getElementById("vsSteps");
+const compareMinActive = document.getElementById("vsMinActive");
+const compareStairs = document.getElementById("vsStairs");
 const userFriendsSection = document.getElementById("friends-info");
 const returnStepsWidgetButton = document.getElementById("return-to-widget");
 const sleepWidgetButton = document.getElementById("sleep");
 const sleepWidget = document.getElementById("sleep-widget");
-const returnSleepWidgetButton = document.getElementById(
-  "return-to-sleep-widget"
-);
+const returnSleepWidgetButton = document.getElementById("return-to-sleep-widget");
+const hoursSleptDisplay = document.getElementById("hoursSlept");
+const sleepQualityDisplay = document.getElementById("sleepQuality");
+const avgHoursSleptDisplay = document.getElementById("avgHoursSlept");
+const avgSleepQualityDisplay = document.getElementById("avgSleepQuality");
 const fetchFailureDisplay = document.getElementById("fetch-failure");
-const postFailureDisplay = document.getElementById("post-failure");
-const inputForm = document.getElementById("input-form");
 const showFormBtn = document.getElementById("input-btn");
 const radioSleep = document.getElementById("sleep-input");
 const radioHydration = document.getElementById("hydration-input");
@@ -101,10 +102,56 @@ const inputStairs = document.querySelector(".flights-of-stairs");
 const inputMinActive = document.querySelector(".minutes-active");
 const inputSteps = document.querySelector(".number-of-steps");
 const postForm = document.getElementById("post-form");
-const postSuccessDisplay = document.querySelector(".post-success-section")
-const sleepWeek = document.getElementById("sleep-week")
+const postSuccessDisplay = document.querySelector(".post-success-section");
+const sleepWeek = document.getElementById("sleep-week");
+const doublePostSection = document.getElementById('double-post-section');
+const body = document.querySelector('.main-container')
+const friendsSection = document.getElementById('friends-container')
+const logInSection = document.getElementById('logInSection')
+const logInForm = document.getElementById('logInForm');
+const username = document.getElementById('username');
+const password = document.getElementById('password');
+const signOutBtn = document.getElementById('signOutBtn');
+const logInBtn = document.getElementById('logInBtn');
 
-hydrationBtn.addEventListener("click", function () {
+logInBtn.addEventListener('click', () => {
+  checkLogInCredentials()
+})
+signOutBtn.addEventListener('click', showLogInSection)
+
+const domUpdates = {
+  displayInvalidLogIn: function() {
+    console.log("this is firing")
+    window.alert('Sorry, please enter a valid username and password')
+  },
+
+  resetInnerHTML: function(element) {
+    element.innerText = ``
+  },
+
+  showSection: function(element) {
+    element.classList.remove('hidden');
+  },
+
+  hideSection: function(element) {
+    element.classList.add('hidden');
+  }
+}
+
+function showLogInSection() {
+  domUpdates.hideSection(body)
+  domUpdates.hideSection(friendsSection)
+  domUpdates.showSection(logInSection)
+}
+
+function hideLogInSection() {
+  domUpdates.showSection(body)
+  domUpdates.showSection(friendsSection)
+  domUpdates.showSection(signOutBtn)
+  domUpdates.hideSection(logInSection)
+}
+
+hydrationBtn.addEventListener("click",function() {
   showHydrationArea();
   displayHydrationDom();
 });
@@ -114,23 +161,17 @@ toggleHomeBtn.addEventListener("click", (event) => {
 window.addEventListener("load", function () {
   calendarSub.disabled = true;
   getPageData();
+  showLogInSection();
+  checkLogInCredentials();
 });
 stepsButton.addEventListener("click", updateStepWidget);
-activityButton.addEventListener("click", findWeeklyData);
-returnActivityWidgetButton.addEventListener("click", (event) => {
-  returnToWidget(
-    event,
-    activityButton,
-    activityWidget,
-    returnActivityWidgetButton
-  );
-});
 returnStepsWidgetButton.addEventListener("click", (event) => {
   returnToWidget(event, stepsButton, stepsWidget, returnStepsWidgetButton);
 });
 sleepWidgetButton.addEventListener("click", () => {
-  updateSleepData()
   sleepWeek.classList.remove('hidden')
+  showArea(sleepWidgetButton, sleepWidget, returnSleepWidgetButton);
+  updateSleepData()
 });
 returnSleepWidgetButton.addEventListener("click", (event) => {
   sleepWeek.classList.add('hidden')
@@ -160,13 +201,30 @@ function createClassInstances(dataSet1, dataSet2, dataSet3, dataSet4) {
   activityRepository = new ActivityRepository(allActivityData);
 }
 
-function getRandomUser(allUserData) {
-  const randomID = Math.floor(Math.random() * allUserData.length);
-  currentUser = allUserData[randomID];
-  currentUserID = allUserData[randomID].id;
-  updateUserInfo();
-  updateFriendsInfo();
-  return currentUserID;
+function checkLogInCredentials() {
+  const test = username.value.substring(0,4)
+  if (test === 'user' && username.value.length >= 5 && username.value.length < 7 && password.value === 'fitlit') {
+    const allChar = username.value.split('')
+    const getNumber = allChar.filter(char =>{
+      return Number(char)
+    })
+    if(allChar[5] === '0') {
+      getNumber.push('0')
+    }
+    const getString = getNumber.join('')
+    const convertToNum = Number(getString);
+    const userObj = userRepository.findUser(convertToNum)
+    currentUser = userObj
+    currentUserID = userObj.id
+    updateUserInfo()
+    updateFriendsInfo()
+    hideLogInSection()
+    logInForm.reset()
+    return currentUserID
+  } else if(username.value || password.value){
+    domUpdates.displayInvalidLogIn()
+    logInForm.reset()
+  }
 }
 
 function updateUserInfo() {
@@ -176,6 +234,7 @@ function updateUserInfo() {
 }
 
 function updateFriendsInfo() {
+  userFriendsSection.innerHTML = '';
   allUserData[currentUserID].friends.forEach((friend) => {
     userFriendsSection.innerHTML += `<div class="user-friends" id="friend">
       <h2>${userRepository.findUser(friend).name}</h2><br>
@@ -192,7 +251,7 @@ function displayHydrationDom() {
  displayTodaysHydration(hydrationRepository,currentUserID);
  displayAverageConsumed();
  restrictCalendarRange();
-};
+}
 
 function restrictCalendarRange() {
   const usersRecordedDates = hydrationRepository.filterHydrationByUser(currentUserID);
@@ -206,12 +265,11 @@ function restrictCalendarRange() {
 }
 
 function displayTodaysHydration(hydrationRepository, currentUserID) {
-  const todaysOz = hydrationRepository.findTodaysHydration(currentUserID);
-  ouncesDrankToday.innerText = `Today's you drank ${todaysOz} oz! `;
+  const hydroToday = hydrationRepository.findTodaysHydration(currentUserID);
+  ouncesDrankToday.innerHTML = `<li> Today:${hydroToday.date} you drank <span>${hydroToday.numOunces} oz</span>!</li>`;
 }
 
 function displayWeeklyAverage() {
-  // e.preventDefault();
   if(calendarDate.value) {
   calendarSub.disabled = false
   hydrationWeeklyAvg.innerHTML = '';
@@ -219,81 +277,60 @@ function displayWeeklyAverage() {
 	const alteredDate = chosenDate.replaceAll('-',"/");
 	const userWeeklyData = hydrationRepository.findWeeklyHydration(alteredDate,currentUserID);
 	userWeeklyData.forEach((recordedDay) => {
+    console.log("TEST DATES", recordedDay)
 		hydrationWeeklyAvg.innerHTML += 
-    `<p class="hydration-weekly">
-		  ${dayjs(recordedDay.date).format('dd/MMM/D/YYYY')} you consumed ${recordedDay.numOunces} ounces
+    `<p class="hydration-weekly">${dayjs(recordedDay.date).format('dd/MMM/D/YYYY')} you consumed <span>${recordedDay.numOunces} ounces</span>
 		</p>`;
 	});
 } else {
   calendarSub.disabled = true;
 }
-};
+}
 
 function displayAverageConsumed() {
   const averageWaterAllTime =
     hydrationRepository.getAverageHydration(currentUserID);
   const roundedAverage = Math.trunc(averageWaterAllTime);
-  hydroAllTimeAvgArea.innerText = `All time average oz consumed is ${roundedAverage} oz !`;
+  hydroAllTimeAvgArea.innerHTML = `<li>All time average oz consumed is <span>${roundedAverage} oz</span>!</li>`;
 }
 
 function findWeeklyData() {
-  showArea(activityButton, activityWidget, returnActivityWidgetButton);
-  activityWidget.innerHTML = "";
+  weekActivityDisplay.innerHTML = `<li>Your Activity for the Week</li>`;
   const userActivity = activityRepository.filterById(currentUserID);
   const todayActivity = activityRepository.determineTodayData();
-  const weeklyData = activityRepository
-    .findWeeklyData(todayActivity.date)
-    .reverse();
+  const weeklyData = activityRepository.findWeeklyData(todayActivity.date).reverse();
   const weeklyKey = weeklyData.forEach((dayActivity) => {
-    activityWidget.innerHTML += `<ul>
+    weekActivityDisplay.innerHTML += `
       <li>${dayActivity.date}: </li>
-      <li>Steps: ${dayActivity.numSteps}</li>
-      <li>Stairs Climbed: ${dayActivity.flightsOfStairs}</li>
-      <li>Minutes Active: ${dayActivity.minutesActive}</li>
-      </ul>
+      <li>Steps: <span>${dayActivity.numSteps}</span></li>
+      <li>Stairs Climbed: <span>${dayActivity.flightsOfStairs}</span></li>
+      <li>Minutes Active: <span>${dayActivity.minutesActive}</span></li>
     `;
   });
-};
+}
 
 function updateStepWidget() {
   showArea(stepsButton, stepsWidget, returnStepsWidgetButton);
+  findWeeklyData()
   const userActivity = activityRepository.filterById(currentUserID);
   const todayActivity = activityRepository.determineTodayData();
   const userStepsToday = todayActivity.numSteps;
   const userMinActiveToday = todayActivity.minutesActive;
   const userStairsClimbed = todayActivity.flightsOfStairs;
-  const numOfMiles = activityRepository.findMilesWalked(
-    todayActivity.date,
-    currentUser
-  );
-  const avgSteps = activityRepository.getUsersAvgForDay(
-    todayActivity.date,
-    "numSteps"
-  );
-  const avgMinActive = activityRepository.getUsersAvgForDay(
-    todayActivity.date,
-    "minutesActive"
-  );
-  const avgStairsClimbed = activityRepository.getUsersAvgForDay(
-    todayActivity.date,
-    "flightsOfStairs"
-  );
-  stepsWidget.innerHTML = `<ul> 
-      <li>Stride Length: ${currentUser.strideLength} </li>
-      <li> Today's Steps: ${userStepsToday} </li>
-      <li> Your Activity For Today: ${userMinActiveToday} minutes </li>
-        <ul>
-          <li> Your Activity vs Avg of All Users Activity </li>
-          <li> Steps Activity: ${userStepsToday} vs ${avgSteps} </li>
-          <li> Minutes Activity: ${userMinActiveToday} vs ${avgMinActive} </li>
-          <li> Stairs Climbed: ${userStairsClimbed} vs ${avgStairsClimbed} </li>
-        </ul>
-      <li> Miles Walked Today: ${numOfMiles} miles </li>
-      <li>Your Daily Step Goal: ${
-        currentUser.dailyStepGoal
-      } Steps<br>Average Step Goal for All Users: ${userRepository.calculateAverageStepGoal()} Steps</li>
-    </ul>`;
-};
+  const numOfMiles = activityRepository.findMilesWalked(todayActivity.date,currentUser);
+  const avgSteps = activityRepository.getUsersAvgForDay(todayActivity.date,"numSteps");
+  const avgMinActive = activityRepository.getUsersAvgForDay(todayActivity.date, "minutesActive");
+  const avgStairsClimbed = activityRepository.getUsersAvgForDay(todayActivity.date,"flightsOfStairs");
+  strideLengthDisplay.innerHTML = `<li>Stride Length: <span>${currentUser.strideLength}</span></li>`;
+  todaysStepsDisplay.innerHTML = `<li> Today's Steps: <span>${userStepsToday}</span></li>`
+  todaysActivity.innerHTML = `<li> Your Activity For Today ${todayActivity.date}: <span>${userMinActiveToday} minutes</span></li>`
+  compareSteps.innerHTML = `<li> Steps Activity: <span>${userStepsToday}</span> vs <span>${avgSteps}</span></li>`
+  compareMinActive.innerHTML = `<li> Minutes Activity: <span>${userMinActiveToday}</span> vs <span>${avgMinActive}</span></li>`
+  compareStairs.innerHTML = `<li> Stairs Climbed: <span>${userStairsClimbed}</span> vs <span>${avgStairsClimbed}</span></li>`
+  todaysMilesDisplay.innerHTML = `<li> Miles Walked Today: <span>${numOfMiles} miles </span></li>`
+  stepGoalDisplay.innerHTML = `<li>Your Daily Step Goal: <span>${currentUser.dailyStepGoal} Steps </span></li>`
+  avgStepGoalDisplay.innerHTML= `<li>Average Step Goal for All Users: <span>${userRepository.calculateAverageStepGoal()} Steps</span></li>`
+}
 
 function returnToWidget(event, area1, area2, area3) {
   event.preventDefault();
@@ -313,32 +350,25 @@ function hideArea(area1, area2, area3) {
 }
 
 function updateSleepData() {
-  showArea(sleepWidgetButton, sleepWidget, returnSleepWidgetButton);
+
   const userSleep = sleepRepository.filterSleepByUser(currentUserID);
   const todaySleep = sleepRepository.findTodaysData(currentUserID);
   const weeklySleep = sleepRepository.findWeeklyData(todaySleep.date, currentUserID);
   const avgHoursSlept = sleepRepository.calculateAvgSleepPerWeek(todaySleep.date, currentUserID, "hoursSlept");
   const avgSleepQuality = sleepRepository.calculateAvgSleepPerWeek(todaySleep.date, currentUserID, "sleepQuality");
-  sleepWeek.innerHTML ='';
-
+  sleepWeek.innerHTML ='Your Sleep Data for the Week:';
   const weeklyKey = weeklySleep.forEach(dayActivity => {
-    
-    sleepWeek.innerHTML += `<ul>
+    sleepWeek.innerHTML += `
       <li>${dayActivity.date}: </li>
-      <li><span style="font-weight:bold">Hours Slept:</span> ${dayActivity.hoursSlept}</li>
-      <li>Sleep Quality: ${dayActivity.sleepQuality}</li>
-      </ul>
-    `
-  });
-
-  sleepWidget.innerHTML = `
-          <ul class=widget>
-            <li>Hours Slept Today: ${todaySleep.hoursSlept}</li>
-            <li>Sleep Quality for Today: ${todaySleep.sleepQuality}</li>
-            <li>Your All Time Hours Slept Average: ${avgHoursSlept} hours</li>
-            <li>Your All Time Sleep Quality Average: ${avgSleepQuality}</li>
-          </ul>
-          `;
+      <li>Hours Slept: <span>${dayActivity.hoursSlept}</span></li>
+      <li>Sleep Quality: <span>${dayActivity.sleepQuality}</span></li>
+      `
+    });
+    
+hoursSleptDisplay.innerHTML = `<li>Hours Slept Today ${todaySleep.date} : <span>${todaySleep.hoursSlept}</span></li>`
+sleepQualityDisplay.innerHTML = `<li>Sleep Quality for Today: <span>${todaySleep.sleepQuality}</span></li>`
+avgHoursSleptDisplay.innerHTML = `<li>Your All Time Hours Slept Average: <span>${avgHoursSlept} hours</span></li>`
+avgSleepQualityDisplay.innerHTML = `<li>Your All Time Sleep Quality Average: <span>${avgSleepQuality}</span></li>`
 }
 
 
@@ -360,33 +390,52 @@ function showInputForm(event) {
   inputMinActive.setAttribute('required', true);
   inputSteps.setAttribute('required', true);
  };
-};
+}
 
 function enableSubmit() { 
   calendarSub.disabled = false;
-};
+}
 
 function createPostObject(event) {
   event.preventDefault()
-  if(inputSleepQuality.value && inputHoursSlept.value) {
-    const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: Number(inputHoursSlept.value), sleepQuality: Number(inputSleepQuality.value)}
-    const sleepEndPoint = "sleep"
-    postInformation(sleepEndPoint, sleepObject)
-    clearValues(inputSleepQuality,inputHoursSlept)
-    inputDate.value = ''
-  } else if(inputOzDrank.value) {
-    const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: Number(inputOzDrank.value)}
-    const hydrationEndPoint = "hydration"
-    postInformation(hydrationEndPoint, hydrationObject)
-    clearValues(inputOzDrank,inputDate)
-  } else if(inputStairs.value && inputMinActive.value && inputSteps.value) {
-    const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: Number(inputStairs.value), minutesActive: Number(inputMinActive.value), numSteps: Number(inputSteps.value)}
-    const activityEndPoint = "activity"
-    postInformation(activityEndPoint, activityObject)
-    clearValues(inputStairs, inputMinActive)
-    clearValues(inputSteps, inputDate)
-  
+  if(findExistingData(allSleepData, currentUserID, inputDate.value)) {
+    doublePostSection.classList.remove("hidden")
+    return
   }
+  else {
+    if(inputSleepQuality.value && inputHoursSlept.value) {
+      const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: Number(inputHoursSlept.value), sleepQuality: Number(inputSleepQuality.value)}
+      const sleepEndPoint = "sleep"
+      postInformation(sleepEndPoint, sleepObject)
+      clearValues(inputSleepQuality,inputHoursSlept)
+      inputDate.value = ''
+    }
+  }
+    if(findExistingData(allHydroData, currentUserID, inputDate.value)) {
+      doublePostSection.classList.remove("hidden")
+      return
+    }
+    else {
+      if (inputOzDrank.value) {
+        const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: Number(inputOzDrank.value)}
+        const hydrationEndPoint = "hydration"
+        postInformation(hydrationEndPoint, hydrationObject)
+        clearValues(inputOzDrank,inputDate)
+      }
+    }
+    if (findExistingData(allActivityData, currentUserID, inputDate.value)) {
+      doublePostSection.classList.remove("hidden")
+      return
+    } else {
+      if(inputStairs.value && inputMinActive.value && inputSteps.value) {
+        const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: Number(inputStairs.value), minutesActive: Number(inputMinActive.value), numSteps: Number(inputSteps.value)}
+        const activityEndPoint = "activity"
+        postInformation(activityEndPoint, activityObject)
+        clearValues(inputStairs, inputMinActive)
+        clearValues(inputSteps, inputDate)
+      }
+    }
+  
 }
 
 function clearValues(input1, input2) {
@@ -410,14 +459,14 @@ function postInformation(endPoint, data ) {
     })
     .then((obj) => {
       postSuccessDisplay.classList.remove("hidden");
-      return letsTry();
+      return reFetch();
     })
     .catch((error) => {
       fetchFailureDisplay.classList.remove("hidden");
     });
 }
 
-function letsTry() {
+function reFetch() {
   Promise.all([
     getAPIData(userAPI),
     getAPIData(sleepAPI),
@@ -442,3 +491,9 @@ function toggleAriaChecked() {
   radioHydration.setAttribute("aria-checked", radioHydration.checked ? true : false);
   radioActivity.setAttribute("aria-checked", radioActivity.checked ? true : false);
 }
+
+function findExistingData(data, userId, date) {
+  data.find(obj => {
+    return obj.userID === userId && obj.date === date
+  })
+} 

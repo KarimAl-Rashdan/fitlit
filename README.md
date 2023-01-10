@@ -1,22 +1,18 @@
 # FitLit
 
 FitLit is a proof-of-concept for a fitness tracking web application. The app breaks down a users hydration, sleep patterns, step goal levels, and present it on a dashboard. It runs in the web browser.
-![FitLit gif](https://media.giphy.com/media/NWY49FseE1d6dTUNTu/giphy.gif)
 
+![FitLit Gif](https://media.giphy.com/media/wON4X2bFzr4gTyxKyV/giphy.gif)
 ### `How to Use the App:`
 
+- Clone down this repo to your computer: https://github.com/turingschool-examples/fitlit-api
+- Run `npm install` to install all required dependencies
+- Run `npm start` to start the local server in the background
 - Clone down this repo to your computer
 - Access the root folder in your Terminal
-- Type `npm install` to install all required dependencies
-- Type `npm start` to start local server  
-- Paste `http://localhost:8080/` into your web browser to view the application
-
-After the above steps have been followed, please do the following in order to access the data from a local server:
-
-- Clone [this](https://frontend.turing.edu/projects/Fitlit-part-one.html) repo 
-- Access the root folder in your Terminal
-- Type `npm install` to install all required dependencies
-- Type `npm start` to start local server  
+- Run `npm install` to install all required dependencies
+- Run `npm start` to start local server  
+- Paste `http://localhost:8080/` into your web browser to view the application 
 
 ### `Technologies and Skills`
 
@@ -24,10 +20,11 @@ FitLit uses...
 * HTML and CSS adhering to BEM naming conventions.
 * Old School Vanilla JavaScript (OSVJS).
 * [Charts.js](https://www.chartjs.org/) to visualize weekly data. 
-* [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/) for unit testing.  
+* [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/) for unit testing. 
+* [Day.js](https://day.js.org/) to format dates on the DOM.
 
 ## `Architecture`
-FitLit currently uses prototype data found in our `data` folder. Most of the functionality is housed in our `src` folder, which includes all of our classes (ex: `User-Class.js`) as well as our JS logic (`scripts.js`), HTML (`index.html`), and CSS (`styles.css`). We also have a testing suite, housed in our `test` folder.
+FitLit currently uses API data found in the first linked repo. Most of the functionality is housed in our `src` folder, which includes all of our classes (ex: `User-Class.js`) as well as our JS logic (`scripts.js`), HTML (`index.html`), and CSS (`styles.css`). We also have a testing suite, housed in our `test` folder.
 
 
 ### `Contributors:`
@@ -40,7 +37,7 @@ FitLit currently uses prototype data found in our `data` folder. Most of the fun
 3. Andrew Cerveny
     * [GitHub](https://github.com/AndrewCerveny)
     * [LinkedIn](https://www.linkedin.com/in/andrewcerveny/)
-4. Blanche Haddad
+4. Blanche Haddad (they/them)
     * [GitHub](https://github.com/BHaddad1)
     * [LinkedIn](https://www.linkedin.com/in/blanche-haddad-denver/)
 

@@ -8,8 +8,7 @@ class SleepRepository {
   }
   findTodaysData(id) {
     const usersSleepData = this.filterSleepByUser(id).sort((a,b) => new Date(b.date)- new Date(a.date))
-    return usersSleepData[0]
-    
+    return usersSleepData[0];
   }
   calculateAverageSleepPerDay(type, filterData, id) {
     let value = this.filterSleepByUser(id);

@@ -1,46 +1,47 @@
 body,
 html {
-  background-color: rgb(225, 230, 236);
+  background-color: white;
   background-repeat: no-repeat;
-  font-family: "Barlow", sans-serif;
-  height: 100vh;
-  text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
 }
 
 .background-container {
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  height: max-content;
   margin: 0px;
   width: 100%;
 }
 
 .main-container {
+  background: rgb(61, 19, 156);
+  background: linear-gradient(
+    90deg,
+    rgba(61, 19, 156, 1) 0%,
+    rgba(9, 149, 224, 1) 35%,
+    rgba(227, 125, 245, 1) 100%
+  );
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-}
-
-@media only screen and (min-width: 760px) {
-  .main-container {
-    height: 100vh;
-    width: 100vw;
-  }
+  max-height: max-content;
+  width: 100%;
 }
 
 .welcome-section {
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  align-items: center;
   width: 100%;
 }
 
 .welcome-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .user-name {
@@ -66,32 +67,63 @@ html {
   height: 52vh;
   justify-content: center;
   width: 100%;
+  margin: 25px;
 }
 
 footer {
+  background-color: aliceblue;
   border: 2px solid gray;
-  height: 20vh;
-  width: 70vw;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  height: 30vh;
+  opacity: 90%;
+  width: 55vw;
 }
-footer > img {
-  display: none;
+
+footer > form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-form {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.input-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   height: 20vh;
-  width: 70vw;
+  justify-content: flex-start;
+  margin: 10px;
+  width: 100%;
 }
 
 .turing-logo {
+  border: 2px solid darkslateblue;
+  border-radius: 50%;
   height: 17vh;
-  width: 12%;
+  width: 20%;
 }
 
 aside {
-  background-color: rgb(220, 226, 234);
-  border: none;
-  width: 20%;
+  background: linear-gradient(
+    90deg,
+    rgba(227, 125, 245, 1) 0%,
+    rgba(61, 19, 156, 1) 100%
+    );
+  border-left: 2px solid plum;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  max-height: max-content;
+  width: 15%;
 }
 
 .friends-info {
@@ -103,42 +135,42 @@ aside {
   border: 1px solid gray;
   border-radius: 5px;
   display: block;
-  font-family: "Barlow", sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
   height: 33px;
   padding-bottom: 3px;
-  text-transform: uppercase;
   text-align: center;
 }
 
 ul {
+  align-items: center;
   background-color: white;
-  justify-content: space-evenly;
-  list-style-type: none;
-  margin: 0px;
-  margin-inline: 10px;
-  transition-duration: 0.4s;
   display: flex;
   flex-direction: column;
-  align-items: center;
   height: 45vh;
+  justify-content: space-evenly;
+  list-style-type: none;
+  margin: 10px;
+  transition-duration: 0.4s;
   padding: 10px;
 }
 
-.activity-week-widget > ul {
-  justify-content: flex-start;
-  height: 8vh;
-}
-
 aside > img {
+  border-radius: 50%;
   height: 10vh;
+  margin-bottom: 10px;
   margin-left: 20px;
 }
 
 .user-friends > h2 {
+  font-size: medium;
+  margin: 0px;
   width: 100%;
 }
+
 .user-friends > h3 {
+  font-size: medium;
+  margin: 0px;
   width: 35%;
 }
 
@@ -148,38 +180,47 @@ aside > img {
 
 .user-friends {
   align-items: center;
-  background-color: #ffcff1;
+  background-color: #f7bde6;
   border: 2px solid gray;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
-  margin: 15px;
-  width: 80%;
+  margin-block: 5px;
+  width: 53%;
 }
 
 .sleep-widget,
 .hydration-widget,
-.step-goal-widget,
-.activity-week-widget {
+.step-goal-widget {
+  background-color: #818cf8;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   margin-inline: 10px;
-  width: 20vw;
-  background-color: white;
+  width: 25vw;
 }
 
-.activity-container {
+.week-activity {
+  border: 2px solid black;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0px;
   overflow-y: scroll;
+  padding: 0px;
 }
+
 .sleep-week {
+  border: 2px solid black;
   overflow-y: scroll;
 }
+
 .sleep-week > ul {
-  height: 5vh;
+  height: 10vh;
 }
+
 li {
   font-size: small;
-  font-weight: bold;
+  font-weight: normal;
   list-style-type: none;
-  width: 15vw;
+  width: 22vw;
 }
 
 p {
@@ -202,9 +243,8 @@ p {
   background-color: #50bfe6;
   border: 1px solid gray;
   border-radius: 10px;
-  font-family: "Barlow", sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 30px;
-  text-transform: uppercase;
   margin-inline: 10px;
   width: 25%;
 }
@@ -228,6 +268,119 @@ p {
 .step-goal:hover,
 .activity:hover {
   background-color: white;
+}
+
+.log-in-title,
+button {
+  font-weight: 700;
+}
+
+.log-in-form label {
+  margin-bottom: 7px;
+}
+
+.log-in-input {
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.log-in-input {
+  margin-bottom: 10px;
+}
+
+.sign-out-button,
+.log-in-btn {
+  align-self: center;
+  border-radius: 21px;
+  background-color: #818cf8;
+  font-size: 17px;
+  font-weight: 400;
+  margin: 4px 0;
+  padding: 8px;
+  width: 30%;
+}
+
+.sign-out-button {
+  width: 10%;
+}
+
+.log-in-section {
+  background-image: url("/src/images/runner.jpg");
+  background-position: center;
+  background-size: 100%;
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  overflow-y: scroll;
+  overflow-x: unset;
+  width: 100%;
+}
+
+.log-in-form {
+  align-items: center;
+  background-color: aliceblue;
+  border-radius: 6px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  margin-top: 0%;
+  opacity: 80%;
+  padding: 12px;
+  text-transform: uppercase;
+  width: 50%;
+}
+
+.log-in-title {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.log-in-btn {
+  text-transform: uppercase;
+  width: 48%;
+}
+
+.turing-logo {
+  background-image: url("/src/images/logo.png");
+}
+
+.sleep-form,
+.hydration-form,
+.activity-form {
+  display: flex;
+  justify-content: center;
+  width: 85%;
+}
+
+.sleep-form > input,
+.activity-form > input {
+  margin: 10px;
+  width: 30%;
+}
+
+.hydration-form > input {
+  margin: 10px;
+  width: 50%;
+}
+
+.compare-activity > ul {
+  padding: 0px;
+}
+
+.compare-activity {
+  margin: 0px;
+  padding: 0px;
+}
+
+span {
+  color: #50bfe6;
+  font-weight: normal;
+}
+
+.category-options {
+  background-color: #bcc2f9;
 }
 
 .hidden {

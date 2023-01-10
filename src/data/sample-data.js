@@ -4,6 +4,5 @@ const sleepData = [
   {userID: 3, date: '2019/06/15', hoursSlept: 10.8, sleepQuality: 4.7},
   {userID: 5, date: '2019/06/17', hoursSlept: 10.5, sleepQuality: 3.7}];
 
-
   export default sleepData
 

@@ -6,9 +6,7 @@ class UserRepository {
 		this.currentUser;
 	}
 	findUser(id) {
-		const user = this.allUsers.find(user => {
-			return user.id === id;
-		});
+		const user = this.allUsers.find(user => user.id === id);
 		this.currentUser = new User(user);
 		return user;
 	}

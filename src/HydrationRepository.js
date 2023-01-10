@@ -18,7 +18,7 @@ class HydrationRepository {
     const getIndexDate = usersWeeklyData.findIndex((user) => {
       return user.date === date;
     });
-    const weeklyData = usersWeeklyData.slice(getIndexDate, getIndexDate + 7);
+    const weeklyData = usersWeeklyData.slice(getIndexDate - 6 , getIndexDate + 1);
     return weeklyData;
   }
   getAverageHydration(id) {

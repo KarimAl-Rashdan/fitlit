@@ -48,7 +48,7 @@ function getPageData() {
     .catch((error) => {
       fetchFailureDisplay.classList.remove("hidden");
     });
-}
+};
 
 const hydrationBtn = document.querySelector("#hydration");
 const hydrationDisplay = document.querySelector(".hydration-widget");
@@ -129,6 +129,7 @@ const domUpdates = {
   }
 };
 
+
 hydrationBtn.addEventListener("click",function() {
   showHydrationArea();
   displayHydrationDom();
@@ -156,19 +157,19 @@ returnSleepWidgetButton.addEventListener("click", (event) => {
   returnToWidget(event, sleepWidgetButton, sleepWidget, returnSleepWidgetButton)
 });
 calendarSub.addEventListener('click', (e) => {
-   e.preventDefault();
-  displayWeeklyAverage()
+  e.preventDefault();
+  displayWeeklyAverage();
 });
 calendarDate.addEventListener('mousedown', enableSubmit);
 showFormBtn.addEventListener('click', (event) => {
-  showInputForm(event)
+  showInputForm(event);
 });
 inputSub.addEventListener("click", (event) => {
   createPostObject(event);
 });
 postForm.addEventListener("click", toggleAriaChecked);
-logInBtn.addEventListener('click', checkLogInCredentials)
-signOutBtn.addEventListener('click', showLogInSection)
+logInBtn.addEventListener('click', checkLogInCredentials);
+signOutBtn.addEventListener('click', showLogInSection);
 
 
 function createClassInstances(dataSet1, dataSet2, dataSet3, dataSet4) {
@@ -180,39 +181,39 @@ function createClassInstances(dataSet1, dataSet2, dataSet3, dataSet4) {
   hydrationRepository = new HydrationRepository(allHydroData);
   allActivityData = dataSet4.map((data) => new Activity(data));
   activityRepository = new ActivityRepository(allActivityData);
-}
+};
 
 function checkLogInCredentials() {
   const test = username.value.substring(0,4)
   if (test === 'user' && username.value.length >= 5 && username.value.length < 7 && password.value === 'fitlit') {
     const allChar = username.value.split('')
     const getNumber = allChar.filter(char =>{
-      return Number(char)
+      return Number(char);
     })
     if(allChar[5] === '0') {
-      getNumber.push('0')
+      getNumber.push('0');
     }
-    const getString = getNumber.join('')
+    const getString = getNumber.join('');
     const convertToNum = Number(getString);
-    const userObj = userRepository.findUser(convertToNum)
-    currentUser = userObj
-    currentUserID = userObj.id
-    updateUserInfo()
-    updateFriendsInfo()
-    hideLogInSection()
-    logInForm.reset()
-    return currentUserID
-  } else if(username.value || password.value){
-    domUpdates.displayInvalidLogIn()
-    logInForm.reset()
+    const userObj = userRepository.findUser(convertToNum);
+    currentUser = userObj;
+    currentUserID = userObj.id;
+    updateUserInfo();
+    updateFriendsInfo();
+    hideLogInSection();
+    logInForm.reset();
+    return currentUserID;
+  } else if (username.value || password.value) {
+    domUpdates.displayInvalidLogIn();
+    logInForm.reset();
   }
-}
+};
 
 function updateUserInfo() {
   welcomeContainer.innerHTML = `
   <h1 class="user-name">Welcome, ${currentUser.firstName()}!</h1>
   <h2 class="user-info">${currentUser.address}, ${currentUser.email}</h2>`;
-}
+};
 
 function updateFriendsInfo() {
   userFriendsSection.innerHTML = '';

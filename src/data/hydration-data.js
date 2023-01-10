@@ -40,6 +40,12 @@ const hydrationData = [
     numOunces: 72,
   },
   {
+    userID: 10,
+    date: "2019/06/23",
+    numOunces: 58,
+
+  },
+  {
     userID: 11,
     date: "2019/06/22",
     numOunces: 93,

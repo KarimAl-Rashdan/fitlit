@@ -103,17 +103,17 @@ const doublePostSection = document.getElementById("double-post-section");
 const body = document.querySelector(".main-container");
 const friendsSection = document.getElementById("friends-container");
 const logInSection = document.getElementById("logInSection");
-const logInForm = document.getElementById('logInForm');
-const username = document.getElementById('username');
-const password = document.getElementById('password');
-const signOutBtn = document.getElementById('signOutBtn');
-const logInBtn = document.getElementById('logInBtn');
+const logInForm = document.getElementById("logInForm");
+const username = document.getElementById("username");
+const password = document.getElementById("password");
+const signOutBtn = document.getElementById("signOutBtn");
+const logInBtn = document.getElementById("logInBtn");
 
 
 const domUpdates = {
   displayInvalidLogIn: function() {
     console.log("this is firing")
-    window.alert('Sorry, please enter a valid username and password')
+    window.alert("Sorry, please enter a valid username and password")
   },
 
   resetInnerHTML: function(element) {
@@ -121,11 +121,11 @@ const domUpdates = {
   },
 
   showSection: function(element) {
-    element.classList.remove('hidden');
+    element.classList.remove("hidden");
   },
 
   hideSection: function(element) {
-    element.classList.add('hidden');
+    element.classList.add("hidden");
   }
 };
 
@@ -148,28 +148,28 @@ returnStepsWidgetButton.addEventListener("click", (event) => {
   returnToWidget(event, stepsButton, stepsWidget, returnStepsWidgetButton);
 });
 sleepWidgetButton.addEventListener("click", () => {
-  sleepWeek.classList.remove('hidden')
+  sleepWeek.classList.remove("hidden")
   showArea(sleepWidgetButton, sleepWidget, returnSleepWidgetButton);
   updateSleepData()
 });
 returnSleepWidgetButton.addEventListener("click", (event) => {
-  sleepWeek.classList.add('hidden')
+  sleepWeek.classList.add("hidden")
   returnToWidget(event, sleepWidgetButton, sleepWidget, returnSleepWidgetButton)
 });
-calendarSub.addEventListener('click', (e) => {
+calendarSub.addEventListener("click", (e) => {
   e.preventDefault();
   displayWeeklyAverage();
 });
-calendarDate.addEventListener('mousedown', enableSubmit);
-showFormBtn.addEventListener('click', (event) => {
+calendarDate.addEventListener("mousedown", enableSubmit);
+showFormBtn.addEventListener("click", (event) => {
   showInputForm(event);
 });
 inputSub.addEventListener("click", (event) => {
   createPostObject(event);
 });
 postForm.addEventListener("click", toggleAriaChecked);
-logInBtn.addEventListener('click', checkLogInCredentials);
-signOutBtn.addEventListener('click', showLogInSection);
+logInBtn.addEventListener("click", checkLogInCredentials);
+signOutBtn.addEventListener("click", showLogInSection);
 
 
 function createClassInstances(dataSet1, dataSet2, dataSet3, dataSet4) {
@@ -184,10 +184,10 @@ function createClassInstances(dataSet1, dataSet2, dataSet3, dataSet4) {
 };
 
 function checkLogInCredentials() {
-  const test = username.value.substring(0,4)
+  const test = username.value.substring(0,4);
   if (test === 'user' && username.value.length >= 5 && username.value.length < 7 && password.value === 'fitlit') {
-    const allChar = username.value.split('')
-    const getNumber = allChar.filter(char =>{
+    const allChar = username.value.split('');
+    const getNumber = allChar.filter(char => {
       return Number(char);
     })
     if(allChar[5] === '0') {
@@ -353,21 +353,21 @@ function updateSleepData() {
 
 function showInputForm(event) {
   event.preventDefault();
-  inputDate.classList.remove('hidden');
-  inputSub.classList.remove('hidden');
-  inputDate.setAttribute('required', true);
+  inputDate.classList.remove("hidden");
+  inputSub.classList.remove("hidden");
+  inputDate.setAttribute("required", true);
  if(radioSleep.checked) {
   hideArea(sleepForm, hydrationForm, activityForm);
-  inputSleepQuality.setAttribute('required', true);
-  inputHoursSlept.setAttribute('required', true);
+  inputSleepQuality.setAttribute("required", true);
+  inputHoursSlept.setAttribute("required", true);
  } else if(radioHydration.checked) {
   hideArea(hydrationForm, sleepForm, activityForm);
-  inputOzDrank.setAttribute('required', true);
+  inputOzDrank.setAttribute("required", true);
  } else if(radioActivity.checked) {
   hideArea(activityForm, hydrationForm, sleepForm);
-  inputStairs.setAttribute('required', true);
-  inputMinActive.setAttribute('required', true);
-  inputSteps.setAttribute('required', true);
+  inputStairs.setAttribute("required", true);
+  inputMinActive.setAttribute("required", true);
+  inputSteps.setAttribute("required", true);
  };
 }
 
@@ -378,7 +378,7 @@ function enableSubmit() {
 function createPostObject(event) {
   event.preventDefault()
   if(findExistingData(allSleepData, currentUserID, inputDate.value)) {
-    doublePostSection.classList.remove("hidden")
+    doublePostSection.classList.remove("hidden");
     return
   }
   else {
@@ -391,7 +391,7 @@ function createPostObject(event) {
     }
   }
     if(findExistingData(allHydroData, currentUserID, inputDate.value)) {
-      doublePostSection.classList.remove("hidden")
+      doublePostSection.classList.remove("hidden");
       return
     }
     else {
@@ -477,14 +477,14 @@ function findExistingData(data, userId, date) {
 };
 
 function showLogInSection() {
-  domUpdates.hideSection(body)
-  domUpdates.hideSection(friendsSection)
-  domUpdates.showSection(logInSection)
+  domUpdates.hideSection(body);
+  domUpdates.hideSection(friendsSection);
+  domUpdates.showSection(logInSection);
 };
 
 function hideLogInSection() {
-  domUpdates.showSection(body)
-  domUpdates.showSection(friendsSection)
-  domUpdates.showSection(signOutBtn)
-  domUpdates.hideSection(logInSection)
+  domUpdates.showSection(body);
+  domUpdates.showSection(friendsSection);
+  domUpdates.showSection(signOutBtn);
+  domUpdates.hideSection(logInSection);
 };

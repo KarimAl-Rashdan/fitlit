@@ -19,7 +19,6 @@ describe("User", function() {
       ]
     });
   });
-
   it('should be a function', function() {
   expect(User).to.be.a('function');
   });

@@ -152,7 +152,7 @@ describe("ActivityRepository", () => {
     }
   activityRepo.filterById(1);
   expect(activityRepo.findDate('2019/06/21')).to.deep.equal(activitySpecifiedDate);
-  })
+  });
   it("Should find miles walked by a specified date", function() {
     activityRepo.filterById(1);
     expect(activityRepo.findMilesWalked('2019/06/21', user1)).to.equal(2.15);
@@ -220,8 +220,8 @@ describe("ActivityRepository", () => {
       minutesActive: 107,
       flightsOfStairs: 5
     }]
-    expect(activityRepo.findWeeklyData('2019/06/15')).to.deep.equal(user1LatestWeek)
-  })
+    expect(activityRepo.findWeeklyData('2019/06/15')).to.deep.equal(user1LatestWeek);
+  });
   it("Should find average minutes active specified by date", function() {
     activityRepo.filterById(1);
     expect(activityRepo.findAvgMinGivenWeek('2019/06/15')).to.equal(159);
@@ -232,8 +232,8 @@ describe("ActivityRepository", () => {
   });
   it("Should determine if a step goal was met on a specific date", function() {
     activityRepo.filterById(1);
-    expect(activityRepo.determineGoalMet('2019/06/21', user1)).to.be.equal(false);
-    expect(activityRepo.determineGoalMet('2019/06/19', user1)).to.be.equal(true);
+    expect(activityRepo.determineGoalMet('2019/06/21', user1)).to.equal(false);
+    expect(activityRepo.determineGoalMet('2019/06/19', user1)).to.equal(true);
   });
   it("Should return today's data", function() {
     const todaysData = {
@@ -263,7 +263,7 @@ describe("ActivityRepository", () => {
         flightsOfStairs: 18,
       },
     ];
-    expect(activityRepo.findDaysExceededGoal(1, user1)).to.eql(a);
+    expect(activityRepo.findDaysExceededGoal(1, user1)).to.deep.equal(a);
   });
   it("Should find the user's all time stair climbing record", () => {
     expect(activityRepo.findClimbingRecord(1)).to.eql(33);

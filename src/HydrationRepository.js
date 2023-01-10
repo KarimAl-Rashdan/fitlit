@@ -3,9 +3,7 @@ class HydrationRepository {
     this.allHydrationData = allHydrationData;
   }
   filterHydrationByUser(id) {
-    const userHydroData = this.allHydrationData.filter(
-      (user) => user.userID === id
-    );
+    const userHydroData = this.allHydrationData.filter((user) => user.userID === id);
     return userHydroData;
   }
   findTodaysHydration(id) {
@@ -34,4 +32,3 @@ class HydrationRepository {
 }
 
 export default HydrationRepository;
-

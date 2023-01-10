@@ -9,9 +9,7 @@ class ActivityRepository {
     return usersActivities;
   }
   findDate(date) {
-    const getDay = this.currentUsersActivities.find(
-      (activity) => activity.date === date
-    );
+    const getDay = this.currentUsersActivities.find((activity) => activity.date === date);
     return getDay;
   }
   findMilesWalked(date, currentUser) {
@@ -22,7 +20,7 @@ class ActivityRepository {
       const milesValue = specifiedDate.numSteps * currentUser.strideLength;
       const totalValue = milesValue / 5280;
       return Number(totalValue.toFixed(2));
-    }
+    };
   }
   findActiveMinOnDay(date) {
     if (!date) {
@@ -30,17 +28,17 @@ class ActivityRepository {
     } else {
       const specifiedDate = this.findDate(date);
       return specifiedDate.minutesActive;
-    }
+    };
   }
   findWeeklyData(date) {
     const findIndex = this.currentUsersActivities.findIndex((activity) => activity.date === date);
     const weeklyActivity = this.currentUsersActivities.slice(findIndex, findIndex + 7);
       return weeklyActivity;
-    }
-    findAvgMinGivenWeek(date) {
-      if (!date) {
-        return "Please pick a date!";
-      } else {
+  }
+  findAvgMinGivenWeek(date) {
+    if (!date) {
+      return "Please pick a date!";
+    } else {
       const weeklyActivity = this.findWeeklyData(date);
       const weeklyAvg =
         weeklyActivity.reduce((num, day) => {
@@ -48,7 +46,7 @@ class ActivityRepository {
           return num;
         }, 0) / weeklyActivity.length;
       return Math.trunc(weeklyAvg);
-    }
+    };
   }
   determineGoalMet(date, currentUser) {
     const specifiedDate = this.findDate(date);
@@ -59,9 +57,7 @@ class ActivityRepository {
     }
   }
   determineTodayData() {
-    const latestDate = this.currentUsersActivities.sort(
-      (a, b) => new Date(b.date) - new Date(a.date)
-    )[0];
+    const latestDate = this.currentUsersActivities.sort((a, b) => new Date(b.date) - new Date(a.date))[0];
     return latestDate;
   }
   findDaysExceededGoal(userID, currentUser) {

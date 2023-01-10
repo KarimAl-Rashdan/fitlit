@@ -18,10 +18,10 @@ describe("SleepRepository", () => {
     expect(sleepRepo).to.be.an.instanceof(SleepRepository);
   });
   it("should keep track of sleep data", function () {
-    expect(sleepRepo.sleepData).to.eql(data);
+    expect(sleepRepo.sleepData).to.deep.equal(data);
   });
   it("should return all sleep info for one user", function () {
-    expect(sleepRepo2.filterSleepByUser(sleepRepo2.sleepData[3].userID)).to.eql(
+    expect(sleepRepo2.filterSleepByUser(sleepRepo2.sleepData[3].userID)).to.deep.equal(
       weekData
     );
   });
@@ -55,14 +55,10 @@ describe("SleepRepository", () => {
   });
 
   it("should calculate sleep quality per day by date", function () {
-    expect(
-      sleepRepo.calculateSleepByDate("2019/06/15", "sleepQuality", 1)
-    ).to.eql([2.2]);
+    expect(sleepRepo.calculateSleepByDate("2019/06/15", "sleepQuality", 1)).to.eql([2.2]);
   });
   it("should throw an error if date is undefined", function () {
-    expect(sleepRepo.calculateSleepByDate(null, "sleepQuality", 1)).to.equal(
-      "Pick a date"
-    );
+    expect(sleepRepo.calculateSleepByDate(null, "sleepQuality", 1)).to.equal("Pick a date");
   });
   it("Should return a specified week of sleep data", function() {
     const sampleWeek = [

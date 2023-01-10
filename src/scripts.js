@@ -43,12 +43,7 @@ function getPageData() {
       allSleepData = response[1].sleepData;
       allHydroData = response[2].hydrationData;
       allActivityData = response[3].activityData;
-      createClassInstances(
-        allUserData,
-        allSleepData,
-        allHydroData,
-        allActivityData
-      );
+      createClassInstances(allUserData, allSleepData, allHydroData, allActivityData);
     })
     .catch((error) => {
       fetchFailureDisplay.classList.remove("hidden");
@@ -104,20 +99,16 @@ const inputSteps = document.querySelector(".number-of-steps");
 const postForm = document.getElementById("post-form");
 const postSuccessDisplay = document.querySelector(".post-success-section");
 const sleepWeek = document.getElementById("sleep-week");
-const doublePostSection = document.getElementById('double-post-section');
-const body = document.querySelector('.main-container')
-const friendsSection = document.getElementById('friends-container')
-const logInSection = document.getElementById('logInSection')
+const doublePostSection = document.getElementById("double-post-section");
+const body = document.querySelector(".main-container");
+const friendsSection = document.getElementById("friends-container");
+const logInSection = document.getElementById("logInSection");
 const logInForm = document.getElementById('logInForm');
 const username = document.getElementById('username');
 const password = document.getElementById('password');
 const signOutBtn = document.getElementById('signOutBtn');
 const logInBtn = document.getElementById('logInBtn');
 
-logInBtn.addEventListener('click', () => {
-  checkLogInCredentials()
-})
-signOutBtn.addEventListener('click', showLogInSection)
 
 const domUpdates = {
   displayInvalidLogIn: function() {
@@ -136,20 +127,7 @@ const domUpdates = {
   hideSection: function(element) {
     element.classList.add('hidden');
   }
-}
-
-function showLogInSection() {
-  domUpdates.hideSection(body)
-  domUpdates.hideSection(friendsSection)
-  domUpdates.showSection(logInSection)
-}
-
-function hideLogInSection() {
-  domUpdates.showSection(body)
-  domUpdates.showSection(friendsSection)
-  domUpdates.showSection(signOutBtn)
-  domUpdates.hideSection(logInSection)
-}
+};
 
 hydrationBtn.addEventListener("click",function() {
   showHydrationArea();
@@ -189,6 +167,9 @@ inputSub.addEventListener("click", (event) => {
   createPostObject(event);
 });
 postForm.addEventListener("click", toggleAriaChecked);
+logInBtn.addEventListener('click', checkLogInCredentials)
+signOutBtn.addEventListener('click', showLogInSection)
+
 
 function createClassInstances(dataSet1, dataSet2, dataSet3, dataSet4) {
   allUserData = dataSet1.map((user) => new User(user));
@@ -241,17 +222,17 @@ function updateFriendsInfo() {
       <h3>Step Goal: ${userRepository.findUser(friend).dailyStepGoal}</h3>
     </div>`;
   });
-}
+};
 
 function showHydrationArea() {
   showArea(hydrationBtn, toggleHomeBtn, hydrationDisplay);
-}
+};
 
 function displayHydrationDom() {
  displayTodaysHydration(hydrationRepository,currentUserID);
  displayAverageConsumed();
  restrictCalendarRange();
-}
+};
 
 function restrictCalendarRange() {
   const usersRecordedDates = hydrationRepository.filterHydrationByUser(currentUserID);
@@ -262,16 +243,16 @@ function restrictCalendarRange() {
   const maxValue = max.replaceAll("/", "-");
   calendarDate.setAttribute("max", maxValue);
   calendarDate.setAttribute("min", minValue);
-}
+};
 
 function displayTodaysHydration(hydrationRepository, currentUserID) {
   const hydroToday = hydrationRepository.findTodaysHydration(currentUserID);
   ouncesDrankToday.innerHTML = `<li> Today:${hydroToday.date} you drank <span>${hydroToday.numOunces} oz</span>!</li>`;
-}
+};
 
 function displayWeeklyAverage() {
   if(calendarDate.value) {
-  calendarSub.disabled = false
+  calendarSub.disabled = false  
   hydrationWeeklyAvg.innerHTML = '';
 	const chosenDate = calendarDate.value; 
 	const alteredDate = chosenDate.replaceAll('-',"/");
@@ -282,17 +263,16 @@ function displayWeeklyAverage() {
     `<p class="hydration-weekly">${dayjs(recordedDay.date).format('dd/MMM/D/YYYY')} you consumed <span>${recordedDay.numOunces} ounces</span>
 		</p>`;
 	});
-} else {
-  calendarSub.disabled = true;
-}
+  } else {
+    calendarSub.disabled = true;
+  }
 }
 
 function displayAverageConsumed() {
-  const averageWaterAllTime =
-    hydrationRepository.getAverageHydration(currentUserID);
+  const averageWaterAllTime = hydrationRepository.getAverageHydration(currentUserID);
   const roundedAverage = Math.trunc(averageWaterAllTime);
   hydroAllTimeAvgArea.innerHTML = `<li>All time average oz consumed is <span>${roundedAverage} oz</span>!</li>`;
-}
+};
 
 function findWeeklyData() {
   weekActivityDisplay.innerHTML = `<li>Your Activity for the Week</li>`;
@@ -307,7 +287,7 @@ function findWeeklyData() {
       <li>Minutes Active: <span>${dayActivity.minutesActive}</span></li>
     `;
   });
-}
+};
 
 function updateStepWidget() {
   showArea(stepsButton, stepsWidget, returnStepsWidgetButton);
@@ -322,35 +302,34 @@ function updateStepWidget() {
   const avgMinActive = activityRepository.getUsersAvgForDay(todayActivity.date, "minutesActive");
   const avgStairsClimbed = activityRepository.getUsersAvgForDay(todayActivity.date,"flightsOfStairs");
   strideLengthDisplay.innerHTML = `<li>Stride Length: <span>${currentUser.strideLength}</span></li>`;
-  todaysStepsDisplay.innerHTML = `<li> Today's Steps: <span>${userStepsToday}</span></li>`
-  todaysActivity.innerHTML = `<li> Your Activity For Today ${todayActivity.date}: <span>${userMinActiveToday} minutes</span></li>`
-  compareSteps.innerHTML = `<li> Steps Activity: <span>${userStepsToday}</span> vs <span>${avgSteps}</span></li>`
-  compareMinActive.innerHTML = `<li> Minutes Activity: <span>${userMinActiveToday}</span> vs <span>${avgMinActive}</span></li>`
-  compareStairs.innerHTML = `<li> Stairs Climbed: <span>${userStairsClimbed}</span> vs <span>${avgStairsClimbed}</span></li>`
-  todaysMilesDisplay.innerHTML = `<li> Miles Walked Today: <span>${numOfMiles} miles </span></li>`
-  stepGoalDisplay.innerHTML = `<li>Your Daily Step Goal: <span>${currentUser.dailyStepGoal} Steps </span></li>`
-  avgStepGoalDisplay.innerHTML= `<li>Average Step Goal for All Users: <span>${userRepository.calculateAverageStepGoal()} Steps</span></li>`
-}
+  todaysStepsDisplay.innerHTML = `<li> Today's Steps: <span>${userStepsToday}</span></li>`;
+  todaysActivity.innerHTML = `<li> Your Activity For Today ${todayActivity.date}: <span>${userMinActiveToday} minutes</span></li>`;
+  compareSteps.innerHTML = `<li> Steps Activity: <span>${userStepsToday}</span> vs <span>${avgSteps}</span></li>`;
+  compareMinActive.innerHTML = `<li> Minutes Activity: <span>${userMinActiveToday}</span> vs <span>${avgMinActive}</span></li>`;
+  compareStairs.innerHTML = `<li> Stairs Climbed: <span>${userStairsClimbed}</span> vs <span>${avgStairsClimbed}</span></li>`;
+  todaysMilesDisplay.innerHTML = `<li> Miles Walked Today: <span>${numOfMiles} miles </span></li>`;
+  stepGoalDisplay.innerHTML = `<li>Your Daily Step Goal: <span>${currentUser.dailyStepGoal} Steps </span></li>`;
+  avgStepGoalDisplay.innerHTML= `<li>Average Step Goal for All Users: <span>${userRepository.calculateAverageStepGoal()} Steps</span></li>`;
+};
 
 function returnToWidget(event, area1, area2, area3) {
   event.preventDefault();
   hideArea(area1, area2, area3);
-}
+};
 
 function showArea(area1, area2, area3) {
   area1.classList.add("hidden");
   area2.classList.remove("hidden");
   area3.classList.remove("hidden");
-}
+};
 
 function hideArea(area1, area2, area3) {
   area1.classList.remove("hidden");
   area2.classList.add("hidden");
   area3.classList.add("hidden");
-}
+};
 
 function updateSleepData() {
-
   const userSleep = sleepRepository.filterSleepByUser(currentUserID);
   const todaySleep = sleepRepository.findTodaysData(currentUserID);
   const weeklySleep = sleepRepository.findWeeklyData(todaySleep.date, currentUserID);
@@ -362,14 +341,13 @@ function updateSleepData() {
       <li>${dayActivity.date}: </li>
       <li>Hours Slept: <span>${dayActivity.hoursSlept}</span></li>
       <li>Sleep Quality: <span>${dayActivity.sleepQuality}</span></li>
-      `
+      `;
     });
-    
-hoursSleptDisplay.innerHTML = `<li>Hours Slept Today ${todaySleep.date} : <span>${todaySleep.hoursSlept}</span></li>`
-sleepQualityDisplay.innerHTML = `<li>Sleep Quality for Today: <span>${todaySleep.sleepQuality}</span></li>`
-avgHoursSleptDisplay.innerHTML = `<li>Your All Time Hours Slept Average: <span>${avgHoursSlept} hours</span></li>`
-avgSleepQualityDisplay.innerHTML = `<li>Your All Time Sleep Quality Average: <span>${avgSleepQuality}</span></li>`
-}
+  hoursSleptDisplay.innerHTML = `<li>Hours Slept Today ${todaySleep.date} : <span>${todaySleep.hoursSlept}</span></li>`;
+  sleepQualityDisplay.innerHTML = `<li>Sleep Quality for Today: <span>${todaySleep.sleepQuality}</span></li>`;
+  avgHoursSleptDisplay.innerHTML = `<li>Your All Time Hours Slept Average: <span>${avgHoursSlept} hours</span></li>`;
+  avgSleepQualityDisplay.innerHTML = `<li>Your All Time Sleep Quality Average: <span>${avgSleepQuality}</span></li>`;
+};
 
 
 function showInputForm(event) {
@@ -404,11 +382,11 @@ function createPostObject(event) {
   }
   else {
     if(inputSleepQuality.value && inputHoursSlept.value) {
-      const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: Number(inputHoursSlept.value), sleepQuality: Number(inputSleepQuality.value)}
-      const sleepEndPoint = "sleep"
-      postInformation(sleepEndPoint, sleepObject)
-      clearValues(inputSleepQuality,inputHoursSlept)
-      inputDate.value = ''
+      const sleepObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), hoursSlept: Number(inputHoursSlept.value), sleepQuality: Number(inputSleepQuality.value)};
+      const sleepEndPoint = "sleep";
+      postInformation(sleepEndPoint, sleepObject);
+      clearValues(inputSleepQuality,inputHoursSlept);
+      inputDate.value = '';
     }
   }
     if(findExistingData(allHydroData, currentUserID, inputDate.value)) {
@@ -418,30 +396,29 @@ function createPostObject(event) {
     else {
       if (inputOzDrank.value) {
         const hydrationObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), numOunces: Number(inputOzDrank.value)}
-        const hydrationEndPoint = "hydration"
-        postInformation(hydrationEndPoint, hydrationObject)
-        clearValues(inputOzDrank,inputDate)
+        const hydrationEndPoint = "hydration";
+        postInformation(hydrationEndPoint, hydrationObject);
+        clearValues(inputOzDrank,inputDate);
       }
     }
     if (findExistingData(allActivityData, currentUserID, inputDate.value)) {
-      doublePostSection.classList.remove("hidden")
+      doublePostSection.classList.remove("hidden");
       return
     } else {
       if(inputStairs.value && inputMinActive.value && inputSteps.value) {
-        const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: Number(inputStairs.value), minutesActive: Number(inputMinActive.value), numSteps: Number(inputSteps.value)}
-        const activityEndPoint = "activity"
-        postInformation(activityEndPoint, activityObject)
-        clearValues(inputStairs, inputMinActive)
-        clearValues(inputSteps, inputDate)
+        const activityObject = {userID: currentUserID, date: inputDate.value.replaceAll('-',"/"), flightsOfStairs: Number(inputStairs.value), minutesActive: Number(inputMinActive.value), numSteps: Number(inputSteps.value)};
+        const activityEndPoint = "activity";
+        postInformation(activityEndPoint, activityObject);
+        clearValues(inputStairs, inputMinActive);
+        clearValues(inputSteps, inputDate);
       }
-    }
-  
-}
+    };
+};
 
 function clearValues(input1, input2) {
  input1.value = '';
  input2.value = '';
-}
+};
 
 function postInformation(endPoint, data ) {
   fetch(`http://localhost:3001/api/v1/${endPoint}`, {
@@ -464,14 +441,14 @@ function postInformation(endPoint, data ) {
     .catch((error) => {
       fetchFailureDisplay.classList.remove("hidden");
     });
-}
+};
 
 function reFetch() {
   Promise.all([
     getAPIData(userAPI),
     getAPIData(sleepAPI),
     getAPIData(hydrationAPI),
-    getAPIData(activityAPI)
+    getAPIData(activityAPI),
   ])
   .then((response) => {
     allUserData = response[0].userData;
@@ -479,21 +456,34 @@ function reFetch() {
     allHydroData = response[2].hydrationData;
     allActivityData = response[3].activityData;
     createClassInstances(allUserData, allSleepData, allHydroData, allActivityData);
-    updateSleepData()
-    displayHydrationDom()
-    displayWeeklyAverage()
-    findWeeklyData()
+    updateSleepData();
+    displayHydrationDom();
+    displayWeeklyAverage();
+    findWeeklyData();
   });
-}
+};
 
 function toggleAriaChecked() {
   radioSleep.setAttribute("aria-checked", radioSleep.checked ? true : false);
   radioHydration.setAttribute("aria-checked", radioHydration.checked ? true : false);
   radioActivity.setAttribute("aria-checked", radioActivity.checked ? true : false);
-}
+};
 
 function findExistingData(data, userId, date) {
   data.find(obj => {
     return obj.userID === userId && obj.date === date
   })
-} 
+};
+
+function showLogInSection() {
+  domUpdates.hideSection(body)
+  domUpdates.hideSection(friendsSection)
+  domUpdates.showSection(logInSection)
+};
+
+function hideLogInSection() {
+  domUpdates.showSection(body)
+  domUpdates.showSection(friendsSection)
+  domUpdates.showSection(signOutBtn)
+  domUpdates.hideSection(logInSection)
+};

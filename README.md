@@ -19,7 +19,6 @@ FitLit is a proof-of-concept for a fitness tracking web application. The app bre
 FitLit uses...
 * HTML and CSS adhering to BEM naming conventions.
 * Old School Vanilla JavaScript (OSVJS).
-* [Charts.js](https://www.chartjs.org/) to visualize weekly data. 
 * [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/) for unit testing. 
 * [Day.js](https://day.js.org/) to format dates on the DOM.
 
@@ -28,13 +27,13 @@ FitLit currently uses API data found in the first linked repo. Most of the funct
 
 
 ### `Contributors:`
-1. Karim Al-Rashdan
+1. Karim Al-Rashdan (he,they)
     * [GitHub](https://github.com/KarimAl-Rashdan)
     * [LinkedIn](https://www.linkedin.com/in/karimal-rashdan/)
-2. Karrar Qasim
+2. Karrar Qasim (he,him)
     * [GitHub](https://github.com/KarrarQ)
     * [LinkedIn](https://www.linkedin.com/in/karrar-qasim-b6307024b/)
-3. Andrew Cerveny
+3. Andrew Cerveny (he,him)
     * [GitHub](https://github.com/AndrewCerveny)
     * [LinkedIn](https://www.linkedin.com/in/andrewcerveny/)
 4. Blanche Haddad (they/them)
@@ -45,9 +44,10 @@ FitLit currently uses API data found in the first linked repo. Most of the funct
 - Able to implement Fetch API functionality and successfully import and post data from API.
 - Followed Test-driven development principles.
 - Achieved accessibility goals
+- Implements a user login page 
 
 ## `Future Iterations:`
-- User login
-- Display user's friends
+- Display user's friends statistics
 - Compare data between user and friends
 - Drag and drop widgets
+- More user friendly UI with Chart.js

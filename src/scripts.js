@@ -170,6 +170,7 @@ returnStepsWidgetButton.addEventListener("click", (event) => {
 });
 sleepWidgetButton.addEventListener("click", () => {
   sleepWeek.classList.remove('hidden')
+  showArea(sleepWidgetButton, sleepWidget, returnSleepWidgetButton);
   updateSleepData()
 });
 returnSleepWidgetButton.addEventListener("click", (event) => {
@@ -264,8 +265,8 @@ function restrictCalendarRange() {
 }
 
 function displayTodaysHydration(hydrationRepository, currentUserID) {
-  const todaysOz = hydrationRepository.findTodaysHydration(currentUserID);
-  ouncesDrankToday.innerHTML = `<li>Today you drank <span>${todaysOz} oz</span>!</li>`;
+  const hydroToday = hydrationRepository.findTodaysHydration(currentUserID);
+  ouncesDrankToday.innerHTML = `<li> Today:${hydroToday.date} you drank <span>${hydroToday.numOunces} oz</span>!</li>`;
 }
 
 function displayWeeklyAverage() {
@@ -276,6 +277,7 @@ function displayWeeklyAverage() {
 	const alteredDate = chosenDate.replaceAll('-',"/");
 	const userWeeklyData = hydrationRepository.findWeeklyHydration(alteredDate,currentUserID);
 	userWeeklyData.forEach((recordedDay) => {
+    console.log("TEST DATES", recordedDay)
 		hydrationWeeklyAvg.innerHTML += 
     `<p class="hydration-weekly">${dayjs(recordedDay.date).format('dd/MMM/D/YYYY')} you consumed <span>${recordedDay.numOunces} ounces</span>
 		</p>`;
@@ -321,7 +323,7 @@ function updateStepWidget() {
   const avgStairsClimbed = activityRepository.getUsersAvgForDay(todayActivity.date,"flightsOfStairs");
   strideLengthDisplay.innerHTML = `<li>Stride Length: <span>${currentUser.strideLength}</span></li>`;
   todaysStepsDisplay.innerHTML = `<li> Today's Steps: <span>${userStepsToday}</span></li>`
-  todaysActivity.innerHTML = `<li> Your Activity For Today: <span>${userMinActiveToday} minutes</span></li>`
+  todaysActivity.innerHTML = `<li> Your Activity For Today ${todayActivity.date}: <span>${userMinActiveToday} minutes</span></li>`
   compareSteps.innerHTML = `<li> Steps Activity: <span>${userStepsToday}</span> vs <span>${avgSteps}</span></li>`
   compareMinActive.innerHTML = `<li> Minutes Activity: <span>${userMinActiveToday}</span> vs <span>${avgMinActive}</span></li>`
   compareStairs.innerHTML = `<li> Stairs Climbed: <span>${userStairsClimbed}</span> vs <span>${avgStairsClimbed}</span></li>`
@@ -348,7 +350,7 @@ function hideArea(area1, area2, area3) {
 }
 
 function updateSleepData() {
-  showArea(sleepWidgetButton, sleepWidget, returnSleepWidgetButton);
+
   const userSleep = sleepRepository.filterSleepByUser(currentUserID);
   const todaySleep = sleepRepository.findTodaysData(currentUserID);
   const weeklySleep = sleepRepository.findWeeklyData(todaySleep.date, currentUserID);
@@ -362,8 +364,8 @@ function updateSleepData() {
       <li>Sleep Quality: <span>${dayActivity.sleepQuality}</span></li>
       `
     });
-    console.log("here", todaySleep.hoursSlept)
-hoursSleptDisplay.innerHTML = `<li>Hours Slept Today: <span>${todaySleep.hoursSlept}</span></li>`
+    
+hoursSleptDisplay.innerHTML = `<li>Hours Slept Today ${todaySleep.date} : <span>${todaySleep.hoursSlept}</span></li>`
 sleepQualityDisplay.innerHTML = `<li>Sleep Quality for Today: <span>${todaySleep.sleepQuality}</span></li>`
 avgHoursSleptDisplay.innerHTML = `<li>Your All Time Hours Slept Average: <span>${avgHoursSlept} hours</span></li>`
 avgSleepQualityDisplay.innerHTML = `<li>Your All Time Sleep Quality Average: <span>${avgSleepQuality}</span></li>`

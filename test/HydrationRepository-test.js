@@ -66,7 +66,9 @@ describe("Hydration Repository Class", function () {
     expect(hydrationRepo.filterHydrationByUser(10)).to.deep.equal(user10);
   });
   it("should give a user's hydration data for the latest date", function () {
-    expect(hydrationRepo.findTodaysHydration(10)).to.deep.equal(72);
+    const user10Today = { userID: 10, date: '2019/06/22', numOunces: 72 }
+    
+    expect(hydrationRepo.findTodaysHydration(10)).to.deep.equal(user10Today);
   });
   it("should give the user's hydration data for the week", function () {
     const weeklyHydrations = [

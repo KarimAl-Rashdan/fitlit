@@ -1,8 +1,8 @@
 # FitLit
 
 FitLit is a proof-of-concept for a fitness tracking web application. The app breaks down a users hydration, sleep patterns, step goal levels, and present it on a dashboard. It runs in the web browser.
-![FitLit gif](https://media.giphy.com/media/NWY49FseE1d6dTUNTu/giphy.gif)
 
+![FitLit Gif](https://media.giphy.com/media/wON4X2bFzr4gTyxKyV/giphy.gif)
 ### `How to Use the App:`
 
 - Clone down this repo to your computer: https://github.com/turingschool-examples/fitlit-api

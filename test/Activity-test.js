@@ -13,8 +13,7 @@ describe('Activity', () => {
             flightsOfStairs: 16
             };
         activity = new Activity(activityData);
-    })
-
+    });
     it('should be a function', () => {
        expect(Activity).to.be.a('function');
     });

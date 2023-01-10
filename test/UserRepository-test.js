@@ -8,7 +8,7 @@ describe('User Repository', () => {
   
   beforeEach(() => {
     userRepository = new UserRepository(UserData);
-  })
+  });
   it('Should be a function', function () {
     expect(UserRepository).to.be.a('function');
   });
